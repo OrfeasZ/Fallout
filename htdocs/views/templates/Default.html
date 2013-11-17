@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title><%= title %></title>
+
+    <link href="/assets/css/fonts.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="/assets/css/style.css" media="all" rel="stylesheet" type="text/css"/>
+
+    <script src="/assets/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="/assets/js/affix.min.js" type="text/javascript"></script>
+    <script src="/assets/js/underscore-min.js" type="text/javascript"></script>
+    <script src="/assets/js/handlebars-v1.1.2.js" type="text/javascript"></script>
+    <script src="/assets/js/html5shiv-printshiv.js" type="text/javascript"></script>
+    <script src="/assets/js/fallout.js" type="text/javascript"></script>
+</head>
+<body>
+<header>
+    <section id="logo">
+        <a href="<%= home_url %>"><img src="/assets/img/logo.png" border="0"/></a>
+    </section>
+    <nav id="mainNav" data-spy="affix" data-offset-top="200">
+        <ul>
+            <li><span class="icon-coin"></span><span class="text">Sales</span></li>
+            <li class="active"><span class="icon-books"></span><span class="text">Accounting</span></li>
+            <li><span class="icon-box-add"></span><span class="text">Storage</span></li>
+            <li><span class="icon-wrench"></span><span class="text">Assembly</span></li>
+            <li><span class="icon-switch"></span><span class="text">Logout</span></li>
+        </ul>
+    </nav>
+</header>
+<section id="body" class="wrapper">
+    <div class="col-left">
+        <nav class="content-box" id="side-nav" data-spy="affix" data-offset-top="200">
+            <div class="header">
+                <span class="icon-file"></span><span class="text">Navigation</span>
+            </div>
+            <div class="content">
+                <ul class="side-nav-list">
+                    <li><span class="colorBlock"></span><span class="text">Unassigned Orders</span></li>
+                    <li class="active"><span class="colorBlock"></span><span class="text">Undelivered Orders</span></li>
+                    <li><span class="colorBlock"></span><span class="text">Pending Orders</span></li>
+                    <li><span class="colorBlock"></span><span class="text">Delivered Orders</span></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="col-right">
+        <section class="content-box">
+            <div class="header">
+                <span class="text">Undelivered Orders</span>
+            </div>
+            <div class="content">
+                <ul class="list">
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="top-content"><strong>Order #12345</strong> - 2 Controllers</span><br/>
+                        <span class="bottom-content">Placed by <strong class="blue">John Madden</strong> on 25 Aug 2013 - 13:37</span>
+                        <ul class="list-btns">
+                            <li><div class="btn btn-blue"><span class="icon-truck"></span><span class="text">Deliver</span></div></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <div class="clear"></div>
+</section>
+<footer>
+
+</footer>
+</body>
+</html>

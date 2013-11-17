@@ -11,7 +11,7 @@ public class SupplyOrder
 
     private int m_Tax;
 
-    private List<SypplyOrderItem> m_Items;
+    private List<SupplyOrderItem> m_Items;
 
     public int ID()
     {
@@ -46,12 +46,12 @@ public class SupplyOrder
         return true;
     }
 
-    public List<SypplyOrderItem> Items()
+    public List<SupplyOrderItem> Items()
     {
         return m_Items;
     }
 
-    public boolean Items(List<SypplyOrderItem> p_Items)
+    public boolean Items(List<SupplyOrderItem> p_Items)
     {
         m_Items = p_Items;
         return true;

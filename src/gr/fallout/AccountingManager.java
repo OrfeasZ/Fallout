@@ -8,7 +8,6 @@ package gr.fallout;
  * To change this template use File | Settings | File Templates.
  */
 public class AccountingManager {
-    public class Administrator {
         private String m_Password;
 
         private String m_Username;

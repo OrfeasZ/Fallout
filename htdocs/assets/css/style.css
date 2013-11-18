@@ -95,7 +95,10 @@ section#body {
 .content-box {
     padding: 10px 0;
     background: #fff;
-    border-radius: 5px;
+    border-radius: 7px 7px 5px 5px;
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
 
 .content-box .header {
@@ -117,6 +120,13 @@ section.content-box {
     width: 640px;
 }
 
+section.dialog.content-box {
+    width: 230px;
+    padding: 10px;
+    margin: 20px auto;
+    display: block;
+}
+
 .content-box .header [class^="icon-"], .content-box .header [class*=" icon-"] {
     margin-right: 10px;
     color: #878f9b;
@@ -124,6 +134,13 @@ section.content-box {
     float: left;
     display: inline-block;
     line-height: 40px;
+}
+
+.content-box .header [class^="icon-"].right, .content-box .header [class*=" icon-"].right {
+    margin-right: 0;
+    margin-left: 10px;
+    font-size: 12px;
+    cursor: pointer;
 }
 
 .content-box .header .text {
@@ -146,6 +163,12 @@ section.content-box {
 .col-right {
     width: 640px;
     margin-left: 15px;
+}
+
+.col-center {
+    width: 900px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 ul.side-nav-list, ul.list {
@@ -241,33 +264,47 @@ strong.blue {
     clear: both;
 }
 
-.btn {
+.btn, button {
     height: 30px;
     padding: 0 10px;
     color: #FFF;
-    border-radius: 3px;
-    background: #000;
+    border-radius: 4px;
+    background: #222;
     display: inline-block;
     line-height: 30px;
     font-size: 12px;
     cursor: pointer;
+    border: 0;
 }
 
-.btn [class^="icon-"], .btn [class*=" icon-"] {
+.btn:hover, button:hover {
+    background: #000;
+}
+
+section.dialog .btn, section.dialog button {
+    width: 230px;
+    height: 36px;
+}
+
+.btn [class^="icon-"], .btn [class*=" icon-"],
+button [class^="icon-"], button [class*=" icon-"] {
     margin-right: 10px;
     float: left;
     line-height: 30px;
 }
 
-.btn .text {
+.btn .text, button .text {
     float: left;
     line-height: 30px;
 }
 
-.btn.btn-blue {
+.btn.btn-blue, button.btn-blue {
     background: #4dacfe;
 }
 
+.btn.btn-blue:hover, button.btn-blue:hover {
+    background: #2d9eff;
+}
 
 ul.list-btns {
     padding: 0;
@@ -287,4 +324,134 @@ ul.list-btns li {
 
 ul.list li:hover ul.list-btns {
     display: inline-block;
+}
+
+input[type="text"], input[type="password"] {
+    display: block;
+    width: 210px;
+    height: 36px;
+    border: 1px solid #e7e7e7;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background-color: #fff;
+    -moz-box-shadow: inset 0 0 5px rgba(0,0,0,.06);
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,.06);
+    box-shadow: inset 0 0 5px rgba(0,0,0,.06);
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+.login-logo {
+    width: 150px;
+    height: 158px;
+    background: url('/assets/img/login_pipboy.png') no-repeat;
+    margin: 10px 0 20px 24px;
+}
+
+.center {
+    text-align: center;
+}
+
+#lean_overlay {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #000;
+    display: none;
+}
+
+.modal {
+    display: none;
+    max-width: 660px;
+}
+
+.modal .content {
+    padding: 10px 10px 0 10px;
+}
+
+.left {
+    float: left !important;
+}
+
+.right {
+    float: right !important;
+}
+
+.select {
+    display: block;
+    width: 210px;
+    height: 36px;
+    border: 1px solid #e7e7e7;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background-color: #fff;
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 36px;
+    padding: 0 10px;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.select span {
+    display: inline-block;
+    line-height: 36px;
+}
+
+.select.expanded {
+    border-radius: 4px 4px 0 0;
+}
+
+.select-choices {
+    display: block;
+    width: 230px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding-bottom: 10px;
+    border: 1px solid #e7e7e7;
+    border-radius: 0 0 4px 4px;
+    background-color: #fff;
+    text-align: center;
+
+    margin-top: -12px; /* REMOVE ME */
+}
+
+.select-choices ul {
+    padding: 0;
+    margin: 0;
+}
+
+.select-choices ul li {
+    padding: 0 10px;
+    list-style: none;
+    border-bottom: 1px solid #e7e7e7;
+    height: 36px;
+    line-height: 36px;
+    color: #9e9e9e;
+    font-size: 12px;
+    cursor: pointer;
+    background: #fff;
+}
+
+.select-choices ul li:hover {
+    color: #6d6d6d;
+}
+
+.select-choices ul li:nth-child(2n) {
+    background: #fafafa;
 }

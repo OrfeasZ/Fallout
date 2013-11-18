@@ -77,6 +77,12 @@
 .icon-truck:before {
     content: "\e612";
 }
+.icon-file:before {
+    content: "\e613";
+}
 .icon-euro:before {
     content: "\e611";
+}
+.icon-caret-down:before {
+    content: "\e614";
 }

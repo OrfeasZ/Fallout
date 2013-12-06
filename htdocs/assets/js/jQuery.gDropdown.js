@@ -12,7 +12,7 @@
 
             var s_DropdownActive = false;
 
-            var s_SelectElement = $('<div class="select ' + s_Element.attr('class') + '" id="' + s_Element.attr('id') + '"></div>');
+            var s_SelectElement = $('<div class="select"></div>');
 
             var s_ActiveItem = $('<span class="text" data-id="0"></span><span class="icon-caret-down right"></span>');
 

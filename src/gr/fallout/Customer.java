@@ -3,13 +3,14 @@ package gr.fallout;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: NoFaTe
  * Date: 18/11/2013
  * Time: 1:03 πμ
- * To change this template use File | Settings | File Templates.
+ *
+ * @author NikosF
  */
-public class Customer {
+
+public class Customer
+{
 
     private String m_Address;
 
@@ -27,65 +28,79 @@ public class Customer {
 
     private List<CustomerOrder> m_Orders;
 
-    public String Address() {
+    public String Address()
+    {
         return m_Address;
     }
 
-    public boolean Address(String p_Address) {
+    public boolean Address(String p_Address)
+    {
         m_Address = p_Address;
         return true;
     }
 
-    public String Email() {
+    public String Email()
+    {
         return m_Email;
     }
 
-    public boolean Email(String p_Email) {
+    public boolean Email(String p_Email)
+    {
         m_Email = p_Email;
         return true;
     }
 
-    public String Fax() {
+    public String Fax()
+    {
         return m_Fax;
     }
 
-    public boolean Fax(String p_Fax) {
+    public boolean Fax(String p_Fax)
+    {
         m_Fax = p_Fax;
         return true;
     }
 
-    public String Name() {
+    public String Name()
+    {
         return m_Fax;
     }
 
-    public boolean Name(String p_Name) {
+    public boolean Name(String p_Name)
+    {
         m_Name = p_Name;
         return true;
     }
 
-    public String Password() {
+    public String Password()
+    {
         return m_Password;
     }
 
-    public boolean Password(String p_Password) {
+    public boolean Password(String p_Password)
+    {
         m_Password = p_Password;
         return true;
     }
 
-    public int Phone() {
+    public int Phone()
+    {
         return m_Phone;
     }
 
-    public boolean Phone(int p_Phone) {
+    public boolean Phone(int p_Phone)
+    {
         m_Phone = p_Phone;
         return true;
     }
 
-    public int TaxID() {
+    public int TaxID()
+    {
         return m_TaxID;
     }
 
-    public boolean TaxID(int p_TaxID) {
+    public boolean TaxID(int p_TaxID)
+    {
         m_TaxID = p_TaxID;
         return true;
     }

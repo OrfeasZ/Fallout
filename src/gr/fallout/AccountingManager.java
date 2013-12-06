@@ -1,32 +1,37 @@
 package gr.fallout;
 
 /**
- * Created with IntelliJ IDEA.
- * User: NoFaTe
  * Date: 18/11/2013
  * Time: 1:24 πμ
- * To change this template use File | Settings | File Templates.
+ *
+ * @author NikosF
  */
-public class AccountingManager {
-        private String m_Password;
 
-        private String m_Username;
+public class AccountingManager
+{
+    private String m_Password;
 
-        public String Password() {
-            return m_Password;
-        }
+    private String m_Username;
 
-        public boolean Password(String p_Password) {
-            m_Password = p_Password;
-            return true;
-        }
+    public String Password()
+    {
+        return m_Password;
+    }
 
-        public String Username() {
-            return m_Username;
-        }
+    public boolean Password(String p_Password)
+    {
+        m_Password = p_Password;
+        return true;
+    }
 
-        public boolean Username(String p_Username) {
-            m_Username = p_Username;
-            return true;
-        }
+    public String Username()
+    {
+        return m_Username;
+    }
+
+    public boolean Username(String p_Username)
+    {
+        m_Username = p_Username;
+        return true;
+    }
 }

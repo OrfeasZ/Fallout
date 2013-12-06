@@ -1,4 +1,4 @@
-package gr.fallout;
+package gr.fallout.Models;
 
 /**
  * Date: 17/11/2013

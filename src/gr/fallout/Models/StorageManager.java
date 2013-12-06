@@ -1,13 +1,13 @@
-package gr.fallout;
+package gr.fallout.Models;
 
 /**
- * Date: 18/11/2013
- * Time: 1:24 πμ
+ * Date: 17/11/2013
+ * Time: 11:58 μμ
  *
  * @author NikosF
  */
 
-public class AccountingManager
+public class StorageManager
 {
     private String m_Password;
 
@@ -31,7 +31,7 @@ public class AccountingManager
 
     public boolean Username(String p_Username)
     {
-        m_Username = p_Username;
+        m_Password = p_Username;
         return true;
     }
 }

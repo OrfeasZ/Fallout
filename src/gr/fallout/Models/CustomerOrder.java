@@ -1,4 +1,4 @@
-package gr.fallout;
+package gr.fallout.Models;
 
 import java.util.Date;
 

@@ -1,6 +1,13 @@
-package gr.fallout;
+package gr.fallout.Models;
 
-public class Administrator
+/**
+ * Date: 18/11/2013
+ * Time: 1:24 πμ
+ *
+ * @author NikosF
+ */
+
+public class AccountingManager
 {
     private String m_Password;
 

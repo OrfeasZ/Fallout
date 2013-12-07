@@ -21,7 +21,7 @@ public class Supplier
 
     private List<SupplyOrderItem> m_Orders;
 
-    public int Adress()
+    public int Address()
     {
         return m_Address;
     }

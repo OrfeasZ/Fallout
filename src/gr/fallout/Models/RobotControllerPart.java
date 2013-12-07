@@ -7,11 +7,11 @@ package gr.fallout.Models;
  * @author NikosF
  */
 
-public class RobotControllerPart
+public abstract class RobotControllerPart
 {
-    private int m_AssemblyCost;
+    protected int m_AssemblyCost;
 
-    private int m_PurchaseCost;
+    protected int m_PurchaseCost;
 
     public int AssemblyCost()
     {
@@ -32,7 +32,7 @@ public class RobotControllerPart
 
     public boolean PurchaseCost(int p_PurchaseCost)
     {
-        m_AssemblyCost = p_PurchaseCost;
+        m_PurchaseCost = p_PurchaseCost;
         return true;
 
     }

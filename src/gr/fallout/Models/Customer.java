@@ -63,7 +63,7 @@ public class Customer
 
     public String Name()
     {
-        return m_Fax;
+        return m_Name;
     }
 
     public boolean Name(String p_Name)

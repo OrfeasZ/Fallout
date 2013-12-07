@@ -13,9 +13,9 @@ public class Assembler
 {
     private String m_Password;
 
-    private String m_Name;
-
     private String m_Username;
+
+    private String m_Name;
 
     private List<RobotControllerOrder> m_AssignedOrders;
 
@@ -37,7 +37,7 @@ public class Assembler
 
     public boolean Username(String p_Username)
     {
-        m_Password = p_Username;
+        m_Username = p_Username;
         return true;
     }
 
@@ -48,7 +48,7 @@ public class Assembler
 
     public boolean Name(String p_Name)
     {
-        m_Password = p_Name;
+        m_Name = p_Name;
         return true;
     }
 

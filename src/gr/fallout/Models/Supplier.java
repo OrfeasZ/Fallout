@@ -13,7 +13,7 @@ public class Supplier
 {
     private int m_Address;
 
-    private boolean m_EUBussiness;
+    private boolean m_EUBusiness;
 
     private int m_TaxID;
 
@@ -30,18 +30,16 @@ public class Supplier
     {
         m_Address = p_Address;
         return true;
-
     }
 
-    public boolean EUBussiness()
+    public boolean EUBusiness()
     {
-        return m_EUBussiness;
-
+        return m_EUBusiness;
     }
 
-    public boolean EUBussiness(boolean p_EUBussiness)
+    public boolean EUBusiness(boolean p_EUBusiness)
     {
-        m_EUBussiness = p_EUBussiness;
+        m_EUBusiness = p_EUBusiness;
         return true;
     }
 

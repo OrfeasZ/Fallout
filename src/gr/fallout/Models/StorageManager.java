@@ -31,7 +31,7 @@ public class StorageManager
 
     public boolean Username(String p_Username)
     {
-        m_Password = p_Username;
+        m_Username = p_Username;
         return true;
     }
 }

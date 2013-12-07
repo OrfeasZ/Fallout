@@ -47,7 +47,7 @@ public class CustomerOrder
 
     public int Status()
     {
-        return m_PaidSum;
+        return m_Status;
     }
 
     public boolean Status(int p_Status)

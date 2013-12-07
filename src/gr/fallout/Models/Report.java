@@ -15,7 +15,6 @@ public class Report
 
     public Date Date()
     {
-
         return m_Date;
     }
 

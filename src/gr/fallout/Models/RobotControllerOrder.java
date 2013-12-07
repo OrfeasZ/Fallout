@@ -11,7 +11,6 @@ import java.util.Date;
 
 public class RobotControllerOrder
 {
-
     private Date m_AssemblyCompletionDate;
 
     private Date m_AssemblyInitiationDate;
@@ -22,10 +21,11 @@ public class RobotControllerOrder
 
     private RobotController m_Controller;
 
+    private Assembler m_Assembler;
+
     public Date AssemblyCompletionDate()
     {
         return m_AssemblyCompletionDate;
-
     }
 
     public boolean AssemblyCompletionDate(Date p_AssemblyCompletionDate)
@@ -37,7 +37,6 @@ public class RobotControllerOrder
     public Date AssemblyInitiationDate()
     {
         return m_AssemblyInitiationDate;
-
     }
 
     public boolean AssemblyInitiationDate(Date p_AssemblyInitiationDate)
@@ -60,7 +59,6 @@ public class RobotControllerOrder
     public SupplyOrder SupplyOrder()
     {
         return m_SupplyOrder;
-
     }
 
     public boolean SupplyOrder(SupplyOrder p_SuppplyOrder)
@@ -72,7 +70,6 @@ public class RobotControllerOrder
     public RobotController Controller()
     {
         return m_Controller;
-
     }
 
     public boolean Controller(RobotController p_Controller)
@@ -81,7 +78,14 @@ public class RobotControllerOrder
         return true;
     }
 
+    public Assembler Assembler()
+    {
+        return m_Assembler;
+    }
 
-    //na balw assembler kai robot controller
-
+    public boolean Assembler(Assembler p_Assembler)
+    {
+        m_Assembler = p_Assembler;
+        return true;
+    }
 }

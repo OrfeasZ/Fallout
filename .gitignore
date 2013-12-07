@@ -5,6 +5,11 @@
 *.war
 *.ear
 
+# IDEA Build Ouput #
+/out/
+
 # IDEA Project Files #
-.idea/workspace.xml
-.idea/tasks.xml
+/.idea/workspace.xml
+/.idea/tasks.xml
+/htdocs/.idea/workspace.xml
+/htdocs/.idea/tasks.xml

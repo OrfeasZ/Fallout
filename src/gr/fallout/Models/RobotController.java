@@ -52,12 +52,12 @@ public class RobotController
 
     public RobotControllerPart RAM()
     {
-        return m_Motherboard;
+        return m_RAM;
     }
 
     public boolean RAM(RobotControllerPart p_RAM)
     {
-        m_Motherboard = p_RAM;
+        m_RAM = p_RAM;
         return true;
     }
 }

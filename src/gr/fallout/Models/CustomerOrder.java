@@ -1,6 +1,7 @@
 package gr.fallout.Models;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Date: 18/11/2013
@@ -22,6 +23,7 @@ public class CustomerOrder
 
     private Customer m_Customer;
 
+    private List<RobotControllerOrder> m_ControllerOrders;
 
     public int OrderID()
     {
@@ -65,7 +67,6 @@ public class CustomerOrder
     {
         m_SubmissionDate = p_SubmissionDate;
         return true;
-
     }
 
     public Customer Customer()
@@ -76,6 +77,17 @@ public class CustomerOrder
     public boolean Customer(Customer p_Customer)
     {
         m_Customer = p_Customer;
+        return true;
+    }
+
+    public List<RobotControllerOrder> ControllerOrders()
+    {
+        return m_ControllerOrders;
+    }
+
+    public boolean ControllerOrders(List<RobotControllerOrder> p_ControllerOrders)
+    {
+        m_ControllerOrders = p_ControllerOrders;
         return true;
     }
 }

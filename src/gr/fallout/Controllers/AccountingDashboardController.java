@@ -1,7 +1,9 @@
 package gr.fallout.Controllers;
 
+import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.AccountingManager;
 import gr.fallout.Models.Report;
+import gr.fallout.Net.Response;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
  * @author OrfeasZ, NikosF
  */
 
-public class AccountingDashboardController
+public class AccountingDashboardController extends Controller
 {
     private AccountingManager m_Manager;
 
@@ -20,7 +22,18 @@ public class AccountingDashboardController
 
     private int m_DaysToNextReport;
 
+    public AccountingDashboardController(HttpExchange p_Exchange)
+    {
+        super(p_Exchange);
+    }
+
     private List<Report> GetAllReports()
+    {
+        return null;
+    }
+
+    @Override
+    public Response Execute()
     {
         return null;
     }

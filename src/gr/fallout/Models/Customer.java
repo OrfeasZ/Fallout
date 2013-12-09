@@ -16,7 +16,7 @@ public class Customer
 
     private String m_Email;
 
-    private String m_Fax;
+    private int m_Fax;
 
     private String m_Name;
 
@@ -50,12 +50,12 @@ public class Customer
         return true;
     }
 
-    public String Fax()
+    public int Fax()
     {
         return m_Fax;
     }
 
-    public boolean Fax(String p_Fax)
+    public boolean Fax(int p_Fax)
     {
         m_Fax = p_Fax;
         return true;

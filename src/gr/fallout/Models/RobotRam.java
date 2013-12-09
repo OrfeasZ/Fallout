@@ -9,26 +9,38 @@ package gr.fallout.Models;
 
 public class RobotRAM extends RobotControllerPart
 {
-    private int m_Capacity;
-    private int m_Type;
+    public enum RAMCapacity
+    {
+        TwoGB,
+        FourGB
+    }
 
-    public int Capacity()
+    public enum RAMType
+    {
+        DDR2,
+        DDR3
+    }
+
+    private RAMCapacity m_Capacity;
+    private RAMType m_Type;
+
+    public RAMCapacity Capacity()
     {
         return m_Capacity;
     }
 
-    public boolean Capacity(int p_Capacity)
+    public boolean Capacity(RAMCapacity p_Capacity)
     {
         m_Capacity = p_Capacity;
         return true;
     }
 
-    public int Type()
+    public RAMType Type()
     {
         return m_Type;
     }
 
-    public boolean Type(int p_Type)
+    public boolean Type(RAMType p_Type)
     {
         m_Type = p_Type;
         return true;

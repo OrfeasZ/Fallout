@@ -9,6 +9,13 @@ package gr.fallout.Models;
 
 public class RobotCPU extends RobotControllerPart
 {
+    public enum CPUSocket
+    {
+        Socket1156,
+        Socket1155,
+        Socket1150
+    }
+
     private int m_SocketType;
 
     public int SocketType()

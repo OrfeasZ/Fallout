@@ -12,12 +12,16 @@ import java.util.List;
 
 public class CustomerOrder
 {
+    public enum OrderStatus
+    {
+        // TODO
+    }
 
     private int m_OrderID;
 
-    private int m_PaidSum;
+    private float m_PaidSum;
 
-    private int m_Status;
+    private OrderStatus m_Status;
 
     private Date m_SubmissionDate;
 
@@ -36,23 +40,23 @@ public class CustomerOrder
         return true;
     }
 
-    public int PaidSum()
+    public float PaidSum()
     {
         return m_PaidSum;
     }
 
-    public boolean PaidSum(int p_PaidSum)
+    public boolean PaidSum(float p_PaidSum)
     {
         m_PaidSum = p_PaidSum;
         return true;
     }
 
-    public int Status()
+    public OrderStatus Status()
     {
         return m_Status;
     }
 
-    public boolean Status(int p_Status)
+    public boolean Status(OrderStatus p_Status)
     {
         m_Status = p_Status;
         return true;

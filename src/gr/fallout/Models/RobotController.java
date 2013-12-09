@@ -9,53 +9,53 @@ package gr.fallout.Models;
 
 public class RobotController
 {
-    private RobotControllerPart m_Case;
+    private RobotCase m_Case;
 
-    private RobotControllerPart m_CPU;
+    private RobotCPU m_CPU;
 
-    private RobotControllerPart m_Motherboard;
+    private RobotMotherboard m_Motherboard;
 
-    private RobotControllerPart m_RAM;
+    private RobotRAM m_RAM;
 
-    public RobotControllerPart Case()
+    public RobotCase Case()
     {
         return m_Case;
     }
 
-    public boolean Case(RobotControllerPart p_Case)
+    public boolean Case(RobotCase p_Case)
     {
         m_Case = p_Case;
         return true;
     }
 
-    public RobotControllerPart CPU()
+    public RobotCPU CPU()
     {
         return m_CPU;
     }
 
-    public boolean CPU(RobotControllerPart p_CPU)
+    public boolean CPU(RobotCPU p_CPU)
     {
         m_CPU = p_CPU;
         return true;
     }
 
-    public RobotControllerPart Motherboard()
+    public RobotMotherboard Motherboard()
     {
         return m_Motherboard;
     }
 
-    public boolean Motherboard(RobotControllerPart p_Motherboard)
+    public boolean Motherboard(RobotMotherboard p_Motherboard)
     {
         m_Motherboard = p_Motherboard;
         return true;
     }
 
-    public RobotControllerPart RAM()
+    public RobotRAM RAM()
     {
         return m_RAM;
     }
 
-    public boolean RAM(RobotControllerPart p_RAM)
+    public boolean RAM(RobotRAM p_RAM)
     {
         m_RAM = p_RAM;
         return true;

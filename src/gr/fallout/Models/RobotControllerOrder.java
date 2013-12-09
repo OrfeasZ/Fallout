@@ -15,7 +15,7 @@ public class RobotControllerOrder
 
     private Date m_AssemblyInitiationDate;
 
-    private int m_HourlyRate;
+    private float m_HourlyRate;
 
     private SupplyOrder m_SupplyOrder;
 
@@ -45,12 +45,12 @@ public class RobotControllerOrder
         return true;
     }
 
-    public int HourlyRate()
+    public float HourlyRate()
     {
         return m_HourlyRate;
     }
 
-    public boolean HourlyRate(int p_HourlyRate)
+    public boolean HourlyRate(float p_HourlyRate)
     {
         m_HourlyRate = p_HourlyRate;
         return true;

@@ -9,28 +9,28 @@ package gr.fallout.Models;
 
 public abstract class RobotControllerPart
 {
-    protected int m_AssemblyCost;
+    protected float m_AssemblyCost;
 
-    protected int m_PurchaseCost;
+    protected float m_PurchaseCost;
 
-    public int AssemblyCost()
+    public float AssemblyCost()
     {
         return m_AssemblyCost;
     }
 
-    public boolean AssemblyCost(int p_AssemblyCost)
+    public boolean AssemblyCost(float p_AssemblyCost)
     {
         m_AssemblyCost = p_AssemblyCost;
         return true;
 
     }
 
-    public int PurchaseCost()
+    public float PurchaseCost()
     {
         return m_PurchaseCost;
     }
 
-    public boolean PurchaseCost(int p_PurchaseCost)
+    public boolean PurchaseCost(float p_PurchaseCost)
     {
         m_PurchaseCost = p_PurchaseCost;
         return true;

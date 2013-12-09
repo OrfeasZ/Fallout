@@ -2,16 +2,23 @@ package gr.fallout.Models;
 
 public class RobotCase extends RobotControllerPart
 {
-    private int m_Size;
+    public enum CaseSize
+    {
+        Mini,
+        Mid,
+        Full
+    }
+
+    private CaseSize m_Size;
 
     private int m_WarrantyCost;
 
-    public int Size()
+    public CaseSize Size()
     {
         return m_Size;
     }
 
-    public boolean Size(int p_Size)
+    public boolean Size(CaseSize p_Size)
     {
         m_Size = p_Size;
         return true;

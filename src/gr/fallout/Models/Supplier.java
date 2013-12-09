@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Supplier
 {
-    private int m_Address;
+    private String m_Address;
 
     private boolean m_EUBusiness;
 
@@ -21,12 +21,12 @@ public class Supplier
 
     private List<SupplyOrderItem> m_Orders;
 
-    public int Address()
+    public String Address()
     {
         return m_Address;
     }
 
-    public boolean Address(int p_Address)
+    public boolean Address(String p_Address)
     {
         m_Address = p_Address;
         return true;

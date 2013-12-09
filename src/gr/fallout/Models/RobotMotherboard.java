@@ -9,14 +9,19 @@ package gr.fallout.Models;
 
 public class RobotMotherboard
 {
-    private int m_Model;
+    public enum MotherboardModel
+    {
+        Default
+    }
 
-    public int Model()
+    private MotherboardModel m_Model;
+
+    public MotherboardModel Model()
     {
         return m_Model;
     }
 
-    public boolean Model(int p_Model)
+    public boolean Model(MotherboardModel p_Model)
     {
         m_Model = p_Model;
         return true;

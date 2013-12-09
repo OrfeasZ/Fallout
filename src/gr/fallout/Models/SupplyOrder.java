@@ -9,7 +9,7 @@ public class SupplyOrder
 
     private Date m_SubmissionDate;
 
-    private int m_Tax;
+    private float m_Tax;
 
     private List<SupplyOrderItem> m_Items;
 
@@ -35,12 +35,12 @@ public class SupplyOrder
         return true;
     }
 
-    public int Tax()
+    public double Tax()
     {
         return m_Tax;
     }
 
-    public boolean Tax(int p_Tax)
+    public boolean Tax(float p_Tax)
     {
         m_Tax = p_Tax;
         return true;

@@ -6,6 +6,7 @@ import gr.fallout.Models.RobotControllerOrder;
 import gr.fallout.Net.Response;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Date: 8/12/2013
@@ -19,7 +20,7 @@ public class AssemblyStartControllerOrderAssemblyController extends Controller
 
     private RobotControllerOrder m_Order;
 
-    public AssemblyStartControllerOrderAssemblyController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
+    public AssemblyStartControllerOrderAssemblyController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
     {
         super(p_Exchange, p_Params);
     }

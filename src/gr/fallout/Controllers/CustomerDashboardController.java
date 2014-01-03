@@ -7,7 +7,6 @@ import gr.fallout.Net.Response;
 import gr.fallout.Responses.AppViewResponse;
 
 import java.util.HashMap;
-
 import java.util.List;
 
 /**
@@ -16,20 +15,20 @@ import java.util.List;
  *
  * @author OrfeasZ, NikosF
  */
-public class CustomerDashboardController extends Controller
+public class CustomerDashboardController extends ProtectedController<Customer>
 {
     private Customer m_Customer;
 
     private List<CustomerOrder> m_CustomerOrders;
 
-    public CustomerDashboardController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
+    public CustomerDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, "/login", "fo_cust_sid");
     }
 
     @Override
     public Response Execute()
     {
-        return null;
+        return new AppViewResponse("CustomerDashboard", null, "Fallout - Customer Dashboard");
     }
 }

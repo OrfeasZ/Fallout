@@ -23,7 +23,7 @@ public class AccountingDashboardController extends Controller
 
     private int m_DaysToNextReport;
 
-    public AccountingDashboardController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
+    public AccountingDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
     {
         super(p_Exchange, p_Params);
     }

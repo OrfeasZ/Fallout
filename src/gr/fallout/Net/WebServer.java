@@ -25,14 +25,14 @@ public class WebServer
 
     private void RegisterContexts()
     {
-        m_Server.createContext("/", new CustomerContext());
-        m_Server.createContext("/supply", new SupplyContext());
-        m_Server.createContext("/accounting", new AccountingContext());
-        m_Server.createContext("/sales", new SalesContext());
-        m_Server.createContext("/assembly", new AssemblyContext());
-        m_Server.createContext("/storage", new StorageContext());
-        m_Server.createContext("/admin", new AdminContext());
-        m_Server.createContext("/assets", new AssetContext());
+        m_Server.createContext("/", new CustomerContext()).getFilters().add(new ParameterFilter());
+        m_Server.createContext("/supply", new SupplyContext()).getFilters().add(new ParameterFilter());
+        m_Server.createContext("/accounting", new AccountingContext()).getFilters().add(new ParameterFilter());
+        m_Server.createContext("/sales", new SalesContext()).getFilters().add(new ParameterFilter());
+        m_Server.createContext("/assembly", new AssemblyContext()).getFilters().add(new ParameterFilter());
+        m_Server.createContext("/storage", new StorageContext()).getFilters().add(new ParameterFilter());
+        m_Server.createContext("/admin", new AdminContext()).getFilters().add(new ParameterFilter());
+        m_Server.createContext("/assets", new AssetContext()).getFilters().add(new ParameterFilter());
     }
 
     public void Start()

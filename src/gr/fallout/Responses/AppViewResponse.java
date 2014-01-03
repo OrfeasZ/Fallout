@@ -1,11 +1,9 @@
 package gr.fallout.Responses;
 
-import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Config;
 import gr.fallout.Net.Response;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;

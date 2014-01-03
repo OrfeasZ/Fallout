@@ -5,7 +5,6 @@ import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
 
 import java.util.HashMap;
-
 import java.util.List;
 
 /**
@@ -23,7 +22,7 @@ public class StorageStockController extends Controller
     private List<RobotMotherboard> m_RobotMotherboards;
     private List<RobotRAM> m_RobotRAMs;
 
-    public StorageStockController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
+    public StorageStockController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
     {
         super(p_Exchange, p_Params);
     }

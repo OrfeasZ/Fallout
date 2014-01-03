@@ -6,7 +6,6 @@ import gr.fallout.Models.SupplyOrderItem;
 import gr.fallout.Net.Response;
 
 import java.util.HashMap;
-
 import java.util.List;
 
 /**
@@ -21,7 +20,7 @@ public class SupplierDashboardController extends Controller
 
     private List<SupplyOrderItem> m_Items;
 
-    public SupplierDashboardController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
+    public SupplierDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
     {
         super(p_Exchange, p_Params);
     }

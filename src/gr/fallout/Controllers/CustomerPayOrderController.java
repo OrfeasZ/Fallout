@@ -6,6 +6,7 @@ import gr.fallout.Models.CustomerOrder;
 import gr.fallout.Net.Response;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Date: 8/12/2013
@@ -19,7 +20,7 @@ public class CustomerPayOrderController extends Controller
 
     private CustomerOrder m_Order;
 
-    public CustomerPayOrderController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
+    public CustomerPayOrderController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
     {
         super(p_Exchange, p_Params);
     }

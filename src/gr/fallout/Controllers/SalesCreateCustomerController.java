@@ -5,6 +5,7 @@ import gr.fallout.Models.SalesManager;
 import gr.fallout.Net.Response;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Date: 9/12/2013
@@ -16,7 +17,7 @@ public class SalesCreateCustomerController extends Controller
 {
     private SalesManager m_Manager;
 
-    public SalesCreateCustomerController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
+    public SalesCreateCustomerController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
     {
         super(p_Exchange, p_Params);
     }

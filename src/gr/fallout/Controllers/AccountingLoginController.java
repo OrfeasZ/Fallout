@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Net.Response;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Date: 7/12/2013
@@ -13,7 +14,7 @@ import java.util.HashMap;
  */
 public class AccountingLoginController extends Controller
 {
-    public AccountingLoginController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
+    public AccountingLoginController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
     {
         super(p_Exchange, p_Params);
     }

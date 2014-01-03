@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpHandler;
 import gr.fallout.Controllers.Controller;
 import gr.fallout.Net.Response;
 
+import java.util.List;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -42,6 +43,10 @@ public abstract class ContextBase implements HttpHandler
     protected boolean HandleRequest(HttpExchange p_Exchange) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, IOException {
         String s_RequestURI = p_Exchange.getRequestURI().toString();
 
+        int i = s_RequestURI.lastIndexOf('?');
+        if (i > 0)
+            s_RequestURI = s_RequestURI.substring(0, i);
+
         if (!s_RequestURI.endsWith("/"))
             s_RequestURI += "/";
 
@@ -52,8 +57,8 @@ public abstract class ContextBase implements HttpHandler
 
             if (s_KeyPattern.matcher(s_RequestURI).matches())
             {
-                // Collect route parameters
-                HashMap<String, String> s_Params = new HashMap<String, String>();
+                // Collect route, POST, and GET parameters
+                HashMap<String, List<String>> s_Params = (HashMap<String, List<String>>)p_Exchange.getAttribute("parameters");
 
                 Matcher s_ParamMatcher = Pattern.compile(":([a-zA-Z0-9_-]+)").matcher(s_Entry.getValue());
                 Matcher s_RouteMatcher = s_KeyPattern.matcher(s_RequestURI);
@@ -63,7 +68,7 @@ public abstract class ContextBase implements HttpHandler
                 int s_Match = 0;
                 while (s_ParamMatcher.find())
                 {
-                    s_Params.put(s_ParamMatcher.group(1), s_RouteMatcher.group(s_Match + 1));
+                    s_Params.put(s_ParamMatcher.group(1), new ArrayList<String>(Arrays.asList(s_RouteMatcher.group(s_Match + 1))));
                     ++s_Match;
                 }
 
@@ -78,6 +83,9 @@ public abstract class ContextBase implements HttpHandler
                 }
 
                 p_Exchange.getResponseHeaders().add("Content-Type", s_Response.ContentType);
+
+                for (Map.Entry<String, String> s_Header : s_Response.Headers.entrySet())
+                    p_Exchange.getResponseHeaders().add(s_Header.getKey(), s_Header.getValue());
 
                 p_Exchange.sendResponseHeaders(s_Response.StatusCode, s_Response.Content.length);
                 OutputStream s_Stream = p_Exchange.getResponseBody();

@@ -1,10 +1,6 @@
 package gr.fallout.Net.Contexts;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-
-import java.io.IOException;
-import java.io.OutputStream;
+import gr.fallout.Controllers.*;
 
 /**
  * Date: 6/12/2013
@@ -13,14 +9,19 @@ import java.io.OutputStream;
  * @author OrfeasZ
  */
 
-public class StorageContext implements HttpHandler
+public class StorageContext extends ContextBase
 {
-    public void handle(HttpExchange t) throws IOException
+    public StorageContext()
     {
-        String response = "StorageContext";
-        t.sendResponseHeaders(200, response.length());
-        OutputStream os = t.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        super();
+
+        RegisterRoute("/storage", StorageDashboardController.class);
+        RegisterRoute("/storage/login", StorageLoginController.class);
+        RegisterRoute("/storage/logout", StorageLogoutController.class);
+        RegisterRoute("/storage/stock", StorageStockController.class);
+        RegisterRoute("/storage/suppliers", StorageSuppliersController.class);
+        RegisterRoute("/storage/orders", StorageSupplyOrdersController.class);
+        RegisterRoute("/storage/order/:order_id", StorageSupplyOrderController.class);
+        RegisterRoute("/storage/order/:order_id/item/:item_id/verify", StorageVerifySupplyOrderItemArrivalController.class);
     }
 }

@@ -4,6 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.Administrator;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
+
 /**
  * Date: 9/12/2013
  * Time: 4:00 μμ
@@ -14,9 +16,9 @@ public class AdminCreateSalesManagerController extends Controller
 {
     private Administrator m_Administrator;
 
-    public AdminCreateSalesManagerController(HttpExchange p_Exchange)
+    public AdminCreateSalesManagerController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     @Override

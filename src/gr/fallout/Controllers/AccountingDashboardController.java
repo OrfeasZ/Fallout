@@ -5,6 +5,7 @@ import gr.fallout.Models.AccountingManager;
 import gr.fallout.Models.Report;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,9 +23,9 @@ public class AccountingDashboardController extends Controller
 
     private int m_DaysToNextReport;
 
-    public AccountingDashboardController(HttpExchange p_Exchange)
+    public AccountingDashboardController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     private List<Report> GetAllReports()

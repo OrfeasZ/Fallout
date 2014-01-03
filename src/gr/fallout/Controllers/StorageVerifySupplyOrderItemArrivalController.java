@@ -5,6 +5,8 @@ import gr.fallout.Models.StorageManager;
 import gr.fallout.Models.SupplyOrderItem;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
+
 /**
  * Date: 8/12/2013
  * Time: 12:15 πμ
@@ -17,9 +19,9 @@ public class StorageVerifySupplyOrderItemArrivalController extends Controller
 
     private SupplyOrderItem m_Item;
 
-    public StorageVerifySupplyOrderItemArrivalController(HttpExchange p_Exchange)
+    public StorageVerifySupplyOrderItemArrivalController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     @Override

@@ -5,6 +5,8 @@ import gr.fallout.Models.Supplier;
 import gr.fallout.Models.SupplyOrderItem;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
+
 /**
  * Date: 8/12/2013
  * Time: 12:22 πμ
@@ -17,9 +19,9 @@ public class SupplierConfirmSupplyOrderItemController extends Controller
 
     private SupplyOrderItem m_Item;
 
-    public SupplierConfirmSupplyOrderItemController(HttpExchange p_Exchange)
+    public SupplierConfirmSupplyOrderItemController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     @Override

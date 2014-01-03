@@ -5,6 +5,8 @@ import gr.fallout.Models.CustomerOrder;
 import gr.fallout.Models.SalesManager;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
+
 /**
  * Date: 9/12/2013
  * Time: 4:13 μμ
@@ -17,9 +19,9 @@ public class SalesAssignOrderController extends Controller
 
     private CustomerOrder m_Order;
 
-    public SalesAssignOrderController(HttpExchange p_Exchange)
+    public SalesAssignOrderController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     @Override

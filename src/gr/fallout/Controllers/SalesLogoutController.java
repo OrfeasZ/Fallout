@@ -3,6 +3,8 @@ package gr.fallout.Controllers;
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
+
 /**
  * Date: 9/12/2013
  * Time: 4:09 μμ
@@ -11,9 +13,9 @@ import gr.fallout.Net.Response;
  */
 public class SalesLogoutController extends Controller
 {
-    public SalesLogoutController(HttpExchange p_Exchange)
+    public SalesLogoutController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     @Override

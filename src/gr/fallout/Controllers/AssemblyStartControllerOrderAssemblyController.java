@@ -5,6 +5,8 @@ import gr.fallout.Models.Assembler;
 import gr.fallout.Models.RobotControllerOrder;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
+
 /**
  * Date: 8/12/2013
  * Time: 12:27 πμ
@@ -17,9 +19,9 @@ public class AssemblyStartControllerOrderAssemblyController extends Controller
 
     private RobotControllerOrder m_Order;
 
-    public AssemblyStartControllerOrderAssemblyController(HttpExchange p_Exchange)
+    public AssemblyStartControllerOrderAssemblyController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     @Override

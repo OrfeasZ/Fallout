@@ -5,6 +5,8 @@ import gr.fallout.Models.Administrator;
 import gr.fallout.Models.SalesManager;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
+
 /**
  * Date: 9/12/2013
  * Time: 4:00 μμ
@@ -17,9 +19,9 @@ public class AdminDeleteSalesManagerController extends Controller
 
     private SalesManager m_SalesManager;
 
-    public AdminDeleteSalesManagerController(HttpExchange p_Exchange)
+    public AdminDeleteSalesManagerController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     @Override

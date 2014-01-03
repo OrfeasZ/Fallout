@@ -5,6 +5,8 @@ import gr.fallout.Models.StorageManager;
 import gr.fallout.Models.Supplier;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
+
 import java.util.List;
 
 /**
@@ -19,9 +21,9 @@ public class StorageSuppliersController extends Controller
 
     private List<Supplier> m_Suppliers;
 
-    public StorageSuppliersController(HttpExchange p_Exchange)
+    public StorageSuppliersController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     @Override

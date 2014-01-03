@@ -4,6 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.StorageManager;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
+
 /**
  * Date: 8/12/2013
  * Time: 12:10 πμ
@@ -14,9 +16,9 @@ public class StorageDashboardController extends Controller
 {
     private StorageManager m_Manager;
 
-    public StorageDashboardController(HttpExchange p_Exchange)
+    public StorageDashboardController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     @Override

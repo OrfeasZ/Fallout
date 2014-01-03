@@ -5,6 +5,8 @@ import gr.fallout.Models.CustomerOrder;
 import gr.fallout.Models.SalesManager;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
+
 import java.util.List;
 
 /**
@@ -22,9 +24,9 @@ public class SalesOrdersController extends Controller
     private List<CustomerOrder> m_PendingOrders;
     private List<CustomerOrder> m_DeliveredOrders;
 
-    public SalesOrdersController(HttpExchange p_Exchange)
+    public SalesOrdersController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     @Override

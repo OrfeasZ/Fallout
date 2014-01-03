@@ -1,10 +1,6 @@
 package gr.fallout.Net.Contexts;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-
-import java.io.IOException;
-import java.io.OutputStream;
+import gr.fallout.Controllers.*;
 
 /**
  * Date: 6/12/2013
@@ -13,14 +9,22 @@ import java.io.OutputStream;
  * @author OrfeasZ
  */
 
-public class AdminContext implements HttpHandler
+public class AdminContext extends ContextBase
 {
-    public void handle(HttpExchange t) throws IOException
+    public AdminContext()
     {
-        String response = "AdminContext";
-        t.sendResponseHeaders(200, response.length());
-        OutputStream os = t.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        super();
+
+        RegisterRoute("/admin", AdminDashboardController.class);
+        RegisterRoute("/admin/login", AdminLoginController.class);
+        RegisterRoute("/admin/logout", AdminLogoutController.class);
+        RegisterRoute("/admin/accounting/create", AdminCreateAccountingManagerController.class);
+        RegisterRoute("/admin/assembler/create", AdminCreateAssemblerController.class);
+        RegisterRoute("/admin/sales/create", AdminCreateSalesManagerController.class);
+        RegisterRoute("/admin/storage/create", AdminCreateStorageManagerController.class);
+        RegisterRoute("/admin/accounting/:user_id/delete", AdminDeleteAccountingManagerController.class);
+        RegisterRoute("/admin/assembler/:user_id/delete", AdminDeleteAssemblerController.class);
+        RegisterRoute("/admin/sales/:user_id/delete", AdminDeleteSalesManagerController.class);
+        RegisterRoute("/admin/storage/:user_id/delete", AdminDeleteStorageManagerController.class);
     }
 }

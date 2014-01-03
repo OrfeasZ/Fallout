@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,9 +25,10 @@ public class AccountingReportController extends Controller
 
     private List<CustomerOrder> m_CustomerOrders;
 
-    public AccountingReportController(HttpExchange p_Exchange)
+    public AccountingReportController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
+        System.out.println("Viewing report with id " + p_Params.get("id"));
     }
 
     @Override

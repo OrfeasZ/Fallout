@@ -1,10 +1,6 @@
 package gr.fallout.Net.Contexts;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-
-import java.io.IOException;
-import java.io.OutputStream;
+import gr.fallout.Controllers.*;
 
 /**
  * Date: 6/12/2013
@@ -13,14 +9,16 @@ import java.io.OutputStream;
  * @author OrfeasZ
  */
 
-public class AssemblyContext implements HttpHandler
+public class AssemblyContext extends ContextBase
 {
-    public void handle(HttpExchange t) throws IOException
+    public AssemblyContext()
     {
-        String response = "AssemblyContext";
-        t.sendResponseHeaders(200, response.length());
-        OutputStream os = t.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        super();
+
+        RegisterRoute("/assembly", AssemblyDashboardController.class);
+        RegisterRoute("/assembly/login", AssemblyLoginController.class);
+        RegisterRoute("/assembly/logout", AssemblyLogoutController.class);
+        RegisterRoute("/assembly/order/:order_id/start", AssemblyStartControllerOrderAssemblyController.class);
+        RegisterRoute("/assembly/order/:order_id/end", AssemblyEndControllerOrderAssemblyController.class);
     }
 }

@@ -4,6 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
+
 import java.util.List;
 
 /**
@@ -21,9 +23,9 @@ public class AdminDashboardController extends Controller
     private List<SalesManager> m_SalesManagers;
     private List<StorageManager> m_StorageManagers;
 
-    public AdminDashboardController(HttpExchange p_Exchange)
+    public AdminDashboardController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     @Override

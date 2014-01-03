@@ -1,10 +1,9 @@
 package gr.fallout.Net.Contexts;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-
-import java.io.IOException;
-import java.io.OutputStream;
+import gr.fallout.Controllers.SupplierConfirmSupplyOrderItemController;
+import gr.fallout.Controllers.SupplierDashboardController;
+import gr.fallout.Controllers.SupplierLoginController;
+import gr.fallout.Controllers.SupplierLogoutController;
 
 /**
  * Date: 6/12/2013
@@ -13,14 +12,15 @@ import java.io.OutputStream;
  * @author OrfeasZ
  */
 
-public class SupplyContext implements HttpHandler
+public class SupplyContext extends ContextBase
 {
-    public void handle(HttpExchange t) throws IOException
+    public SupplyContext()
     {
-        String response = "SupplyContext";
-        t.sendResponseHeaders(200, response.length());
-        OutputStream os = t.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        super();
+
+        RegisterRoute("/supplier", SupplierDashboardController.class);
+        RegisterRoute("/supplier/login", SupplierLoginController.class);
+        RegisterRoute("/supplier/logout", SupplierLogoutController.class);
+        RegisterRoute("/supplier/order/:order_id/item/:item_id/confirm", SupplierConfirmSupplyOrderItemController.class);
     }
 }

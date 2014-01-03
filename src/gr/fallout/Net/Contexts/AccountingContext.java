@@ -1,10 +1,9 @@
 package gr.fallout.Net.Contexts;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-
-import java.io.IOException;
-import java.io.OutputStream;
+import gr.fallout.Controllers.AccountingDashboardController;
+import gr.fallout.Controllers.AccountingLoginController;
+import gr.fallout.Controllers.AccountingLogoutController;
+import gr.fallout.Controllers.AccountingReportController;
 
 /**
  * Date: 6/12/2013
@@ -13,14 +12,15 @@ import java.io.OutputStream;
  * @author OrfeasZ
  */
 
-public class AccountingContext implements HttpHandler
+public class AccountingContext extends ContextBase
 {
-    public void handle(HttpExchange t) throws IOException
+    public AccountingContext()
     {
-        String response = "AccountingContext";
-        t.sendResponseHeaders(200, response.length());
-        OutputStream os = t.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        super();
+
+        RegisterRoute("/accounting", AccountingDashboardController.class);
+        RegisterRoute("/accounting/login", AccountingLoginController.class);
+        RegisterRoute("/accounting/logout", AccountingLogoutController.class);
+        RegisterRoute("/accounting/report/:report_id", AccountingReportController.class);
     }
 }

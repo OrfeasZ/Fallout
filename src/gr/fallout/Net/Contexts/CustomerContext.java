@@ -1,10 +1,6 @@
 package gr.fallout.Net.Contexts;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-
-import java.io.IOException;
-import java.io.OutputStream;
+import gr.fallout.Controllers.*;
 
 /**
  * Date: 6/12/2013
@@ -13,14 +9,17 @@ import java.io.OutputStream;
  * @author OrfeasZ
  */
 
-public class CustomerContext implements HttpHandler
+public class CustomerContext extends ContextBase
 {
-    public void handle(HttpExchange t) throws IOException
+    public CustomerContext()
     {
-        String response = "CustomerContext";
-        t.sendResponseHeaders(200, response.length());
-        OutputStream os = t.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        super();
+
+        RegisterRoute("/", CustomerDashboardController.class);
+        RegisterRoute("/login", CustomerLoginController.class);
+        RegisterRoute("/logout", CustomerLogoutController.class);
+        RegisterRoute("/order", CustomerPlaceOrderController.class);
+        RegisterRoute("/order/:order_id", CustomerOrderControllersController.class);
+        RegisterRoute("/order/:order_id/pay", CustomerPayOrderController.class);
     }
 }

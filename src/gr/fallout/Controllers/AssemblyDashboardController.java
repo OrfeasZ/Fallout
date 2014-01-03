@@ -5,6 +5,8 @@ import gr.fallout.Models.Assembler;
 import gr.fallout.Models.RobotControllerOrder;
 import gr.fallout.Net.Response;
 
+import java.util.HashMap;
+
 import java.util.List;
 
 /**
@@ -21,9 +23,9 @@ public class AssemblyDashboardController extends Controller
 
     private List<RobotControllerOrder> m_InProgressOrders;
 
-    public AssemblyDashboardController(HttpExchange p_Exchange)
+    public AssemblyDashboardController(HttpExchange p_Exchange, HashMap<String, String> p_Params)
     {
-        super(p_Exchange);
+        super(p_Exchange, p_Params);
     }
 
     @Override

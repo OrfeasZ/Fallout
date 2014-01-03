@@ -12,7 +12,7 @@ import java.util.List;
 public class AdminCreateAccountingManagerValidator implements IValidator
 {
     @Override
-    public List<String> Validate(HashMap<String, String> p_Parameters)
+    public List<String> Validate(HashMap<String, List<String>> p_Parameters)
     {
         return null;
     }

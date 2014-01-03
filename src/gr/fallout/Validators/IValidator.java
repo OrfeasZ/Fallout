@@ -12,5 +12,5 @@ import java.util.List;
 
 public interface IValidator
 {
-    public List<String> Validate(HashMap<String, String> p_Parameters);
+    public List<String> Validate(HashMap<String, List<String>> p_Parameters);
 }

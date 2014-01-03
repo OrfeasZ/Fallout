@@ -5,24 +5,11 @@ import java.util.List;
 
 public class SupplyOrder extends Identifiable
 {
-    private int m_ID;
-
     private Date m_SubmissionDate;
 
     private float m_Tax;
 
     private List<SupplyOrderItem> m_Items;
-
-    public int ID()
-    {
-        return m_ID;
-    }
-
-    public boolean ID(int p_ID)
-    {
-        m_ID = p_ID;
-        return true;
-    }
 
     public Date SubmissionDate()
     {

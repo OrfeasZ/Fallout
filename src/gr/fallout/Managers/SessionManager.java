@@ -47,4 +47,8 @@ public class SessionManager
         return s_SessionID;
     }
 
+    public void RemoveSession(String p_SessionID)
+    {
+        m_SessionUsers.remove(p_SessionID);
+    }
 }

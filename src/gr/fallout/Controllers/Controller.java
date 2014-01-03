@@ -16,12 +16,12 @@ public abstract class Controller
 {
     protected HttpExchange m_Exchange;
 
-    protected HashMap<String, List<String>> m_RouteParams;
+    protected HashMap<String, List<String>> m_Params;
 
     public Controller(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
     {
         m_Exchange = p_Exchange;
-        m_RouteParams = p_Params;
+        m_Params = p_Params;
     }
 
     public abstract Response Execute();

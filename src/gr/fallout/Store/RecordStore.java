@@ -40,6 +40,7 @@ public class RecordStore<T>
         catch (IOException e)
         {
             Files.createFile(Paths.get(Config.DataPath + m_SourceName + ".json"));
+            Files.write(Paths.get(Config.DataPath + m_SourceName + ".json"), "[]".getBytes());
         }
 
         Collection<T> s_Records = m_Gson.fromJson(s_ViewContent, p_CollectionType);
@@ -79,6 +80,11 @@ public class RecordStore<T>
     {
         m_Records.remove(p_RecordID);
         Persist();
+    }
+
+    public Collection<T> GetAll()
+    {
+        return (Collection<T>)m_Records.values();
     }
 
     private void Persist()

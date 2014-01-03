@@ -92,7 +92,9 @@ public class ParameterFilter extends Filter {
                         parameters.put(key, values);
                     }
                 } else {
-                    parameters.put(key, value);
+                    List values = new ArrayList();
+                    values.add(value);
+                    parameters.put(key, values);
                 }
             }
         }

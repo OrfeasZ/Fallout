@@ -7,7 +7,7 @@ package gr.fallout.Models;
  * @author NikosF
  */
 
-public class RobotController
+public class RobotController extends Identifiable
 {
     private RobotCase m_Case;
 

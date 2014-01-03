@@ -10,7 +10,7 @@ import java.util.List;
  * @author NikosF
  */
 
-public class CustomerOrder
+public class CustomerOrder extends Identifiable
 {
     public enum OrderStatus
     {

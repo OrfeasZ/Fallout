@@ -10,6 +10,7 @@ package gr.fallout;
 public class Config
 {
     public static String DocsPath = "htdocs/";
+    public static String DataPath = "data/";
     public static String BaseTemplateName = "Default";
     public static String BaseURL = "http://localhost:7423";
 }

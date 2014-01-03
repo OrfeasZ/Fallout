@@ -7,7 +7,7 @@ package gr.fallout.Models;
  * @author NikosF
  */
 
-public class RobotMotherboard
+public class RobotMotherboard extends RobotControllerPart
 {
     public enum MotherboardModel
     {

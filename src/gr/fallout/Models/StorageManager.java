@@ -7,7 +7,7 @@ package gr.fallout.Models;
  * @author NikosF
  */
 
-public class StorageManager
+public class StorageManager extends Identifiable
 {
     private String m_Password;
 

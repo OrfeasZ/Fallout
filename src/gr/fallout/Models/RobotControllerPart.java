@@ -7,7 +7,7 @@ package gr.fallout.Models;
  * @author NikosF
  */
 
-public abstract class RobotControllerPart
+public abstract class RobotControllerPart extends Identifiable
 {
     protected float m_AssemblyCost;
 

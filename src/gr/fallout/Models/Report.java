@@ -9,7 +9,7 @@ import java.util.Date;
  * @author NikosF
  */
 
-public class Report
+public class Report extends Identifiable
 {
     private Date m_Date;
 

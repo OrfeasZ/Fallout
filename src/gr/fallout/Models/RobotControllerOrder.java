@@ -9,7 +9,7 @@ import java.util.Date;
  * @author NikosF
  */
 
-public class RobotControllerOrder
+public class RobotControllerOrder extends Identifiable
 {
     private Date m_AssemblyCompletionDate;
 

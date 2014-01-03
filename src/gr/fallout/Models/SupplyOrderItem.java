@@ -1,6 +1,6 @@
 package gr.fallout.Models;
 
-public class SupplyOrderItem
+public class SupplyOrderItem extends Identifiable
 {
     private boolean m_Arrived;
 

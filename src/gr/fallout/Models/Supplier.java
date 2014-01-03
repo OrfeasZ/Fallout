@@ -9,7 +9,7 @@ import java.util.List;
  * @author NikosF
  */
 
-public class Supplier
+public class Supplier extends Identifiable
 {
     private String m_Address;
 

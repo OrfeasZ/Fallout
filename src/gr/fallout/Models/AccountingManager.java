@@ -7,7 +7,7 @@ package gr.fallout.Models;
  * @author NikosF
  */
 
-public class AccountingManager
+public class AccountingManager extends Identifiable
 {
     private String m_Password;
 

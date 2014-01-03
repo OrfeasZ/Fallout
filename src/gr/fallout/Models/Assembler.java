@@ -9,7 +9,7 @@ import java.util.List;
  * @author NikosF
  */
 
-public class Assembler
+public class Assembler extends Identifiable
 {
     private String m_Password;
 

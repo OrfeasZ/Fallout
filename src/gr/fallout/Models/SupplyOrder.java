@@ -3,7 +3,7 @@ package gr.fallout.Models;
 import java.util.Date;
 import java.util.List;
 
-public class SupplyOrder
+public class SupplyOrder extends Identifiable
 {
     private int m_ID;
 

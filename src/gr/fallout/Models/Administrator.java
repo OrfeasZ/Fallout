@@ -1,6 +1,6 @@
 package gr.fallout.Models;
 
-public class Administrator
+public class Administrator extends Identifiable
 {
     private String m_Password;
 

@@ -7,7 +7,7 @@ package gr.fallout.Models;
  * @author NikosF
  */
 
-public class SalesManager
+public class SalesManager extends Identifiable
 {
     private String m_Password;
 

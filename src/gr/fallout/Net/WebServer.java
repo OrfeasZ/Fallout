@@ -32,6 +32,7 @@ public class WebServer
         m_Server.createContext("/assembly", new AssemblyContext());
         m_Server.createContext("/storage", new StorageContext());
         m_Server.createContext("/admin", new AdminContext());
+        m_Server.createContext("/assets", new AssetContext());
     }
 
     public void Start()

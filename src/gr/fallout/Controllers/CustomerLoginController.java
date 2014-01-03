@@ -2,6 +2,7 @@ package gr.fallout.Controllers;
 
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Net.Response;
+import gr.fallout.Responses.AppViewResponse;
 
 import java.util.HashMap;
 
@@ -21,6 +22,8 @@ public class CustomerLoginController extends Controller
     @Override
     public Response Execute()
     {
-        return null;
+        // TODO: This is actually presented by the dashboard.
+        // The LoginController just performs the login using provided data.
+        return new AppViewResponse("CustomerLogin", null, "Fallout - Customer Login");
     }
 }

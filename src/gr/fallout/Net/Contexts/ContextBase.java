@@ -3,6 +3,7 @@ package gr.fallout.Net.Contexts;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import gr.fallout.Controllers.Controller;
+import gr.fallout.Net.Response;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -38,8 +39,7 @@ public abstract class ContextBase implements HttpHandler
         m_RoutePatterns.put(p_Route.replaceAll(":([a-zA-Z0-9_-]+)", "([a-zA-Z0-9_-]+)"), p_Route);
     }
 
-    protected boolean HandleRequest(HttpExchange p_Exchange) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException
-    {
+    protected boolean HandleRequest(HttpExchange p_Exchange) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, IOException {
         String s_RequestURI = p_Exchange.getRequestURI().toString();
 
         if (!s_RequestURI.endsWith("/"))
@@ -69,6 +69,20 @@ public abstract class ContextBase implements HttpHandler
 
                 // Create our controller
                 Controller s_Controller = (Controller)m_Routes.get(s_Entry.getValue()).getConstructor(HttpExchange.class, s_Params.getClass()).newInstance(p_Exchange, s_Params);
+                Response s_Response = s_Controller.Execute();
+
+                if (s_Response == null)
+                {
+                    NotImplementedResponse(p_Exchange);
+                    return true;
+                }
+
+                p_Exchange.getResponseHeaders().add("Content-Type", s_Response.ContentType);
+
+                p_Exchange.sendResponseHeaders(s_Response.StatusCode, s_Response.Content.length);
+                OutputStream s_Stream = p_Exchange.getResponseBody();
+                s_Stream.write(s_Response.Content);
+                s_Stream.close();
 
                 return true;
             }
@@ -103,6 +117,15 @@ public abstract class ContextBase implements HttpHandler
     {
         String s_Response = "An internal error has occurred.";
         p_Exchange.sendResponseHeaders(500, s_Response.length());
+        OutputStream s_Stream = p_Exchange.getResponseBody();
+        s_Stream.write(s_Response.getBytes());
+        s_Stream.close();
+    }
+
+    protected void NotImplementedResponse(HttpExchange p_Exchange) throws IOException
+    {
+        String s_Response = "Not implemented.";
+        p_Exchange.sendResponseHeaders(501, s_Response.length());
         OutputStream s_Stream = p_Exchange.getResponseBody();
         s_Stream.write(s_Response.getBytes());
         s_Stream.close();

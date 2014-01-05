@@ -1,5 +1,9 @@
 package gr.fallout.Models;
 
+import gr.fallout.Store.RecordManager;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -25,9 +29,14 @@ public class CustomerOrder extends Identifiable
 
     private Date m_SubmissionDate;
 
-    private Customer m_Customer;
+    private Integer m_Customer;
 
-    private List<RobotControllerOrder> m_ControllerOrders;
+    private Collection<Integer> m_ControllerOrders;
+
+    public CustomerOrder()
+    {
+        m_ControllerOrders = new ArrayList<Integer>();
+    }
 
     public int OrderID()
     {
@@ -75,23 +84,48 @@ public class CustomerOrder extends Identifiable
 
     public Customer Customer()
     {
-        return m_Customer;
+        if (m_Customer == null)
+            return null;
+
+        return RecordManager.GetInstance().Customers.Get(m_Customer);
     }
 
     public boolean Customer(Customer p_Customer)
     {
-        m_Customer = p_Customer;
+        if (p_Customer == null)
+            m_Customer = null;
+        else
+            m_Customer = p_Customer.m_ID;
+
+        RecordManager.GetInstance().CustomerOrders.Update(this);
+
         return true;
     }
 
-    public List<RobotControllerOrder> ControllerOrders()
+    public Collection<RobotControllerOrder> ControllerOrders()
     {
-        return m_ControllerOrders;
+        return RecordManager.GetInstance().RobotControllerOrders.Get(m_ControllerOrders);
     }
 
-    public boolean ControllerOrders(List<RobotControllerOrder> p_ControllerOrders)
+    public boolean AddControllerOrder(RobotControllerOrder p_Order)
     {
-        m_ControllerOrders = p_ControllerOrders;
+        if (m_ControllerOrders.contains(p_Order.m_ID))
+            return false;
+
+        m_ControllerOrders.add(p_Order.m_ID);
+        RecordManager.GetInstance().CustomerOrders.Update(this);
+
+        return true;
+    }
+
+    public boolean RemoveControllerOrder(RobotControllerOrder p_Order)
+    {
+        if (!m_ControllerOrders.contains(p_Order.m_ID))
+            return false;
+
+        m_ControllerOrders.remove(p_Order.m_ID);
+        RecordManager.GetInstance().CustomerOrders.Update(this);
+
         return true;
     }
 }

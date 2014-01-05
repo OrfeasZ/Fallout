@@ -40,6 +40,7 @@ public class AppViewResponse extends Response
             }
 
             // Replace Template params
+            // TODO: Logo URL should point to the current Context
             s_TemplateContent = s_TemplateContent.replaceAll("<%=\\s+body\\s+%>", Matcher.quoteReplacement(s_ViewContent));
             s_TemplateContent = s_TemplateContent.replaceAll("<%=\\s+title\\s+%>", Matcher.quoteReplacement(s_Title));
             s_TemplateContent = s_TemplateContent.replaceAll("<%=\\s+base_url\\s+%>", Matcher.quoteReplacement(Config.BaseURL));

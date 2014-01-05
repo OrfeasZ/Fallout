@@ -1,6 +1,9 @@
 package gr.fallout.Models;
 
-import java.util.List;
+import gr.fallout.Store.RecordManager;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Date: 18/11/2013
@@ -17,7 +20,12 @@ public class Assembler extends Identifiable
 
     private String m_Name;
 
-    private List<RobotControllerOrder> m_AssignedOrders;
+    private Collection<Integer> m_AssignedOrders;
+
+    public Assembler()
+    {
+        m_AssignedOrders = new ArrayList<Integer>();
+    }
 
     public String Password()
     {
@@ -52,14 +60,34 @@ public class Assembler extends Identifiable
         return true;
     }
 
-    public List<RobotControllerOrder> AssignedOrders()
+    public Collection<RobotControllerOrder> AssignedOrders()
     {
-        return m_AssignedOrders;
+        return RecordManager.GetInstance().RobotControllerOrders.Get(m_AssignedOrders);
     }
 
-    public boolean Items(List<RobotControllerOrder> p_AssignedOrders)
+    public boolean AddOrder(RobotControllerOrder p_Order)
     {
-        m_AssignedOrders = p_AssignedOrders;
+        p_Order.Assembler(this);
+
+        if (m_AssignedOrders.contains(p_Order.m_ID))
+            return false;
+
+        m_AssignedOrders.add(p_Order.m_ID);
+        RecordManager.GetInstance().Assemblers.Update(this);
+
+        return true;
+    }
+
+    public boolean RemoveOrder(RobotControllerOrder p_Order)
+    {
+        p_Order.Assembler(null);
+
+        if (!m_AssignedOrders.contains(p_Order.m_ID))
+            return false;
+
+        m_AssignedOrders.remove(p_Order.m_ID);
+        RecordManager.GetInstance().Assemblers.Update(this);
+
         return true;
     }
 

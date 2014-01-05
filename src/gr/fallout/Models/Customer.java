@@ -1,6 +1,9 @@
 package gr.fallout.Models;
 
-import java.util.List;
+import gr.fallout.Store.RecordManager;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Date: 18/11/2013
@@ -26,7 +29,12 @@ public class Customer extends Identifiable
 
     private int m_TaxID;
 
-    private List<CustomerOrder> m_Orders;
+    private Collection<Integer> m_Orders;
+
+    public Customer()
+    {
+        m_Orders = new ArrayList<Integer>();
+    }
 
     public String Address()
     {
@@ -105,14 +113,34 @@ public class Customer extends Identifiable
         return true;
     }
 
-    public List<CustomerOrder> Orders()
+    public Collection<CustomerOrder> Orders()
     {
-        return m_Orders;
+        return RecordManager.GetInstance().CustomerOrders.Get(m_Orders);
     }
 
-    public boolean Orders(List<CustomerOrder> p_Orders)
+    public boolean AddOrder(CustomerOrder p_Order)
     {
-        m_Orders = p_Orders;
+        p_Order.Customer(this);
+
+        if (m_Orders.contains(p_Order.m_ID))
+            return false;
+
+        m_Orders.add(p_Order.m_ID);
+        RecordManager.GetInstance().Customers.Update(this);
+
+        return true;
+    }
+
+    public boolean RemoveOrder(CustomerOrder p_Order)
+    {
+        p_Order.Customer(null);
+
+        if (!m_Orders.contains(p_Order.m_ID))
+            return false;
+
+        m_Orders.remove(p_Order.m_ID);
+        RecordManager.GetInstance().Customers.Update(this);
+
         return true;
     }
 }

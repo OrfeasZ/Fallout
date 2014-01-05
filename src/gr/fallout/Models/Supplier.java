@@ -1,6 +1,9 @@
 package gr.fallout.Models;
 
-import java.util.List;
+import gr.fallout.Store.RecordManager;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Date: 17/11/2013
@@ -11,6 +14,14 @@ import java.util.List;
 
 public class Supplier extends Identifiable
 {
+    public enum PartType
+    {
+        Case,
+        CPU,
+        Motherboard,
+        RAM
+    }
+
     private String m_Address;
 
     private boolean m_EUBusiness;
@@ -19,7 +30,14 @@ public class Supplier extends Identifiable
 
     private String m_Name;
 
-    private List<SupplyOrderItem> m_Orders;
+    private Collection<Integer> m_Items;
+
+    private PartType m_AvailableType;
+
+    public Supplier()
+    {
+        m_Items = new ArrayList<Integer>();
+    }
 
     public String Address()
     {
@@ -65,14 +83,45 @@ public class Supplier extends Identifiable
         return true;
     }
 
-    public List<SupplyOrderItem> Orders()
+    public PartType AvailableType()
     {
-        return m_Orders;
+        return m_AvailableType;
     }
 
-    public boolean Orders(List<SupplyOrderItem> p_Orders)
+    public boolean AvailableType(PartType p_AvailableType)
     {
-        m_Orders = p_Orders;
+        m_AvailableType = p_AvailableType;
+        return true;
+    }
+
+    public Collection<SupplyOrderItem> Items()
+    {
+        return RecordManager.GetInstance().SupplyOrderItems.Get(m_Items);
+    }
+
+    public boolean AddItem(SupplyOrderItem p_Item)
+    {
+        p_Item.Supplier(this);
+
+        if (m_Items.contains(p_Item.m_ID))
+            return false;
+
+        m_Items.add(p_Item.m_ID);
+        RecordManager.GetInstance().Suppliers.Update(this);
+
+        return true;
+    }
+
+    public boolean RemoveItem(SupplyOrderItem p_Item)
+    {
+        p_Item.Supplier(null);
+
+        if (!m_Items.contains(p_Item.m_ID))
+            return false;
+
+        m_Items.remove(p_Item.m_ID);
+        RecordManager.GetInstance().Suppliers.Update(this);
+
         return true;
     }
 }

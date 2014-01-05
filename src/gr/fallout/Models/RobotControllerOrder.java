@@ -1,5 +1,7 @@
 package gr.fallout.Models;
 
+import gr.fallout.Store.RecordManager;
+
 import java.util.Date;
 
 /**
@@ -17,11 +19,11 @@ public class RobotControllerOrder extends Identifiable
 
     private float m_HourlyRate;
 
-    private SupplyOrder m_SupplyOrder;
+    private Integer m_SupplyOrder;
 
-    private RobotController m_Controller;
+    private Integer m_Controller;
 
-    private Assembler m_Assembler;
+    private Integer m_Assembler;
 
     public Date AssemblyCompletionDate()
     {
@@ -58,34 +60,61 @@ public class RobotControllerOrder extends Identifiable
 
     public SupplyOrder SupplyOrder()
     {
-        return m_SupplyOrder;
+        if (m_SupplyOrder == null)
+            return null;
+
+        return RecordManager.GetInstance().SupplyOrders.Get(m_SupplyOrder);
     }
 
     public boolean SupplyOrder(SupplyOrder p_SuppplyOrder)
     {
-        m_SupplyOrder = p_SuppplyOrder;
+        if (p_SuppplyOrder == null)
+            m_SupplyOrder = null;
+        else
+            m_SupplyOrder = p_SuppplyOrder.m_ID;
+
+        RecordManager.GetInstance().RobotControllerOrders.Update(this);
+
         return true;
     }
 
     public RobotController Controller()
     {
-        return m_Controller;
+        if (m_Controller == null)
+            return null;
+
+        return RecordManager.GetInstance().RobotControllers.Get(m_Controller);
     }
 
     public boolean Controller(RobotController p_Controller)
     {
-        m_Controller = p_Controller;
+        if (p_Controller == null)
+            m_Controller = null;
+        else
+            m_Controller = p_Controller.m_ID;
+
+        RecordManager.GetInstance().RobotControllerOrders.Update(this);
+
         return true;
     }
 
     public Assembler Assembler()
     {
-        return m_Assembler;
+        if (m_Assembler == null)
+            return null;
+
+        return RecordManager.GetInstance().Assemblers.Get(m_Assembler);
     }
 
     public boolean Assembler(Assembler p_Assembler)
     {
-        m_Assembler = p_Assembler;
+        if (p_Assembler == null)
+            m_Assembler = null;
+        else
+            m_Assembler = p_Assembler.m_ID;
+
+        RecordManager.GetInstance().RobotControllerOrders.Update(this);
+
         return true;
     }
 }

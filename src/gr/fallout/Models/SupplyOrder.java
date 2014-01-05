@@ -1,5 +1,8 @@
 package gr.fallout.Models;
 
+import gr.fallout.Store.RecordManager;
+
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +12,7 @@ public class SupplyOrder extends Identifiable
 
     private float m_Tax;
 
-    private List<SupplyOrderItem> m_Items;
+    private Collection<Integer> m_Items;
 
     public Date SubmissionDate()
     {
@@ -33,14 +36,25 @@ public class SupplyOrder extends Identifiable
         return true;
     }
 
-    public List<SupplyOrderItem> Items()
+    public boolean AddItem(SupplyOrderItem p_Item)
     {
-        return m_Items;
+        if (m_Items.contains(p_Item.m_ID))
+            return false;
+
+        m_Items.add(p_Item.m_ID);
+        RecordManager.GetInstance().SupplyOrders.Update(this);
+
+        return true;
     }
 
-    public boolean Items(List<SupplyOrderItem> p_Items)
+    public boolean RemoveItem(SupplyOrderItem p_Item)
     {
-        m_Items = p_Items;
+        if (!m_Items.contains(p_Item.m_ID))
+            return false;
+
+        m_Items.remove(p_Item.m_ID);
+        RecordManager.GetInstance().SupplyOrders.Update(this);
+
         return true;
     }
 }

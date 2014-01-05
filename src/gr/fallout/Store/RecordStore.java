@@ -82,6 +82,17 @@ public class RecordStore<T>
         Persist();
     }
 
+    public Collection<T> Get(Collection<Integer> p_IDs)
+    {
+        Collection<T> s_Results = new ArrayList<T>();
+
+        for (Identifiable s_Record : m_Records.values())
+            if (p_IDs.contains(s_Record.m_ID))
+                s_Results.add((T)s_Record);
+
+        return s_Results;
+    }
+
     public Collection<T> GetAll()
     {
         return (Collection<T>)m_Records.values();

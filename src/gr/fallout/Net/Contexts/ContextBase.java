@@ -25,6 +25,8 @@ public abstract class ContextBase implements HttpHandler
     private LinkedHashMap<String, Class<?>> m_Routes;
     private LinkedHashMap<String, String> m_RoutePatterns;
 
+    protected String m_ContextBase;
+
     protected ContextBase()
     {
         m_Routes = new LinkedHashMap<String, Class<?>>();
@@ -73,7 +75,7 @@ public abstract class ContextBase implements HttpHandler
                 }
 
                 // Create our controller
-                Controller s_Controller = (Controller)m_Routes.get(s_Entry.getValue()).getConstructor(HttpExchange.class, s_Params.getClass()).newInstance(p_Exchange, s_Params);
+                Controller s_Controller = (Controller)m_Routes.get(s_Entry.getValue()).getConstructor(HttpExchange.class, s_Params.getClass(), String.class).newInstance(p_Exchange, s_Params, m_ContextBase);
                 Response s_Response = s_Controller.Execute();
 
                 if (s_Response == null)

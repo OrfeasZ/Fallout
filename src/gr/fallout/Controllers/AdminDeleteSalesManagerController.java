@@ -20,9 +20,9 @@ public class AdminDeleteSalesManagerController extends Controller
 
     private SalesManager m_SalesManager;
 
-    public AdminDeleteSalesManagerController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public AdminDeleteSalesManagerController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase);
     }
 
     @Override

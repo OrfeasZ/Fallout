@@ -22,9 +22,9 @@ public class StorageStockController extends Controller
     private List<RobotMotherboard> m_RobotMotherboards;
     private List<RobotRAM> m_RobotRAMs;
 
-    public StorageStockController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public StorageStockController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase);
     }
 
     @Override

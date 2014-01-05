@@ -18,6 +18,8 @@ public class SupplyContext extends ContextBase
     {
         super();
 
+        m_ContextBase = "/supplier/";
+
         RegisterRoute("/supplier", SupplierDashboardController.class);
         RegisterRoute("/supplier/login", SupplierLoginController.class);
         RegisterRoute("/supplier/logout", SupplierLogoutController.class);

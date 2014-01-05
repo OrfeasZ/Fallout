@@ -26,9 +26,9 @@ public class AdminDashboardController extends ProtectedController<Administrator>
     private Collection<SalesManager> m_SalesManagers;
     private Collection<StorageManager> m_StorageManagers;
 
-    public AdminDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public AdminDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params, "/admin/login", "fo_admin_sid");
+        super(p_Exchange, p_Params, p_ContextBase, "fo_admin_sid");
 
         m_Administrator = m_User;
 

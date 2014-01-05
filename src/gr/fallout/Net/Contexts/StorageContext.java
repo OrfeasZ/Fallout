@@ -15,6 +15,8 @@ public class StorageContext extends ContextBase
     {
         super();
 
+        m_ContextBase = "/storage/";
+
         RegisterRoute("/storage", StorageDashboardController.class);
         RegisterRoute("/storage/login", StorageLoginController.class);
         RegisterRoute("/storage/logout", StorageLogoutController.class);

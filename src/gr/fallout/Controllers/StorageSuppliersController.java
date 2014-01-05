@@ -20,9 +20,9 @@ public class StorageSuppliersController extends Controller
 
     private List<Supplier> m_Suppliers;
 
-    public StorageSuppliersController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public StorageSuppliersController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase);
     }
 
     @Override

@@ -20,14 +20,12 @@ public abstract class ProtectedController<T> extends Controller
 {
     protected T m_User;
 
-    private boolean m_LoggedIn;
-    private String m_LoginURI;
+    protected boolean m_LoggedIn;
 
-    public ProtectedController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_LoginURI, String p_CookieName)
+    public ProtectedController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase, String p_CookieName)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase);
         m_LoggedIn = false;
-        m_LoginURI = p_LoginURI;
 
         HashMap<String, String> s_Cookies = Util.GetCookies(p_Exchange);
 
@@ -45,7 +43,7 @@ public abstract class ProtectedController<T> extends Controller
     public Response Execute()
     {
         if (!m_LoggedIn)
-            return new RedirectResponse(m_LoginURI);
+            return new RedirectResponse(m_ContextBase + "login/");
         return null;
     }
 }

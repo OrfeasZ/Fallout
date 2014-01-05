@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class CustomerLoginController extends Controller
 {
-    public CustomerLoginController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public CustomerLoginController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase);
     }
 
     @Override

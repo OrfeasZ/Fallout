@@ -15,6 +15,8 @@ public class CustomerContext extends ContextBase
     {
         super();
 
+        m_ContextBase = "/";
+
         RegisterRoute("/", CustomerDashboardController.class);
         RegisterRoute("/login", CustomerLoginController.class);
         RegisterRoute("/logout", CustomerLogoutController.class);

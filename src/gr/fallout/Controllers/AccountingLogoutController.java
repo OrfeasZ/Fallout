@@ -16,9 +16,9 @@ import java.util.List;
 
 public class AccountingLogoutController extends ProtectedController<AccountingManager>
 {
-    public AccountingLogoutController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public AccountingLogoutController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params, "/accounting/login", "fo_acct_sid");
+        super(p_Exchange, p_Params, p_ContextBase, "fo_acct_sid");
     }
 
     @Override

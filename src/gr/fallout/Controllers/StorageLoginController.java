@@ -14,9 +14,9 @@ import java.util.List;
  */
 public class StorageLoginController extends Controller
 {
-    public StorageLoginController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public StorageLoginController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase);
     }
 
     @Override

@@ -15,6 +15,8 @@ public class AdminContext extends ContextBase
     {
         super();
 
+        m_ContextBase = "/admin/";
+
         RegisterRoute("/admin", AdminDashboardController.class);
         RegisterRoute("/admin/login", AdminLoginController.class);
         RegisterRoute("/admin/logout", AdminLogoutController.class);

@@ -20,9 +20,9 @@ public class CustomerPayOrderController extends Controller
 
     private CustomerOrder m_Order;
 
-    public CustomerPayOrderController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public CustomerPayOrderController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase);
     }
 
     @Override

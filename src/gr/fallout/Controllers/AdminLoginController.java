@@ -21,16 +21,21 @@ import java.util.List;
  *
  * @author OrfeasZ, NikosF
  */
-public class AdminLoginController extends Controller
+
+public class AdminLoginController extends ProtectedController<Administrator>
 {
-    public AdminLoginController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public AdminLoginController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase, "fo_admin_sid");
     }
 
     @Override
     public Response Execute()
     {
+        // We should be redirected to the dashboard if we're already logged in.
+        if (m_LoggedIn)
+            return new RedirectResponse(m_ContextBase);
+
         if (m_Exchange.getRequestMethod().equalsIgnoreCase("POST"))
         {
             StandardLoginValidator s_Validator = new StandardLoginValidator();

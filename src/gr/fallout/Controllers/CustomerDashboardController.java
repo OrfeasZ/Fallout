@@ -21,9 +21,9 @@ public class CustomerDashboardController extends ProtectedController<Customer>
 
     private List<CustomerOrder> m_CustomerOrders;
 
-    public CustomerDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public CustomerDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params, "/login", "fo_cust_sid");
+        super(p_Exchange, p_Params, p_ContextBase, "fo_cust_sid");
     }
 
     @Override

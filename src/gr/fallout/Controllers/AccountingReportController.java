@@ -25,9 +25,9 @@ public class AccountingReportController extends Controller
 
     private List<CustomerOrder> m_CustomerOrders;
 
-    public AccountingReportController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public AccountingReportController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase);
         System.out.println("Viewing report with id " + p_Params.get("id"));
     }
 

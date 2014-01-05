@@ -20,9 +20,9 @@ public class AdminDeleteStorageManagerController extends Controller
 
     private StorageManager m_StorageManager;
 
-    public AdminDeleteStorageManagerController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public AdminDeleteStorageManagerController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase);
     }
 
     @Override

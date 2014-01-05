@@ -18,6 +18,8 @@ public class AccountingContext extends ContextBase
     {
         super();
 
+        m_ContextBase = "/accounting/";
+
         RegisterRoute("/accounting", AccountingDashboardController.class);
         RegisterRoute("/accounting/login", AccountingLoginController.class);
         RegisterRoute("/accounting/logout", AccountingLogoutController.class);

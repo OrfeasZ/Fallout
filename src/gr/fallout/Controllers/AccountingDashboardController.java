@@ -23,9 +23,9 @@ public class AccountingDashboardController extends Controller
 
     private int m_DaysToNextReport;
 
-    public AccountingDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public AccountingDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase);
     }
 
     private List<Report> GetAllReports()

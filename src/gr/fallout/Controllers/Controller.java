@@ -18,10 +18,13 @@ public abstract class Controller
 
     protected HashMap<String, List<String>> m_Params;
 
-    public Controller(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    protected String m_ContextBase;
+
+    public Controller(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
         m_Exchange = p_Exchange;
         m_Params = p_Params;
+        m_ContextBase = p_ContextBase;
     }
 
     public abstract Response Execute();

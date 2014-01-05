@@ -20,9 +20,9 @@ public class SalesAssignOrderController extends Controller
 
     private CustomerOrder m_Order;
 
-    public SalesAssignOrderController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public SalesAssignOrderController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase);
     }
 
     @Override

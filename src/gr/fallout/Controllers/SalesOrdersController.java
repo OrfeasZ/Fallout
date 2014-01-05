@@ -23,9 +23,9 @@ public class SalesOrdersController extends Controller
     private List<CustomerOrder> m_PendingOrders;
     private List<CustomerOrder> m_DeliveredOrders;
 
-    public SalesOrdersController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params)
+    public SalesOrdersController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params);
+        super(p_Exchange, p_Params, p_ContextBase);
     }
 
     @Override

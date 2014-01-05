@@ -15,6 +15,8 @@ public class AssemblyContext extends ContextBase
     {
         super();
 
+        m_ContextBase = "/assembly/";
+
         RegisterRoute("/assembly", AssemblyDashboardController.class);
         RegisterRoute("/assembly/login", AssemblyLoginController.class);
         RegisterRoute("/assembly/logout", AssemblyLogoutController.class);

@@ -40,7 +40,7 @@
 
             $(p_Element).attr('href', '#' + $(p_Element).attr('data-modal-id'));
 
-            $(p_Element).leanModal({ closeButton: '.icon-close' });
+            $(p_Element).leanModal({ closeButton: '.btn-close' });
         });
     });
 })(jQuery);

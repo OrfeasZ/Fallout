@@ -52,7 +52,7 @@ public class AdminLoginController extends ProtectedController<Administrator>
 
             for (Administrator s_Admin : s_Admins)
             {
-                if (s_Admin.Username().equals(s_Username) && s_Admin.Password().equals(s_Password))
+                if (s_Admin.Username().equalsIgnoreCase(s_Username) && s_Admin.Password().equals(s_Password))
                 {
                     String s_SessionID = SessionManager.GetInstance().CreateUserSession(s_Admin);
                     Util.SetCookie(m_Exchange, "fo_admin_sid", s_SessionID);

@@ -32,6 +32,7 @@ public class AdminDashboardController extends ProtectedController<Administrator>
 
         m_Administrator = m_User;
 
+        // TODO: Security concern!!! Password is exposed to the frontend.
         m_AccountingManagers = RecordManager.GetInstance().AccountingManagers.GetAll();
         m_Assemblers = RecordManager.GetInstance().Assemblers.GetAll();
         m_SalesManagers = RecordManager.GetInstance().SalesManagers.GetAll();

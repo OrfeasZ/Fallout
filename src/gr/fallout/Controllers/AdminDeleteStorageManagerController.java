@@ -3,7 +3,12 @@ package gr.fallout.Controllers;
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.Administrator;
 import gr.fallout.Models.StorageManager;
+import gr.fallout.Models.StorageManager;
 import gr.fallout.Net.Response;
+import gr.fallout.Responses.ErrorResponse;
+import gr.fallout.Responses.RedirectResponse;
+import gr.fallout.Store.RecordManager;
+import gr.fallout.Validators.AdminDeleteStorageManagerValidator;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,20 +19,36 @@ import java.util.List;
  *
  * @author OrfeasZ, NikosF
  */
-public class AdminDeleteStorageManagerController extends Controller
+public class AdminDeleteStorageManagerController extends ProtectedController<Administrator>
 {
-    private Administrator m_Administrator;
-
-    private StorageManager m_StorageManager;
-
     public AdminDeleteStorageManagerController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params, p_ContextBase);
+        super(p_Exchange, p_Params, p_ContextBase, "fo_admin_sid");
     }
 
     @Override
     public Response Execute()
     {
-        return null;
+        Response s_Base = super.Execute();
+        if (s_Base != null)
+            return s_Base;
+
+        AdminDeleteStorageManagerValidator s_Validator = new AdminDeleteStorageManagerValidator();
+        List<String> s_Errors = s_Validator.Validate(m_Params);
+
+        // Always return the first error
+        if (s_Errors != null && !s_Errors.isEmpty())
+            return new ErrorResponse(s_Errors.get(0));
+
+        Integer s_UserID = Integer.parseInt(m_Params.get("user_id").get(0));
+
+        StorageManager s_StorageManager = RecordManager.GetInstance().StorageManagers.Get(s_UserID);
+
+        if (s_StorageManager == null)
+            return new ErrorResponse("The specified Storage Manager doesn't exist.");
+
+        RecordManager.GetInstance().StorageManagers.Remove(s_StorageManager);
+
+        return new RedirectResponse(m_ContextBase);
     }
 }

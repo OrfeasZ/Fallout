@@ -26,7 +26,9 @@ header section#logo {
     padding-top: 49px;
 }
 
-header nav {
+nav#mainNav {
+    color: #afb1b6;
+    text-align: center;
     font-weight: bold;
     font-size: 10px;
     text-transform: uppercase;
@@ -36,17 +38,20 @@ header nav {
     border-top: 1px solid #3f424b;
     border-bottom: 1px solid #26272b;
     position: absolute;
-    bottom: 0;
-    top: auto;
+    top: 200px;
     z-index: 2;
 }
 
-header nav ul {
+nav#mainNav a {
+    color: #afb1b6;
+}
+
+nav#mainNav ul {
     margin: 0;
     padding: 0;
 }
 
-header nav ul li {
+nav#mainNav ul li {
     list-style: none;
     display: inline-block;
     line-height: 50px;
@@ -58,23 +63,23 @@ header nav ul li {
     cursor: pointer;
 }
 
-header nav ul li [class^="icon-"], header nav ul li [class*=" icon-"] {
+nav#mainNav ul li [class^="icon-"], nav#mainNav ul li [class*=" icon-"] {
     margin-right: 10px;
     float: left;
     line-height: 50px;
     font-size: 16px;
 }
 
-header nav ul li.text {
+nav#mainNav ul li.text {
     float: left;
     line-height: 50px;
 }
 
-header nav ul li:hover {
+nav#mainNav ul li:hover {
     background: #32343a;
 }
 
-header nav ul li.active {
+nav#mainNav ul li.active {
     -webkit-box-shadow: 0 0 0 1px #1d1e24 inset;
     -moz-box-shadow: 0 0 0 1px #1d1e24 inset;
     box-shadow: 0 0 0 1px #1d1e24 inset;
@@ -230,21 +235,21 @@ ul.side-nav-list li .text {
     float: left;
 }
 
-nav#side-nav {
+nav.side-nav {
     position: relative;
     top: auto;
 }
 
-nav#side-nav.affix {
+nav.side-nav.affix {
     position: fixed;
     top: 81px;
 }
 
-nav#side-nav.affix-bottom {
+nav.side-nav.affix-bottom {
     position: absolute;
 }
 
-header nav.affix {
+nav#mainNav.affix {
     position: fixed;
     bottom: auto;
     top: 0;
@@ -277,6 +282,19 @@ strong.blue {
     border: 0;
 }
 
+.btn.btn-nav {
+    width: 190px;
+    height: 37px;
+    margin: 10px 10px 0;
+    text-align: center;
+    line-height: 37px;
+}
+
+.btn.btn-nav [class^="icon-"], .btn.btn-nav [class*=" icon-"], .btn.btn-nav .text {
+    line-height: 37px;
+    text-align: center;
+}
+
 .btn:hover, button:hover {
     background: #000;
 }
@@ -304,6 +322,14 @@ button [class^="icon-"], button [class*=" icon-"] {
 
 .btn.btn-blue:hover, button.btn-blue:hover {
     background: #2d9eff;
+}
+
+.btn.btn-red, button.btn-red {
+    background: #fe5154;
+}
+
+.btn.btn-red:hover, button.btn-red:hover {
+    background: #fe4241;
 }
 
 ul.list-btns {
@@ -454,4 +480,10 @@ input[type="text"], input[type="password"] {
 
 .select-choices ul li:nth-child(2n) {
     background: #fafafa;
+}
+
+.modal .content span {
+    display: block;
+    margin: 5px 2px 15px 2px;
+    color: #6d6d6d;
 }

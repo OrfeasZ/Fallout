@@ -50,7 +50,7 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
         Gson s_Gson = new Gson();
 
         if (s_Item == null || s_Item.Arrived())
-            return new Response(s_Gson.toJson(false));
+            return new Response(s_Gson.toJson(false), 200, "application/json");
 
         s_Item.Arrived(true);
 
@@ -93,6 +93,6 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
             }
         }
 
-        return new Response(s_Gson.toJson(true));
+        return new Response(s_Gson.toJson(true), 200, "application/json");
     }
 }

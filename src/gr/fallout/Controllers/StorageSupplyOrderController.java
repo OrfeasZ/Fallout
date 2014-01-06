@@ -55,6 +55,6 @@ public class StorageSupplyOrderController extends ProtectedController<StorageMan
         if (s_Order == null)
             return new ErrorResponse("The specified order could not be found.");
 
-        return new Response(new Gson().toJson(s_Order.Items()));
+        return new Response(new Gson().toJson(s_Order.Items()), 200, "application/json");
     }
 }

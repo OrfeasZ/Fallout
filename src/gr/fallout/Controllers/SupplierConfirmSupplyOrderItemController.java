@@ -49,10 +49,10 @@ public class SupplierConfirmSupplyOrderItemController extends ProtectedControlle
         Gson s_Gson = new Gson();
 
         if (s_Item == null || s_Item.PaymentConfirmed())
-            return new Response(s_Gson.toJson(false));
+            return new Response(s_Gson.toJson(false), 200, "application/json");
 
         s_Item.PaymentConfirmed(true);
 
-        return new Response(s_Gson.toJson(true));
+        return new Response(s_Gson.toJson(true), 200, "application/json");
     }
 }

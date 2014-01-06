@@ -35,6 +35,10 @@ public class CustomerOrder extends Identifiable
 
     private Collection<Integer> m_ControllerOrders;
 
+    private Integer m_Assembler;
+
+    private boolean m_Delivered;
+
     public CustomerOrder()
     {
         m_ControllerOrders = new ArrayList<Integer>();
@@ -88,6 +92,18 @@ public class CustomerOrder extends Identifiable
         return true;
     }
 
+    public boolean Delivered()
+    {
+        return m_Delivered;
+    }
+
+    public boolean Delivered(boolean p_Delivered)
+    {
+        m_Delivered = p_Delivered;
+        RecordManager.GetInstance().CustomerOrders.Update(this);
+        return true;
+    }
+
     public Customer Customer()
     {
         if (m_Customer == null)
@@ -102,6 +118,29 @@ public class CustomerOrder extends Identifiable
             m_Customer = null;
         else
             m_Customer = p_Customer.m_ID;
+
+        RecordManager.GetInstance().CustomerOrders.Update(this);
+
+        return true;
+    }
+
+    public Assembler Assembler()
+    {
+        if (m_Assembler == null)
+            return null;
+
+        return RecordManager.GetInstance().Assemblers.Get(m_Assembler);
+    }
+
+    public boolean Assembler(Assembler p_Assembler)
+    {
+        if (p_Assembler == null)
+            m_Assembler = null;
+        else
+            m_Assembler = p_Assembler.m_ID;
+
+        for (RobotControllerOrder s_Order : ControllerOrders())
+            s_Order.Assembler(p_Assembler);
 
         RecordManager.GetInstance().CustomerOrders.Update(this);
 
@@ -133,6 +172,11 @@ public class CustomerOrder extends Identifiable
         RecordManager.GetInstance().CustomerOrders.Update(this);
 
         return true;
+    }
+
+    public boolean IsAssembled()
+    {
+        return false;
     }
 }
 

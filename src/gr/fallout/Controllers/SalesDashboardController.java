@@ -1,9 +1,15 @@
 package gr.fallout.Controllers;
 
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
+import gr.fallout.Models.Customer;
+import gr.fallout.Models.CustomerOrder;
 import gr.fallout.Models.SalesManager;
 import gr.fallout.Net.Response;
+import gr.fallout.Responses.AppViewResponse;
+import gr.fallout.Store.RecordManager;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,18 +19,59 @@ import java.util.List;
  *
  * @author OrfeasZ, NikosF
  */
-public class SalesDashboardController extends Controller
+public class SalesDashboardController extends ProtectedController<SalesManager>
 {
-    private SalesManager m_Manager;
+    private Collection<Customer> m_Customers;
+
+    private Collection<CustomerOrder> m_UnassignedOrders;
+    private Collection<CustomerOrder> m_UndeliveredOrders;
+    private Collection<CustomerOrder> m_PendingOrders;
+    private Collection<CustomerOrder> m_DeliveredOrders;
 
     public SalesDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
-        super(p_Exchange, p_Params, p_ContextBase);
+        super(p_Exchange, p_Params, p_ContextBase, "fo_sales_sid");
+
+        m_Customers = RecordManager.GetInstance().Customers.GetAll();
+
+        Collection<CustomerOrder> s_Orders = RecordManager.GetInstance().CustomerOrders.GetAll();
+
+        for (CustomerOrder s_Order : s_Orders)
+        {
+            if (s_Order.Assembler() == null)
+            {
+                m_UnassignedOrders.add(s_Order);
+            }
+            else if (s_Order.Assembler() != null && !s_Order.IsAssembled())
+            {
+                m_PendingOrders.add(s_Order);
+            }
+            else if (s_Order.Assembler() != null && s_Order.IsAssembled() && !s_Order.Delivered())
+            {
+                m_UndeliveredOrders.add(s_Order);
+            }
+            else
+            {
+                m_DeliveredOrders.add(s_Order);
+            }
+        }
     }
 
     @Override
     public Response Execute()
     {
-        return null;
+        Response s_Base = super.Execute();
+        if (s_Base != null)
+            return s_Base;
+
+        final Gson s_Gson = new Gson();
+
+        return new AppViewResponse("SalesDashboard", new HashMap<String, String>() {{
+            put("customers", s_Gson.toJson(m_Customers));
+            put("unassigned_orders", s_Gson.toJson(m_UnassignedOrders));
+            put("pending_orders", s_Gson.toJson(m_PendingOrders));
+            put("undelivered_orders", s_Gson.toJson(m_UndeliveredOrders));
+            put("delivered_orders", s_Gson.toJson(m_DeliveredOrders));
+        }}, "Fallout - Sales Dashboard");
     }
 }

@@ -3,6 +3,8 @@ package gr.fallout.Controllers;
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.Customer;
 import gr.fallout.Net.Response;
+import gr.fallout.Net.Util;
+import gr.fallout.Responses.RedirectResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +29,8 @@ public class CustomerLogoutController extends ProtectedController<Customer>
         if (s_Base != null)
             return s_Base;
 
-        return null;
+        Util.SetCookie(m_Exchange, "fo_cust_sid", "expired");
+
+        return new RedirectResponse(m_ContextBase + "login/");
     }
 }

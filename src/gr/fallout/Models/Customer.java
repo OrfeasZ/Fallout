@@ -23,6 +23,8 @@ public class Customer extends Identifiable
 
     private String m_Name;
 
+    private String m_Username;
+
     private String m_Password;
 
     private int m_Phone;
@@ -80,6 +82,18 @@ public class Customer extends Identifiable
     public boolean Name(String p_Name)
     {
         m_Name = p_Name;
+        RecordManager.GetInstance().Customers.Update(this);
+        return true;
+    }
+
+    public String Username()
+    {
+        return m_Username;
+    }
+
+    public boolean Username(String p_Username)
+    {
+        m_Username = p_Username;
         RecordManager.GetInstance().Customers.Update(this);
         return true;
     }

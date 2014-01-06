@@ -26,7 +26,7 @@ public class WebServer
     private void RegisterContexts()
     {
         m_Server.createContext("/", new CustomerContext()).getFilters().add(new ParameterFilter());
-        m_Server.createContext("/supply", new SupplyContext()).getFilters().add(new ParameterFilter());
+        m_Server.createContext("/supplier", new SupplyContext()).getFilters().add(new ParameterFilter());
         m_Server.createContext("/accounting", new AccountingContext()).getFilters().add(new ParameterFilter());
         m_Server.createContext("/sales", new SalesContext()).getFilters().add(new ParameterFilter());
         m_Server.createContext("/assembly", new AssemblyContext()).getFilters().add(new ParameterFilter());

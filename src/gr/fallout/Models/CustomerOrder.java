@@ -18,7 +18,9 @@ public class CustomerOrder extends Identifiable
 {
     public enum OrderStatus
     {
-        // TODO
+        Pending,
+        Assembled,
+        Delivered
     }
 
     private int m_OrderID;

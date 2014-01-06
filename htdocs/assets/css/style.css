@@ -430,9 +430,15 @@ input[type="text"], input[type="password"] {
     user-select: none;
 }
 
-.select span {
+.select.small {
     display: inline-block;
-    line-height: 36px;
+    width: 100px;
+}
+
+.select span {
+    display: inline-block !important;
+    margin: 0 !important;
+    line-height: 36px !important;
 }
 
 .select.expanded {
@@ -455,6 +461,11 @@ input[type="text"], input[type="password"] {
     text-align: center;
 
     margin-top: -12px; /* REMOVE ME */
+}
+
+.select-choices.small {
+    display: inline-block;
+    width: 120px;
 }
 
 .select-choices ul {

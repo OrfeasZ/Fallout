@@ -23,17 +23,9 @@ import java.util.List;
  */
 public class AssemblyDashboardController extends ProtectedController<Assembler>
 {
-    private Assembler m_Assembler;
-
-    private List<RobotControllerOrder> m_PendingOrders;
-
-    private List<RobotControllerOrder> m_InProgressOrders;
-
     public AssemblyDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
         super(p_Exchange, p_Params, p_ContextBase, "fo_assembly_sid");
-
-        m_Assembler = m_User;
     }
 
     @Override
@@ -43,7 +35,7 @@ public class AssemblyDashboardController extends ProtectedController<Assembler>
         if (s_Base != null)
             return s_Base;
 
-        Collection<RobotControllerOrder> s_Orders = m_Assembler.AssignedOrders();
+        Collection<RobotControllerOrder> s_Orders = m_User.AssignedOrders();
 
         // Get pending orders
         final Collection<RobotControllerOrder> s_PendingOrders = new ArrayList<RobotControllerOrder>();
@@ -51,6 +43,10 @@ public class AssemblyDashboardController extends ProtectedController<Assembler>
 
         for (RobotControllerOrder s_Order : s_Orders)
         {
+            // We don't want Orders pending supply
+            if (s_Order.SupplyOrder() != null)
+                continue;
+
             if (s_Order.AssemblyInitiationDate() != null && s_Order.AssemblyCompletionDate() == null)
                 s_InProgressOrders.add(s_Order);
             else if (s_Order.AssemblyInitiationDate() == null && s_Order.AssemblyCompletionDate() == null)

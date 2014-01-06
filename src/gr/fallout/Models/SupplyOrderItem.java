@@ -16,6 +16,8 @@ public class SupplyOrderItem extends Identifiable
 
     private Integer m_PartTemplate;
 
+    private Integer m_SupplyOrder;
+
     public boolean Arrived()
     {
         return m_Arrived;
@@ -25,6 +27,9 @@ public class SupplyOrderItem extends Identifiable
     {
         m_Arrived = p_Arrived;
         RecordManager.GetInstance().SupplyOrderItems.Update(this);
+
+        SupplyOrder().UpdateControllerOrder();
+
         return true;
     }
 
@@ -78,6 +83,25 @@ public class SupplyOrderItem extends Identifiable
             m_Supplier = null;
         else
             m_Supplier = p_Supplier.m_ID;
+
+        RecordManager.GetInstance().SupplyOrderItems.Update(this);
+        return true;
+    }
+
+    public SupplyOrder SupplyOrder()
+    {
+        if (m_SupplyOrder == null)
+            return null;
+
+        return RecordManager.GetInstance().SupplyOrders.Get(m_SupplyOrder);
+    }
+
+    public boolean SupplyOrder(SupplyOrder p_SupplyOrder)
+    {
+        if (p_SupplyOrder == null)
+            m_SupplyOrder = null;
+        else
+            m_SupplyOrder = p_SupplyOrder.m_ID;
 
         RecordManager.GetInstance().SupplyOrderItems.Update(this);
         return true;

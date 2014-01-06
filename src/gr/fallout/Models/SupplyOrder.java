@@ -14,6 +14,8 @@ public class SupplyOrder extends Identifiable
 
     private Collection<Integer> m_Items;
 
+    private Integer m_ControllerOrder;
+
     public Date SubmissionDate()
     {
         return m_SubmissionDate;
@@ -64,4 +66,34 @@ public class SupplyOrder extends Identifiable
 
         return true;
     }
+
+    public RobotControllerOrder ControllerOrder()
+    {
+        if (m_ControllerOrder == null)
+            return null;
+
+        return RecordManager.GetInstance().RobotControllerOrders.Get(m_ControllerOrder);
+    }
+
+    public boolean ControllerOrder(RobotControllerOrder p_ControllerOrder)
+    {
+        if (p_ControllerOrder == null)
+            m_ControllerOrder = null;
+        else
+            m_ControllerOrder = p_ControllerOrder.m_ID;
+
+        RecordManager.GetInstance().SupplyOrders.Update(this);
+        return true;
+    }
+
+    public void UpdateControllerOrder()
+    {
+        for (SupplyOrderItem s_Item : Items())
+            if (!s_Item.Arrived())
+                return;
+
+        // ControllerOrder is now ready for assembly
+        ControllerOrder().SupplyOrder(null);
+    }
+
 }

@@ -26,15 +26,10 @@ import java.util.List;
  */
 public class AssemblyStartControllerOrderAssemblyController extends ProtectedController<Assembler>
 {
-    private Assembler m_Assembler;
-
-    private RobotControllerOrder m_Order;
 
     public AssemblyStartControllerOrderAssemblyController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
         super(p_Exchange, p_Params, p_ContextBase, "fo_assembly_sid");
-
-        m_Assembler = m_User;
     }
 
     @Override
@@ -58,7 +53,7 @@ public class AssemblyStartControllerOrderAssemblyController extends ProtectedCon
         Float s_WarrantyCost = Float.parseFloat(m_Params.get("warranty").get(0));
         Float s_HourlyRate = Float.parseFloat(m_Params.get("rate").get(0));
 
-        Collection<RobotControllerOrder> s_Orders = m_Assembler.AssignedOrders();
+        Collection<RobotControllerOrder> s_Orders = m_User.AssignedOrders();
 
         RobotControllerOrder s_Order = null;
 

@@ -19,8 +19,6 @@ import java.util.List;
  */
 public class AdminDashboardController extends ProtectedController<Administrator>
 {
-    private Administrator m_Administrator;
-
     private Collection<AccountingManager> m_AccountingManagers;
     private Collection<Assembler> m_Assemblers;
     private Collection<SalesManager> m_SalesManagers;
@@ -29,8 +27,6 @@ public class AdminDashboardController extends ProtectedController<Administrator>
     public AdminDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
         super(p_Exchange, p_Params, p_ContextBase, "fo_admin_sid");
-
-        m_Administrator = m_User;
 
         // TODO: Security concern!!! Password is exposed to the frontend.
         m_AccountingManagers = RecordManager.GetInstance().AccountingManagers.GetAll();

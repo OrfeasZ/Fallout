@@ -22,9 +22,6 @@ public class CustomerOrder extends Identifiable
         Assembled,
         Delivered
     }
-
-    private int m_OrderID;
-
     private float m_PaidSum;
 
     private OrderStatus m_Status;
@@ -42,18 +39,6 @@ public class CustomerOrder extends Identifiable
     public CustomerOrder()
     {
         m_ControllerOrders = new ArrayList<Integer>();
-    }
-
-    public int OrderID()
-    {
-        return m_OrderID;
-    }
-
-    public boolean OrderID(int p_OrderID)
-    {
-        m_OrderID = p_OrderID;
-        RecordManager.GetInstance().CustomerOrders.Update(this);
-        return true;
     }
 
     public float PaidSum()

@@ -17,14 +17,9 @@ import java.util.List;
  * @author OrfeasZ, NikosF
  */
 public class SupplierDashboardController extends ProtectedController<Supplier>
-{
-    private Supplier m_Supplier;
-
-    public SupplierDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
+{    public SupplierDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
         super(p_Exchange, p_Params, p_ContextBase, "fo_supply_sid");
-
-        m_Supplier = m_User;
     }
 
     @Override
@@ -35,7 +30,7 @@ public class SupplierDashboardController extends ProtectedController<Supplier>
             return s_Base;
 
         return new AppViewResponse("SupplierDashboard", new HashMap<String, String>() {{
-            put("items", new Gson().toJson(m_Supplier.Items()));
+            put("items", new Gson().toJson(m_User.Items()));
         }}, "Fallout - Supplier Dashboard");
     }
 }

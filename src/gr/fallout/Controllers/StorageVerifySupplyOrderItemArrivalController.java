@@ -64,6 +64,7 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
                 case Case:
                 {
                     RobotCase s_Case = new RobotCase();
+                    s_Case.Used(false);
                     s_Case.Size(((RobotCase)s_Template).Size());
                     RecordManager.GetInstance().RobotCases.Insert(s_Case);
                     break;
@@ -71,6 +72,7 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
                 case CPU:
                 {
                     RobotCPU s_CPU = new RobotCPU();
+                    s_CPU.Used(false);
                     s_CPU.SocketType(((RobotCPU) s_Template).SocketType());
                     RecordManager.GetInstance().RobotCPUs.Insert(s_CPU);
                     break;
@@ -78,6 +80,7 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
                 case Motherboard:
                 {
                     RobotMotherboard s_Motherboard = new RobotMotherboard();
+                    s_Motherboard.Used(false);
                     s_Motherboard.Model(((RobotMotherboard) s_Template).Model());
                     RecordManager.GetInstance().RobotMotherboards.Insert(s_Motherboard);
                     break;
@@ -85,6 +88,7 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
                 case RAM:
                 {
                     RobotRAM s_RAM = new RobotRAM();
+                    s_RAM.Used(false);
                     s_RAM.Capacity(((RobotRAM) s_Template).Capacity());
                     s_RAM.Type(((RobotRAM) s_Template).Type());
                     RecordManager.GetInstance().RobotRAMs.Insert(s_RAM);

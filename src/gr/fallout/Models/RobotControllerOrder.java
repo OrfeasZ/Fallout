@@ -33,6 +33,7 @@ public class RobotControllerOrder extends Identifiable
     public boolean AssemblyCompletionDate(Date p_AssemblyCompletionDate)
     {
         m_AssemblyCompletionDate = p_AssemblyCompletionDate;
+        RecordManager.GetInstance().RobotControllerOrders.Update(this);
         return true;
     }
 
@@ -44,6 +45,7 @@ public class RobotControllerOrder extends Identifiable
     public boolean AssemblyInitiationDate(Date p_AssemblyInitiationDate)
     {
         m_AssemblyInitiationDate = p_AssemblyInitiationDate;
+        RecordManager.GetInstance().RobotControllerOrders.Update(this);
         return true;
     }
 
@@ -55,6 +57,7 @@ public class RobotControllerOrder extends Identifiable
     public boolean HourlyRate(float p_HourlyRate)
     {
         m_HourlyRate = p_HourlyRate;
+        RecordManager.GetInstance().RobotControllerOrders.Update(this);
         return true;
     }
 

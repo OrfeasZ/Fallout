@@ -20,10 +20,7 @@ public class StorageContext extends ContextBase
         RegisterRoute("/storage", StorageDashboardController.class);
         RegisterRoute("/storage/login", StorageLoginController.class);
         RegisterRoute("/storage/logout", StorageLogoutController.class);
-        RegisterRoute("/storage/stock", StorageStockController.class);
-        RegisterRoute("/storage/suppliers", StorageSuppliersController.class);
-        RegisterRoute("/storage/orders", StorageSupplyOrdersController.class);
         RegisterRoute("/storage/order/:order_id", StorageSupplyOrderController.class);
-        RegisterRoute("/storage/order/:order_id/item/:item_id/verify", StorageVerifySupplyOrderItemArrivalController.class);
+        RegisterRoute("/storage/item/:item_id/verify", StorageVerifySupplyOrderItemArrivalController.class);
     }
 }

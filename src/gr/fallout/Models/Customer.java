@@ -44,6 +44,7 @@ public class Customer extends Identifiable
     public boolean Address(String p_Address)
     {
         m_Address = p_Address;
+        RecordManager.GetInstance().Customers.Update(this);
         return true;
     }
 
@@ -55,6 +56,7 @@ public class Customer extends Identifiable
     public boolean Email(String p_Email)
     {
         m_Email = p_Email;
+        RecordManager.GetInstance().Customers.Update(this);
         return true;
     }
 
@@ -66,6 +68,7 @@ public class Customer extends Identifiable
     public boolean Fax(int p_Fax)
     {
         m_Fax = p_Fax;
+        RecordManager.GetInstance().Customers.Update(this);
         return true;
     }
 
@@ -77,6 +80,7 @@ public class Customer extends Identifiable
     public boolean Name(String p_Name)
     {
         m_Name = p_Name;
+        RecordManager.GetInstance().Customers.Update(this);
         return true;
     }
 
@@ -88,6 +92,7 @@ public class Customer extends Identifiable
     public boolean Password(String p_Password)
     {
         m_Password = p_Password;
+        RecordManager.GetInstance().Customers.Update(this);
         return true;
     }
 
@@ -99,6 +104,7 @@ public class Customer extends Identifiable
     public boolean Phone(int p_Phone)
     {
         m_Phone = p_Phone;
+        RecordManager.GetInstance().Customers.Update(this);
         return true;
     }
 
@@ -110,6 +116,7 @@ public class Customer extends Identifiable
     public boolean TaxID(int p_TaxID)
     {
         m_TaxID = p_TaxID;
+        RecordManager.GetInstance().Customers.Update(this);
         return true;
     }
 

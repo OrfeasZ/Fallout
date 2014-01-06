@@ -44,6 +44,11 @@ public class RecordManager
     public RecordStore<SupplyOrder> SupplyOrders;
     public RecordStore<SupplyOrderItem> SupplyOrderItems;
 
+    public RecordStore<RobotCase> CaseTemplates;
+    public RecordStore<RobotCPU> CPUTemplates;
+    public RecordStore<RobotMotherboard> MotherboardTemplates;
+    public RecordStore<RobotRAM> RAMTemplates;
+
     RecordManager()
     {
         try
@@ -161,6 +166,34 @@ public class RecordManager
         try
         {
             SupplyOrderItems = new RecordStore<SupplyOrderItem>("supp_ord_itm", new TypeToken<Collection<SupplyOrderItem>>(){}.getType());
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        try
+        {
+            CaseTemplates = new RecordStore<RobotCase>("case_tpl", new TypeToken<Collection<RobotCase>>(){}.getType());
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        try
+        {
+            CPUTemplates = new RecordStore<RobotCPU>("cpu_tpl", new TypeToken<Collection<RobotCPU>>(){}.getType());
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        try
+        {
+            MotherboardTemplates = new RecordStore<RobotMotherboard>("mobo_tpl", new TypeToken<Collection<RobotMotherboard>>(){}.getType());
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        try
+        {
+            RAMTemplates = new RecordStore<RobotRAM>("ram_tpl", new TypeToken<Collection<RobotRAM>>(){}.getType());
         } catch (IOException e)
         {
             e.printStackTrace();

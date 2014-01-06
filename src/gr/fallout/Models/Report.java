@@ -1,5 +1,7 @@
 package gr.fallout.Models;
 
+import gr.fallout.Store.RecordManager;
+
 import java.util.Date;
 
 /**
@@ -21,6 +23,7 @@ public class Report extends Identifiable
     public boolean Date(Date p_Date)
     {
         m_Date = p_Date;
+        RecordManager.GetInstance().Reports.Update(this);
         return true;
     }
 }

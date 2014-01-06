@@ -35,6 +35,7 @@ public class Assembler extends Identifiable
     public boolean Password(String p_Password)
     {
         m_Password = p_Password;
+        RecordManager.GetInstance().Assemblers.Update(this);
         return true;
     }
 
@@ -46,6 +47,7 @@ public class Assembler extends Identifiable
     public boolean Username(String p_Username)
     {
         m_Username = p_Username;
+        RecordManager.GetInstance().Assemblers.Update(this);
         return true;
     }
 
@@ -57,6 +59,7 @@ public class Assembler extends Identifiable
     public boolean Name(String p_Name)
     {
         m_Name = p_Name;
+        RecordManager.GetInstance().Assemblers.Update(this);
         return true;
     }
 

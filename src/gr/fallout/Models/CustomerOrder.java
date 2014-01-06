@@ -46,6 +46,7 @@ public class CustomerOrder extends Identifiable
     public boolean OrderID(int p_OrderID)
     {
         m_OrderID = p_OrderID;
+        RecordManager.GetInstance().CustomerOrders.Update(this);
         return true;
     }
 
@@ -57,6 +58,7 @@ public class CustomerOrder extends Identifiable
     public boolean PaidSum(float p_PaidSum)
     {
         m_PaidSum = p_PaidSum;
+        RecordManager.GetInstance().CustomerOrders.Update(this);
         return true;
     }
 
@@ -68,6 +70,7 @@ public class CustomerOrder extends Identifiable
     public boolean Status(OrderStatus p_Status)
     {
         m_Status = p_Status;
+        RecordManager.GetInstance().CustomerOrders.Update(this);
         return true;
     }
 
@@ -79,6 +82,7 @@ public class CustomerOrder extends Identifiable
     public boolean SubmissionDate(Date p_SubmissionDate)
     {
         m_SubmissionDate = p_SubmissionDate;
+        RecordManager.GetInstance().CustomerOrders.Update(this);
         return true;
     }
 

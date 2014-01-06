@@ -1,5 +1,7 @@
 package gr.fallout.Models;
 
+import gr.fallout.Store.RecordManager;
+
 /**
  * Date: 18/11/2013
  * Time: 1:23 πμ
@@ -21,6 +23,7 @@ public class SalesManager extends Identifiable
     public boolean Password(String p_Password)
     {
         m_Password = p_Password;
+        RecordManager.GetInstance().SalesManagers.Update(this);
         return true;
     }
 
@@ -32,6 +35,7 @@ public class SalesManager extends Identifiable
     public boolean Username(String p_Username)
     {
         m_Username = p_Username;
+        RecordManager.GetInstance().SalesManagers.Update(this);
         return true;
     }
 }

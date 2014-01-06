@@ -56,7 +56,7 @@ public class AdminLoginController extends ProtectedController<Administrator>
                 {
                     String s_SessionID = SessionManager.GetInstance().CreateUserSession(s_Admin);
                     Util.SetCookie(m_Exchange, "fo_admin_sid", s_SessionID);
-                    return new RedirectResponse("/admin");
+                    return new RedirectResponse(m_ContextBase);
                 }
             }
 

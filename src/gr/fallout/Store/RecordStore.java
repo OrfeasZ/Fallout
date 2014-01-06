@@ -66,6 +66,9 @@ public class RecordStore<T>
 
     public void Update(T p_Record)
     {
+        if (((Identifiable)p_Record).m_ID == null)
+            return;
+
         m_Records.put(((Identifiable)p_Record).m_ID, (Identifiable)p_Record);
         Persist();
     }
@@ -96,6 +99,11 @@ public class RecordStore<T>
     public Collection<T> GetAll()
     {
         return (Collection<T>)m_Records.values();
+    }
+
+    public Integer Count()
+    {
+        return m_Records.size();
     }
 
     private void Persist()

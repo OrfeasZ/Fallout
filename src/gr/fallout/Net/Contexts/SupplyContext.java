@@ -23,6 +23,6 @@ public class SupplyContext extends ContextBase
         RegisterRoute("/supplier", SupplierDashboardController.class);
         RegisterRoute("/supplier/login", SupplierLoginController.class);
         RegisterRoute("/supplier/logout", SupplierLogoutController.class);
-        RegisterRoute("/supplier/order/:order_id/item/:item_id/confirm", SupplierConfirmSupplyOrderItemController.class);
+        RegisterRoute("/supplier/item/:item_id/confirm", SupplierConfirmSupplyOrderItemController.class);
     }
 }

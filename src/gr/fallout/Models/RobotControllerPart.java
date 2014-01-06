@@ -13,6 +13,8 @@ public abstract class RobotControllerPart extends Identifiable
 
     protected float m_PurchaseCost;
 
+    protected boolean m_Used;
+
     public float AssemblyCost()
     {
         return m_AssemblyCost;
@@ -34,6 +36,16 @@ public abstract class RobotControllerPart extends Identifiable
     {
         m_PurchaseCost = p_PurchaseCost;
         return true;
+    }
 
+    public boolean Used()
+    {
+        return m_Used;
+    }
+
+    public boolean Used(boolean p_Used)
+    {
+        m_Used = p_Used;
+        return true;
     }
 }

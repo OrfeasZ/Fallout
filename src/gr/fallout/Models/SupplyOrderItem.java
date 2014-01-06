@@ -12,9 +12,9 @@ public class SupplyOrderItem extends Identifiable
 
     private Integer m_Supplier;
 
-    private Integer m_Part;
-
     private Supplier.PartType m_PartType;
+
+    private Integer m_PartTemplate;
 
     public boolean Arrived()
     {
@@ -24,6 +24,7 @@ public class SupplyOrderItem extends Identifiable
     public boolean Arrived(boolean p_Arrived)
     {
         m_Arrived = p_Arrived;
+        RecordManager.GetInstance().SupplyOrderItems.Update(this);
         return true;
     }
 
@@ -35,6 +36,7 @@ public class SupplyOrderItem extends Identifiable
     public boolean PaymentConfirmed(boolean p_PaymentConfirmed)
     {
         m_PaymentConfirmed = p_PaymentConfirmed;
+        RecordManager.GetInstance().SupplyOrderItems.Update(this);
         return true;
     }
 
@@ -46,6 +48,19 @@ public class SupplyOrderItem extends Identifiable
     public boolean Quantity(int p_Quantity)
     {
         m_Quantity = p_Quantity;
+        RecordManager.GetInstance().SupplyOrderItems.Update(this);
+        return true;
+    }
+
+    public Supplier.PartType PartType()
+    {
+        return m_PartType;
+    }
+
+    public boolean PartType(Supplier.PartType p_PartType)
+    {
+        m_PartType = p_PartType;
+        RecordManager.GetInstance().SupplyOrderItems.Update(this);
         return true;
     }
 
@@ -68,32 +83,32 @@ public class SupplyOrderItem extends Identifiable
         return true;
     }
 
-    public RobotControllerPart RobotControllerPart()
+    public RobotControllerPart PartTemplate()
     {
-        if (m_Part == null)
+        if (m_PartTemplate == null)
             return null;
 
         switch (m_PartType)
         {
             case Case:
-                return RecordManager.GetInstance().RobotCases.Get(m_Part);
+                return RecordManager.GetInstance().CaseTemplates.Get(m_PartTemplate);
             case CPU:
-                return RecordManager.GetInstance().RobotCPUs.Get(m_Part);
+                return RecordManager.GetInstance().CPUTemplates.Get(m_PartTemplate);
             case Motherboard:
-                return RecordManager.GetInstance().RobotMotherboards.Get(m_Part);
+                return RecordManager.GetInstance().MotherboardTemplates.Get(m_PartTemplate);
             case RAM:
-                return RecordManager.GetInstance().RobotRAMs.Get(m_Part);
+                return RecordManager.GetInstance().RAMTemplates.Get(m_PartTemplate);
             default:
                 return null;
         }
     }
 
-    public boolean RobotControllerPart(RobotControllerPart p_Part)
+    public boolean PartTemplate(RobotControllerPart p_Part)
     {
         if (p_Part == null)
-            m_Supplier = null;
+            m_PartTemplate = null;
         else
-            m_Supplier = p_Part.m_ID;
+            m_PartTemplate = p_Part.m_ID;
 
         RecordManager.GetInstance().SupplyOrderItems.Update(this);
         return true;

@@ -22,6 +22,7 @@ public class SupplyOrder extends Identifiable
     public boolean SubmissionDate(Date p_SubmissionDate)
     {
         m_SubmissionDate = p_SubmissionDate;
+        RecordManager.GetInstance().SupplyOrders.Update(this);
         return true;
     }
 
@@ -33,7 +34,13 @@ public class SupplyOrder extends Identifiable
     public boolean Tax(float p_Tax)
     {
         m_Tax = p_Tax;
+        RecordManager.GetInstance().SupplyOrders.Update(this);
         return true;
+    }
+
+    public Collection<SupplyOrderItem> Items()
+    {
+        return RecordManager.GetInstance().SupplyOrderItems.Get(m_Items);
     }
 
     public boolean AddItem(SupplyOrderItem p_Item)

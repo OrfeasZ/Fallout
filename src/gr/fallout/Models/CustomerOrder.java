@@ -70,6 +70,13 @@ public class CustomerOrder extends Identifiable
 
     public OrderStatus Status()
     {
+        if (Delivered())
+            Status(OrderStatus.Delivered);
+        else if (IsAssembled())
+            Status(OrderStatus.Assembled);
+        else
+            Status(OrderStatus.Pending);
+
         return m_Status;
     }
 
@@ -99,6 +106,7 @@ public class CustomerOrder extends Identifiable
 
     public boolean Delivered(boolean p_Delivered)
     {
+        m_Status = OrderStatus.Delivered;
         m_Delivered = p_Delivered;
         RecordManager.GetInstance().CustomerOrders.Update(this);
         return true;
@@ -176,7 +184,11 @@ public class CustomerOrder extends Identifiable
 
     public boolean IsAssembled()
     {
-        return false;
+        for (RobotControllerOrder s_Order : ControllerOrders())
+            if (s_Order.AssemblyCompletionDate() == null)
+                return false;
+
+        return true;
     }
 }
 

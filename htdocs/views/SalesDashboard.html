@@ -1,13 +1,13 @@
 <nav id="mainNav" data-spy="affix" data-offset-top="200">
     <ul>
-        <li id="customer-nav-btn" class="active"><span class="icon-books"></span><span class="text">Customers</span></li>
-        <li id="orders-nav-btn"><span class="icon-coin"></span><span class="text">Orders</span></li>
+        <li id="orders-nav-btn" class="active"><span class="icon-coin"></span><span class="text">Orders</span></li>
+        <li id="customer-nav-btn"><span class="icon-books"></span><span class="text">Customers</span></li>
         <li id="logout-nav-btn"><a href="/sales/logout"><span class="icon-switch"></span><span class="text">Logout</span></a></li>
     </ul>
 </nav>
 
 <section id="body" class="wrapper">
-    <section id="customers" class="main-section">
+    <section id="customers" class="main-section" style="display: none;">
         <div class="col-left">
             <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
                 <div class="header">
@@ -34,14 +34,19 @@
         <div class="clear"></div>
     </section>
 
-    <section id="orders" class="main-section" style="display: none;">
+    <section id="orders" class="main-section">
         <div class="col-left">
             <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
                 <div class="header">
                     <span class="icon-file"></span><span class="text">Options</span>
                 </div>
                 <div class="content">
-                    <div class="btn btn-nav btn-blue" data-modal-id="create-assembler-modal">Create Assembler</div>
+                    <ul class="side-nav-list">
+                        <li id="unassigned-orders-nav" class="active"><span class="colorBlock"></span><span class="text">Unassigned Orders</span></li>
+                        <li id="pending-orders-nav"><span class="colorBlock"></span><span class="text">Pending Orders</span></li>
+                        <li id="undelivered-orders-nav"><span class="colorBlock"></span><span class="text">Undelivered Orders</span></li>
+                        <li id="delivered-orders-nav"><span class="colorBlock"></span><span class="text">Delivered Orders</span></li>
+                    </ul>
                 </div>
             </nav>
         </div>
@@ -51,7 +56,22 @@
                 <div class="header">
                     <span class="text">Orders</span>
                 </div>
-                <div class="content">
+                <div class="content order-content" id="unassigned-orders">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+                <div class="content order-content" id="pending-orders" style="display: none;">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+                <div class="content order-content" id="undelivered-orders" style="display: none;">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+                <div class="content order-content" id="delivered-orders" style="display: none;">
                     <ul class="list main-item-list">
 
                     </ul>
@@ -64,6 +84,14 @@
 
 <script id="list-item-delete-btn-template" type="text/x-handlebars-template">
     <div class="btn btn-red" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-close"></span><span class="text">Delete</span></div>
+</script>
+
+<script id="list-item-assign-btn-template" type="text/x-handlebars-template">
+    <div class="btn btn-blue" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-redo"></span><span class="text">Assign Order</span></div>
+</script>
+
+<script id="list-item-deliver-btn-template" type="text/x-handlebars-template">
+    <div class="btn btn-blue" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-truck"></span><span class="text">Deliver Order</span></div>
 </script>
 
 <script id="list-item-template" type="text/x-handlebars-template">
@@ -111,11 +139,24 @@
         <span class="text">Assign Order</span><span class="icon-close right btn-close"></span>
     </div>
     <div class="content">
-        <form action="/sales/order/2/assign" method="POST">
+        <form action="/" method="POST">
             <div id="assembler-selector">
 
             </div>
             <button type="submit" class="btn-blue btn-accept">Assign</button>
+        </form>
+    </div>
+</div>
+
+<div id="deliver-order-modal" class="content-box" style="display: none;">
+    <div class="header">
+        <span class="text">Deliver Order</span><span class="icon-close right btn-close"></span>
+    </div>
+    <div class="content">
+        <form action="/" method="POST">
+            <span class="modal-text">Are you sure you want to deliver this order?</span>
+            <button type="submit" class="btn-blue btn-accept">Confirm</button>
+            <button type="button" class="btn-blue btn-close">Cancel</button>
         </form>
     </div>
 </div>
@@ -146,6 +187,46 @@
         return false;
     });
 
+    var s_NavBtns = $('ul.side-nav-list').find('li');
+    var s_OrderContents = $('.order-content');
+
+    $('#undelivered-orders-nav').click(function()
+    {
+        s_NavBtns.removeClass('active');
+        $(this).addClass('active');
+        s_OrderContents.hide();
+        $('#undelivered-orders').show();
+        return false;
+    });
+
+    $('#pending-orders-nav').click(function()
+    {
+        s_NavBtns.removeClass('active');
+        $(this).addClass('active');
+        s_OrderContents.hide();
+        $('#pending-orders').show();
+        return false;
+    });
+
+    $('#unassigned-orders-nav').click(function()
+    {
+        s_NavBtns.removeClass('active');
+        $(this).addClass('active');
+        s_OrderContents.hide();
+        $('#unassigned-orders').show();
+        return false;
+    });
+
+    $('#delivered-orders-nav').click(function()
+    {
+        s_NavBtns.removeClass('active');
+        $(this).addClass('active');
+        s_OrderContents.hide();
+        $('#delivered-orders').show();
+        return false;
+    });
+
+
     Handlebars.registerHelper('list', function(items, options)
     {
         var out = "";
@@ -156,9 +237,9 @@
 
     SetCustomers(<%= customers %>);
     SetUnassignedOrders(<%= unassigned_orders %>);
-    //SetPendingOrders(<%= pending_orders %>);
-    //SetUndeliveredOrders(<%= undelivered_orders %>);
-    //SetDeliveredOrders(<%= delivered_orders %>);
+    SetPendingOrders(<%= pending_orders %>);
+    SetUndeliveredOrders(<%= undelivered_orders %>, <%= payment_status %>);
+    SetDeliveredOrders(<%= delivered_orders %>, <%= payment_status %>);
 
     $('#delete-confirm-modal').find('.btn-accept').click(function()
     {
@@ -198,7 +279,7 @@
 
     function SetUnassignedOrders(p_Orders)
     {
-        var s_CustomerList = $('section#orders').find('ul.main-item-list').eq(0);
+        var s_CustomerList = $('#unassigned-orders').find('ul.main-item-list').eq(0);
 
         s_CustomerList.empty();
 
@@ -207,7 +288,7 @@
             var s_Order = p_Orders[i];
 
             var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
-            var s_ButtonsTemplate = Handlebars.compile($('#list-item-delete-btn-template').html());
+            var s_ButtonsTemplate = Handlebars.compile($('#list-item-assign-btn-template').html());
 
             var s_Button = s_ButtonsTemplate({ data_modal_id: 'assign-order-modal', data_id: s_Order.m_ID });
             var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong>', bottom_content: s_Order.m_SubmissionDate, buttons: [{ button: s_Button }] });
@@ -245,6 +326,99 @@
                     });
                 });
             })(s_Order.m_ID);
+        }
+    }
+
+    function SetUndeliveredOrders(p_Orders, p_PaymentStatus)
+    {
+        var s_CustomerList = $('#undelivered-orders').find('ul.main-item-list').eq(0);
+
+        s_CustomerList.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+            var s_ButtonsTemplate = Handlebars.compile($('#list-item-deliver-btn-template').html());
+
+            var s_SubText = s_Order.m_SubmissionDate + ' - Payment Status: <strong>';
+
+            if (p_PaymentStatus[s_Order.m_ID] == 1)
+                s_SubText += 'Paid';
+            else if (p_PaymentStatus[s_Order.m_ID] == 0)
+                s_SubText += 'Partially Paid';
+            else
+                s_SubText += 'Not Paid';
+
+            s_SubText += '</strong>';
+
+            var s_Button = s_ButtonsTemplate({ data_modal_id: 'deliver-order-modal', data_id: s_Order.m_ID });
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong>', bottom_content: s_SubText, buttons: [{ button: s_Button }] });
+
+            var s_Item = $(s_Item);
+            s_CustomerList.append(s_Item);
+
+            (function(p_ID)
+            {
+                s_Item.find('.btn').eq(0).click(function()
+                {
+                    $('#deliver-order-modal').find('form').attr('action', '/sales/order/' + p_ID + '/deliver/');
+                });
+            })(s_Order.m_ID);
+        }
+    }
+
+    function SetPendingOrders(p_Orders)
+    {
+        var s_CustomerList = $('#pending-orders').find('ul.main-item-list').eq(0);
+
+        s_CustomerList.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+            //var s_ButtonsTemplate = Handlebars.compile($('#list-item-assign-btn-template').html());
+
+            //var s_Button = s_ButtonsTemplate({ data_modal_id: 'assign-order-modal', data_id: s_Order.m_ID });
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong>', bottom_content: s_Order.m_SubmissionDate, buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_CustomerList.append(s_Item);
+        }
+    }
+
+    function SetDeliveredOrders(p_Orders, p_PaymentStatus)
+    {
+        var s_CustomerList = $('#delivered-orders').find('ul.main-item-list').eq(0);
+
+        s_CustomerList.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+            //var s_ButtonsTemplate = Handlebars.compile($('#list-item-assign-btn-template').html());
+
+            var s_SubText = s_Order.m_SubmissionDate + ' - Payment Status: <strong>';
+
+            if (p_PaymentStatus[s_Order.m_ID] == 1)
+                s_SubText += 'Paid';
+            else if (p_PaymentStatus[s_Order.m_ID] == 0)
+                s_SubText += 'Partially Paid';
+            else
+                s_SubText += 'Not Paid';
+
+            s_SubText += '</strong>';
+
+            //var s_Button = s_ButtonsTemplate({ data_modal_id: 'assign-order-modal', data_id: s_Order.m_ID });
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong>', bottom_content: s_SubText, buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_CustomerList.append(s_Item);
         }
     }
 

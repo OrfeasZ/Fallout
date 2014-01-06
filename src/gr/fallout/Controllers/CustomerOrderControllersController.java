@@ -2,10 +2,7 @@ package gr.fallout.Controllers;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
-import gr.fallout.Models.Customer;
-import gr.fallout.Models.CustomerOrder;
-import gr.fallout.Models.RobotControllerOrder;
-import gr.fallout.Models.SupplyOrderItem;
+import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
 import gr.fallout.Responses.ErrorResponse;
 import gr.fallout.Store.RecordManager;
@@ -56,18 +53,20 @@ public class CustomerOrderControllersController extends ProtectedController<Cust
         if (s_Order == null)
             return new Response("[]", 200, "application/json");
 
-        Collection<HashMap<String, String>> s_Controllers = new ArrayList<HashMap<String, String>>();
+        Collection<RobotControllerParts> s_ControllerParts = new ArrayList<RobotControllerParts>();
 
         for (RobotControllerOrder s_ControllerOrder : s_Order.ControllerOrders())
         {
-            HashMap<String, String> s_Controller = new HashMap<String, String>();
+            RobotControllerParts s_Parts = new RobotControllerParts();
 
-            s_Controller.put("order", s_Gson.toJson(s_ControllerOrder));
-            s_Controller.put("controller", s_Gson.toJson(s_ControllerOrder.Controller()));
+            s_Parts.Case = s_ControllerOrder.Controller().Case();
+            s_Parts.CPU = s_ControllerOrder.Controller().CPU();
+            s_Parts.RAM = s_ControllerOrder.Controller().RAM();
+            s_Parts.Motherboard = s_ControllerOrder.Controller().Motherboard();
 
-            s_Controllers.add(s_Controller);
+            s_ControllerParts.add(s_Parts);
         }
 
-        return new Response(s_Gson.toJson(s_Controllers), 200, "application/json");
+        return new Response(s_Gson.toJson(s_ControllerParts), 200, "application/json");
     }
 }

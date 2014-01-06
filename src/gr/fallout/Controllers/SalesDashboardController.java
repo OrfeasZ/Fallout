@@ -28,6 +28,7 @@ public class SalesDashboardController extends ProtectedController<SalesManager>
     private Collection<CustomerOrder> m_UndeliveredOrders;
     private Collection<CustomerOrder> m_PendingOrders;
     private Collection<CustomerOrder> m_DeliveredOrders;
+    private HashMap<Integer, Integer> m_PaymentStatus;
 
     public SalesDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
@@ -39,11 +40,19 @@ public class SalesDashboardController extends ProtectedController<SalesManager>
         m_UndeliveredOrders = new ArrayList<CustomerOrder>();
         m_PendingOrders = new ArrayList<CustomerOrder>();
         m_DeliveredOrders = new ArrayList<CustomerOrder>();
+        m_PaymentStatus = new HashMap<Integer, Integer>();
 
         Collection<CustomerOrder> s_Orders = RecordManager.GetInstance().CustomerOrders.GetAll();
 
         for (CustomerOrder s_Order : s_Orders)
         {
+            int s_PaymentStatus = -1;
+
+            if (s_Order.Price() == s_Order.PaidSum())
+                s_PaymentStatus = 1;
+            else if (s_Order.PaidSum() > 0)
+                s_PaymentStatus = 0;
+
             // Update order status
             s_Order.Status();
 
@@ -58,10 +67,12 @@ public class SalesDashboardController extends ProtectedController<SalesManager>
             else if (s_Order.Assembler() != null && s_Order.IsAssembled() && !s_Order.Delivered())
             {
                 m_UndeliveredOrders.add(s_Order);
+                m_PaymentStatus.put(s_Order.m_ID, s_PaymentStatus);
             }
             else
             {
                 m_DeliveredOrders.add(s_Order);
+                m_PaymentStatus.put(s_Order.m_ID, s_PaymentStatus);
             }
         }
     }
@@ -81,6 +92,7 @@ public class SalesDashboardController extends ProtectedController<SalesManager>
             put("pending_orders", s_Gson.toJson(m_PendingOrders));
             put("undelivered_orders", s_Gson.toJson(m_UndeliveredOrders));
             put("delivered_orders", s_Gson.toJson(m_DeliveredOrders));
+            put("payment_status", s_Gson.toJson(m_PaymentStatus));
         }}, "Fallout - Sales Dashboard");
     }
 }

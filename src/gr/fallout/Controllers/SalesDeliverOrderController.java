@@ -35,7 +35,7 @@ public class SalesDeliverOrderController extends ProtectedController<SalesManage
         if (s_Base != null)
             return s_Base;
 
-        if (!m_Exchange.getRequestMethod().equalsIgnoreCase("GET"))
+        if (!m_Exchange.getRequestMethod().equalsIgnoreCase("POST"))
             return new ErrorResponse("Invalid method.");
 
         SalesDeliverOrderValidator s_Validator = new SalesDeliverOrderValidator();

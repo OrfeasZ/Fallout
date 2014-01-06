@@ -33,8 +33,12 @@
     </section>
 </section>
 
-<script id="list-item-delete-btn-template" type="text/x-handlebars-template">
-    <div class="btn btn-red" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-close"></span><span class="text">Delete</span></div>
+<script id="list-item-pay-btn-template" type="text/x-handlebars-template">
+    <div class="btn btn-blue btn-pay" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-credit"></span><span class="text">Pay Order</span></div>
+</script>
+
+<script id="list-item-details-btn-template" type="text/x-handlebars-template">
+    <div class="btn btn-blue btn-details" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-file"></span><span class="text">Details</span></div>
 </script>
 
 <script id="order-row-template" type="text/x-handlebars-template">
@@ -120,6 +124,30 @@
     </div>
 </div>
 
+<div id="pay-order-modal" class="content-box" style="display: none;">
+    <div class="header">
+        <span class="text">Pay Order</span><span class="icon-close right btn-close"></span>
+    </div>
+    <div class="content">
+        <span class="modal-text">You have currently paid <strong id="paid-sum"></strong><br/>out of the total of <strong id="total-sum"></strong>.</span>
+        <form action="/" method="POST">
+            <input type="text" name="pay_sum" placeholder="Payment Sum"/>
+            <button type="submit" class="btn-blue btn-add">Pay</button>
+        </form>
+    </div>
+</div>
+
+<div id="view-order-modal" class="content-box" style="display: none;">
+    <div class="header">
+        <span class="text">Order Details</span><span class="icon-close right btn-close"></span>
+    </div>
+    <div class="content">
+        <ul class="list order-item-list">
+
+        </ul>
+    </div>
+</div>
+
 <script type="text/javascript">
     var s_MainNav = $('#mainNav');
     var s_Body = $('section#body');
@@ -132,7 +160,7 @@
         return out;
     });
 
-    SetOrders(<%= orders %>);
+    SetOrders(<%= orders %>, <%= payments %>);
 
     var s_PlaceOrderModal = $('#create-order-modal');
 
@@ -163,14 +191,13 @@
         });
     });
 
-
     $('#delete-confirm-modal').find('.btn-accept').click(function()
     {
         var s_URL = s_DeleteURL.replace(':user_id', s_DeleteID);
         window.location.href = s_URL;
     });
 
-    function SetOrders(p_Orders)
+    function SetOrders(p_Orders, p_Payments)
     {
         var s_OrderList = $('section#orders').find('ul.main-item-list').eq(0);
 
@@ -181,9 +208,12 @@
             var s_Order = p_Orders[i];
 
             var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
-            var s_ButtonsTemplate = Handlebars.compile($('#list-item-delete-btn-template').html());
+            var s_ButtonsTemplate = Handlebars.compile($('#list-item-pay-btn-template').html());
+            var s_DetailsButtonTemplate = Handlebars.compile($('#list-item-details-btn-template').html());
 
             var s_StatusText = '';
+
+            var s_RequiresPayment = p_Payments[s_Order.m_ID].Paid < p_Payments[s_Order.m_ID].Price;
 
             switch (s_Order.m_Status)
             {
@@ -192,28 +222,77 @@
                     break;
                 case 'Assembled':
                     s_StatusText = 'Pending Delivery';
-                    // TODO: Append "and Payment" if needed
+                    if (s_RequiresPayment)
+                        s_StatusText += ' and Payment';
                     break;
                 case 'Delivered':
                     s_StatusText = 'Delivered';
+                    if (s_RequiresPayment)
+                        s_StatusText += ' and Pending Payment';
                     break;
             }
 
-            //var s_Button = s_ButtonsTemplate({ data_modal_id: 'delete-confirm-modal', data_id: s_Order.m_ID });
-            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong> - ' + s_Order.m_SubmissionDate, bottom_content: 'Status: <strong>' + s_StatusText + '</strong>', buttons: [] });
+            var s_Buttons = [];
+            var s_Button = s_ButtonsTemplate({ data_modal_id: 'pay-order-modal', data_id: s_Order.m_ID });
+            var s_DetailsButton = s_DetailsButtonTemplate({ data_modal_id: 'view-order-modal', data_id: s_Order.m_ID });
+
+            if (s_RequiresPayment)
+                s_Buttons.push({ button: s_Button });
+
+            s_Buttons.push({ button: s_DetailsButton });
+
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong> - ' + s_Order.m_SubmissionDate, bottom_content: 'Status: <strong>' + s_StatusText + '</strong>', buttons: s_Buttons });
 
             var s_Item = $(s_Item);
             s_OrderList.append(s_Item);
 
             (function(p_ID)
             {
-                s_Item.find('.btn').eq(0).click(function()
+                s_Item.find('.btn-pay').eq(0).click(function()
                 {
-                    s_DeleteURL = '/admin/sales/:user_id/delete/';
-                    s_DeleteID = p_ID
+                    $('#paid-sum').text('$' + p_Payments[p_ID].Paid);
+                    $('#total-sum').text('$' + p_Payments[p_ID].Price);
+                    $('#pay-order-modal').find('form').attr('action', '/order/' + p_ID + '/pay/')
+                });
+
+                s_Item.find('.btn-details').eq(0).click(function()
+                {
+                    $.get('/order/' + p_ID, function(p_Data)
+                    {
+                        SetOrderItems(p_Data);
+                    }, 'json');
                 });
             })(s_Order.m_ID);
         }
     }
+
+    function SetOrderItems(p_Items)
+    {
+        var s_OrderList = $('ul.order-item-list').eq(0);
+
+        s_OrderList.empty();
+
+        for (var i = 0; i < p_Items.length; ++i)
+        {
+            var s_OrderItem = p_Items[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+          
+            var s_Buttons = [];
+
+            var s_BottomText = '';
+
+            s_BottomText += 'Case: <strong>' + s_OrderItem.Case.m_Size;
+            s_BottomText += '</strong> - CPU: <strong>' + s_OrderItem.CPU.m_SocketType;
+            s_BottomText += '</strong> - RAM: <strong>' + s_OrderItem.RAM.m_Type + ' ' + s_OrderItem.RAM.m_Capacity;
+            s_BottomText += '</strong> - Mobo: <strong>' + s_OrderItem.Motherboard.m_Model + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: '', top_content: '<strong>Robot Controller</strong>', bottom_content: s_BottomText, buttons: s_Buttons });
+
+            var s_Item = $(s_Item);
+            s_OrderList.append(s_Item);
+        }
+    }
+
 
 </script>

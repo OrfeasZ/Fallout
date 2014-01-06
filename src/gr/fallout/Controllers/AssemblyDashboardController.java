@@ -21,14 +21,6 @@ import java.util.List;
  */
 public class AssemblyDashboardController extends ProtectedController<Assembler>
 {
-    class RobotControllerParts
-    {
-        public RobotCase Case;
-        public RobotCPU CPU;
-        public RobotRAM RAM;
-        public RobotMotherboard Motherboard;
-    }
-
     public AssemblyDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
         super(p_Exchange, p_Params, p_ContextBase, "fo_assembly_sid");

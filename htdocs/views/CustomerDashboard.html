@@ -1,1 +1,219 @@
-Customer dashboard hello!
+<nav id="mainNav" data-spy="affix" data-offset-top="200">
+    <ul>
+        <li id="logout-nav-btn"><a href="/logout"><span class="icon-switch"></span><span class="text">Logout</span></a></li>
+    </ul>
+</nav>
+
+<section id="body" class="wrapper">
+    <section id="orders" class="main-section">
+        <div class="col-left">
+            <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
+                <div class="header">
+                    <span class="icon-file"></span><span class="text">Options</span>
+                </div>
+                <div class="content">
+                    <div class="btn btn-nav btn-blue" data-modal-id="create-order-modal">Place Order</div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-right">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Orders</span>
+                </div>
+                <div class="content">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="clear"></div>
+    </section>
+</section>
+
+<script id="list-item-delete-btn-template" type="text/x-handlebars-template">
+    <div class="btn btn-red" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-close"></span><span class="text">Delete</span></div>
+</script>
+
+<script id="order-row-template" type="text/x-handlebars-template">
+    <div class="order-row">
+        <select class="gDropdown small case-selector">
+            <option value="Mini">Mini</option>
+            <option value="Mid">Mid</option>
+            <option value="Full">Full</option>
+        </select>
+
+        <select class="gDropdown small cpu-selector">
+            <option value="Socket1156">Socket 1156</option>
+            <option value="Socket1155">Socket 1155</option>
+            <option value="Socket1150">Socket 1150</option>
+        </select>
+
+        <select class="gDropdown small ram-type-selector">
+            <option value="DDR2">DDR2</option>
+            <option value="DDR3">DDR3</option>
+        </select>
+
+        <select class="gDropdown small ram-cap-selector">
+            <option value="TwoGB">2GB</option>
+            <option value="FourGB">4GB</option>
+        </select>
+
+        <select class="gDropdown small mobo-selector">
+            <option value="StandardATX">StandardATX</option>
+            <option value="MicroATX">MicroATX</option>
+            <option value="MiniATX">MiniATX</option>
+        </select>
+    </div>
+</script>
+
+<script id="list-item-template" type="text/x-handlebars-template">
+    <li data-id="{{data_id}}">
+        <span class="top-content">{{{top_content}}}</span><br/>
+        <span class="bottom-content">{{{bottom_content}}}</span>
+        <ul class="list-btns">
+            {{#list buttons}} {{{button}}} {{/list}}
+        </ul>
+    </li>
+</script>
+
+<div id="create-order-modal" class="content-box" style="display: none;">
+    <div class="header">
+        <span class="text">Place Order</span><span class="icon-close right btn-close"></span>
+    </div>
+    <div class="content">
+        <div id="place-order-items">
+            <div class="order-row">
+                <select class="gDropdown small case-selector">
+                    <option value="Mini">Mini</option>
+                    <option value="Mid">Mid</option>
+                    <option value="Full">Full</option>
+                </select>
+
+                <select class="gDropdown small cpu-selector">
+                    <option value="Socket1156">Socket 1156</option>
+                    <option value="Socket1155">Socket 1155</option>
+                    <option value="Socket1150">Socket 1150</option>
+                </select>
+
+                <select class="gDropdown small ram-type-selector">
+                    <option value="DDR2">DDR2</option>
+                    <option value="DDR3">DDR3</option>
+                </select>
+
+                <select class="gDropdown small ram-cap-selector">
+                    <option value="TwoGB">2GB</option>
+                    <option value="FourGB">4GB</option>
+                </select>
+
+                <select class="gDropdown small mobo-selector">
+                    <option value="StandardATX">StandardATX</option>
+                    <option value="MicroATX">MicroATX</option>
+                    <option value="MiniATX">MiniATX</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn-blue btn-add">Add Controller</button>
+        <button type="submit" class="btn-blue btn-place">Place Order</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var s_MainNav = $('#mainNav');
+    var s_Body = $('section#body');
+
+    Handlebars.registerHelper('list', function(items, options)
+    {
+        var out = "";
+        for(var i = 0, l = items.length; i < l; ++i)
+            out += "<li>" + options.fn(items[i]) + "</li>";
+        return out;
+    });
+
+    SetOrders(<%= orders %>);
+
+    var s_PlaceOrderModal = $('#create-order-modal');
+
+    s_PlaceOrderModal.find('.btn-add').click(function()
+    {
+        $('#place-order-items').append(Handlebars.compile($('#order-row-template').html())());
+        InitDropdown(jQuery);
+    });
+
+    s_PlaceOrderModal.find('.btn-place').click(function()
+    {
+        var s_OrderItems = [];
+
+        s_PlaceOrderModal.find('.order-row').each(function(_, p_Row)
+        {
+            s_OrderItems.push({
+                Case: $(p_Row).find('.case-selector').find(':selected').val(),
+                CPU: $(p_Row).find('.cpu-selector').find(':selected').val(),
+                RAM: $(p_Row).find('.ram-type-selector').find(':selected').val(),
+                RAMCap: $(p_Row).find('.ram-cap-selector').find(':selected').val(),
+                Mobo: $(p_Row).find('.mobo-selector').find(':selected').val()
+            })
+        });
+
+        $.post('/order', { controllers: JSON.stringify(s_OrderItems) }, function(p_Data)
+        {
+            location.reload();
+        });
+    });
+
+
+    $('#delete-confirm-modal').find('.btn-accept').click(function()
+    {
+        var s_URL = s_DeleteURL.replace(':user_id', s_DeleteID);
+        window.location.href = s_URL;
+    });
+
+    function SetOrders(p_Orders)
+    {
+        var s_OrderList = $('section#orders').find('ul.main-item-list').eq(0);
+
+        s_OrderList.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+            var s_ButtonsTemplate = Handlebars.compile($('#list-item-delete-btn-template').html());
+
+            var s_StatusText = '';
+
+            switch (s_Order.m_Status)
+            {
+                case 'Pending':
+                    s_StatusText = 'Pending';
+                    break;
+                case 'Assembled':
+                    s_StatusText = 'Pending Delivery';
+                    // TODO: Append "and Payment" if needed
+                    break;
+                case 'Delivered':
+                    s_StatusText = 'Delivered';
+                    break;
+            }
+
+            //var s_Button = s_ButtonsTemplate({ data_modal_id: 'delete-confirm-modal', data_id: s_Order.m_ID });
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong> - ' + s_Order.m_SubmissionDate, bottom_content: 'Status: <strong>' + s_StatusText + '</strong>', buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_OrderList.append(s_Item);
+
+            (function(p_ID)
+            {
+                s_Item.find('.btn').eq(0).click(function()
+                {
+                    s_DeleteURL = '/admin/sales/:user_id/delete/';
+                    s_DeleteID = p_ID
+                });
+            })(s_Order.m_ID);
+        }
+    }
+
+</script>

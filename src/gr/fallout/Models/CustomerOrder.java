@@ -133,7 +133,10 @@ public class CustomerOrder extends Identifiable
             m_Assembler = p_Assembler.m_ID;
 
         for (RobotControllerOrder s_Order : ControllerOrders())
+        {
             s_Order.Assembler(p_Assembler);
+            p_Assembler.AddOrder(s_Order);
+        }
 
         RecordManager.GetInstance().CustomerOrders.Update(this);
 

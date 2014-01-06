@@ -2,6 +2,7 @@ package gr.fallout.Models;
 
 import gr.fallout.Store.RecordManager;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,11 @@ public class SupplyOrder extends Identifiable
     private Collection<Integer> m_Items;
 
     private Integer m_ControllerOrder;
+
+    public SupplyOrder()
+    {
+        m_Items = new ArrayList<Integer>();
+    }
 
     public Date SubmissionDate()
     {

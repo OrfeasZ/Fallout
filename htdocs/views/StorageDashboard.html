@@ -1,0 +1,332 @@
+<nav id="mainNav" data-spy="affix" data-offset-top="200">
+    <ul>
+        <li id="supplier-nav-btn" class="active"><span class="icon-books"></span><span class="text">Suppliers</span></li>
+        <li id="orders-nav-btn"><span class="icon-truck"></span><span class="text">Supply Orders</span></li>
+        <li id="stock-nav-btn"><span class="icon-file"></span><span class="text">Stock</span></li>
+        <li id="logout-nav-btn"><a href="/logout"><span class="icon-switch"></span><span class="text">Logout</span></a></li>
+    </ul>
+</nav>
+
+<section id="body" class="wrapper">
+    <section id="suppliers" class="main-section">
+        <div class="col-left">
+            <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
+                <div class="header">
+                    <span class="icon-file"></span><span class="text">Options</span>
+                </div>
+                <div class="content">
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-right">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Suppliers</span>
+                </div>
+                <div class="content">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="clear"></div>
+    </section>
+
+    <section id="orders" class="main-section" style="display: none;">
+        <div class="col-left">
+            <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
+                <div class="header">
+                    <span class="icon-file"></span><span class="text">Options</span>
+                </div>
+                <div class="content">
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-right">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Supply Orders</span>
+                </div>
+                <div class="content">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="clear"></div>
+    </section>
+
+    <section id="stock" class="main-section" style="display: none;">
+        <div class="col-left">
+            <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
+                <div class="header">
+                    <span class="icon-file"></span><span class="text">Options</span>
+                </div>
+                <div class="content">
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-right">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Stock</span>
+                </div>
+                <div class="content">
+                    <ul class="list main-item-list">
+                        <li>
+                            <span class="top-content"><strong>Robot Cases</strong></span><br/>
+                            <span class="bottom-content" id="case-pcs">X pcs.</span>
+                            <ul class="list-btns">
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="top-content"><strong>Robot CPUs</strong></span><br/>
+                            <span class="bottom-content" id="cpu-pcs">X pcs.</span>
+                            <ul class="list-btns">
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="top-content"><strong>Robot RAM</strong></span><br/>
+                            <span class="bottom-content" id="ram-pcs">X pcs.</span>
+                            <ul class="list-btns">
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="top-content"><strong>Robot Motherboards</strong></span><br/>
+                            <span class="bottom-content" id="mobo-pcs">X pcs.</span>
+                            <ul class="list-btns">
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="clear"></div>
+    </section>
+</section>
+
+<script id="list-item-view-items-btn-template" type="text/x-handlebars-template">
+    <div class="btn btn-blue" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-file"></span><span class="text">View Items</span></div>
+</script>
+
+
+<script id="list-item-confirm-arrival-btn-template" type="text/x-handlebars-template">
+    <div class="btn btn-blue" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-checkmark"></span><span class="text">Confirm Arrival</span></div>
+</script>
+
+<script id="list-item-template" type="text/x-handlebars-template">
+    <li data-id="{{data_id}}">
+        <span class="top-content">{{{top_content}}}</span><br/>
+        <span class="bottom-content">{{{bottom_content}}}</span>
+        <ul class="list-btns">
+            {{#list buttons}} {{{button}}} {{/list}}
+        </ul>
+    </li>
+</script>
+
+
+<div id="view-items-modal" class="content-box" style="display: none;">
+    <div class="header">
+        <span class="text">Supply Order Items</span><span class="icon-close right btn-close"></span>
+    </div>
+    <div class="content">
+        <ul class="list order-item-list">
+
+        </ul>
+    </div>
+</div>
+
+
+<div id="confirm-arrival-modal" class="content-box" style="display: none;">
+    <div class="header">
+        <span class="text">Confirm Item Arrival</span><span class="icon-close right btn-close"></span>
+    </div>
+    <div class="content">
+        <span class="modal-text">Are you sure you want to confirm the arrival of this item?</span>
+        <button type="submit" class="btn-blue btn-confirm">Confirm</button>
+        <button type="submit" class="btn-blue btn-close">Cancel</button>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    var s_MainNav = $('#mainNav');
+    var s_Body = $('section#body');
+
+    $("#supplier-nav-btn").click(function()
+    {
+        s_MainNav.find('li').removeClass('active');
+        $(this).addClass('active');
+        s_Body.find('.main-section').hide();
+        s_Body.find('#suppliers').show();
+        return false;
+    });
+
+    $("#orders-nav-btn").click(function()
+    {
+        s_MainNav.find('li').removeClass('active');
+        $(this).addClass('active');
+        s_Body.find('.main-section').hide();
+        s_Body.find('#orders').show();
+        return false;
+    });
+
+    $("#stock-nav-btn").click(function()
+    {
+        s_MainNav.find('li').removeClass('active');
+        $(this).addClass('active');
+        s_Body.find('.main-section').hide();
+        s_Body.find('#stock').show();
+        return false;
+    });
+
+    var s_ConfirmURL = '';
+    var s_ConfirmID = '';
+
+    var s_CaseStock = <%= case_stock %>;
+    var s_CPUStock = <%= cpu_stock %>;
+    var s_RAMStock = <%= ram_stock %>;
+    var s_MotherboardStock = <%= motherboard_stock %>;
+
+    $('#case-pcs').text(s_CaseStock + 'pcs.');
+    $('#cpu-pcs').text(s_CPUStock + 'pcs.');
+    $('#ram-pcs').text(s_RAMStock + 'pcs.');
+    $('#mobo-pcs').text(s_MotherboardStock + 'pcs.');
+
+    $('#confirm-arrival-modal').find('.btn-confirm').click(function()
+    {
+        var s_URL = s_ConfirmURL.replace(':item_id', s_ConfirmID);
+        window.location.href = s_URL;
+    });
+
+    Handlebars.registerHelper('list', function(items, options)
+    {
+        var out = "";
+        for(var i = 0, l = items.length; i < l; ++i)
+            out += "<li>" + options.fn(items[i]) + "</li>";
+        return out;
+    });
+
+    SetSuppliers(<%= suppliers %>);
+    SetSupplyOrders(<%= supply_orders %>);
+
+    function SetSuppliers(p_Suppliers)
+    {
+        var s_SupplierList = $('section#suppliers').find('ul.main-item-list').eq(0);
+
+        s_SupplierList.empty();
+
+        for (var i = 0; i < p_Suppliers.length; ++i)
+        {
+            var s_Supplier = p_Suppliers[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+
+            var s_Buttons = [];
+
+            var s_StatusText = s_Supplier.m_Address;
+
+            if (s_Supplier.m_EUBusiness)
+                s_StatusText += ' - EU Business';
+            else
+                s_StatusText += ' - Non-EU Business';
+
+            var s_Item = s_ItemTemplate({ data_id: s_Supplier.m_ID, top_content: '<strong>' + s_Supplier.m_Name + '</strong>', bottom_content: s_StatusText, buttons: s_Buttons });
+
+            var s_Item = $(s_Item);
+            s_SupplierList.append(s_Item);
+        }
+    }
+
+    function SetSupplyOrderItems(p_Items)
+    {
+        var s_OrderList = $('ul.order-item-list').eq(0);
+
+        s_OrderList.empty();
+
+        for (var i = 0; i < p_Items.length; ++i)
+        {
+            var s_OrderItem = p_Items[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+            var s_ButtonsTemplate = Handlebars.compile($('#list-item-confirm-arrival-btn-template').html());
+
+            var s_StatusText = '';
+
+            if (!s_OrderItem.m_Arrived)
+                s_StatusText += 'Arrival Pending Confirmation';
+            else
+                s_StatusText += 'Arrival Confirmed';
+
+            var s_Buttons = [];
+
+            if (!s_OrderItem.m_Arrived)
+                s_Buttons.push({ button: s_ButtonsTemplate({ data_modal_id: 'confirm-arrival-modal', data_id: s_OrderItem.m_ID }) });
+
+            console.log(s_Buttons);
+
+            var s_Item = s_ItemTemplate({ data_id: s_OrderItem.m_ID, top_content: '<strong>' + s_OrderItem.m_PartType + '</strong> - ' + s_OrderItem.m_Quantity + 'pcs.', bottom_content: s_StatusText, buttons: s_Buttons });
+
+            var s_Item = $(s_Item);
+            s_OrderList.append(s_Item);
+
+            (function(p_ID)
+            {
+                s_Item.find('.btn').eq(0).click(function()
+                {
+                    s_ConfirmURL = '/storage/item/:item_id/verify/';
+                    s_ConfirmID = p_ID;
+                    var s_URL = s_ConfirmURL.replace(':item_id', s_ConfirmID);
+                    window.location.href = s_URL;
+                });
+            })(s_OrderItem.m_ID);
+        }
+    }
+
+    function SetSupplyOrders(p_Orders)
+    {
+        var s_OrderList = $('section#orders').find('ul.main-item-list').eq(0);
+
+        s_OrderList.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            console.log(s_Order);
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+            var s_ButtonsTemplate = Handlebars.compile($('#list-item-view-items-btn-template').html());
+
+            // TODO
+            var s_StatusText = '';
+
+            var s_Buttons = [];
+
+            s_Buttons.push({ button: s_ButtonsTemplate({ data_modal_id: 'view-items-modal', data_id: s_Order.m_ID }) });
+
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong> - ' + s_Order.m_SubmissionDate, bottom_content: s_StatusText, buttons: s_Buttons });
+
+            var s_Item = $(s_Item);
+            s_OrderList.append(s_Item);
+
+            (function(p_ID)
+            {
+                s_Item.find('.btn').eq(0).click(function()
+                {
+                    $.get('/storage/order/' + p_ID, function(p_Data)
+                    {
+                        SetSupplyOrderItems(p_Data);
+                    });
+                });
+            })(s_Order.m_ID);
+        }
+    }
+
+</script>

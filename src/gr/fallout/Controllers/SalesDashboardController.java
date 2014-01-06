@@ -9,6 +9,7 @@ import gr.fallout.Net.Response;
 import gr.fallout.Responses.AppViewResponse;
 import gr.fallout.Store.RecordManager;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -34,10 +35,18 @@ public class SalesDashboardController extends ProtectedController<SalesManager>
 
         m_Customers = RecordManager.GetInstance().Customers.GetAll();
 
+        m_UnassignedOrders = new ArrayList<CustomerOrder>();
+        m_UndeliveredOrders = new ArrayList<CustomerOrder>();
+        m_PendingOrders = new ArrayList<CustomerOrder>();
+        m_DeliveredOrders = new ArrayList<CustomerOrder>();
+
         Collection<CustomerOrder> s_Orders = RecordManager.GetInstance().CustomerOrders.GetAll();
 
         for (CustomerOrder s_Order : s_Orders)
         {
+            // Update order status
+            s_Order.Status();
+
             if (s_Order.Assembler() == null)
             {
                 m_UnassignedOrders.add(s_Order);

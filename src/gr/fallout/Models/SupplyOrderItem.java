@@ -28,7 +28,8 @@ public class SupplyOrderItem extends Identifiable
         m_Arrived = p_Arrived;
         RecordManager.GetInstance().SupplyOrderItems.Update(this);
 
-        SupplyOrder().UpdateControllerOrder();
+        if (SupplyOrder() != null)
+            SupplyOrder().UpdateControllerOrder();
 
         return true;
     }

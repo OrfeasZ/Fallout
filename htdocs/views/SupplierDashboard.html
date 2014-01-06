@@ -1,0 +1,128 @@
+<nav id="mainNav" data-spy="affix" data-offset-top="200">
+    <ul>
+        <li id="logout-nav-btn"><a href="/logout"><span class="icon-switch"></span><span class="text">Logout</span></a></li>
+    </ul>
+</nav>
+
+<section id="body" class="wrapper">
+    <section id="orders" class="main-section">
+        <div class="col-left">
+            <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
+                <div class="header">
+                    <span class="icon-file"></span><span class="text">Options</span>
+                </div>
+                <div class="content">
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-right">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Ordered Items</span>
+                </div>
+                <div class="content">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="clear"></div>
+    </section>
+</section>
+
+<script id="list-item-confirm-btn-template" type="text/x-handlebars-template">
+    <div class="btn btn-blue" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-checkmark"></span><span class="text">Confirm Payment</span></div>
+</script>
+
+<script id="list-item-template" type="text/x-handlebars-template">
+    <li data-id="{{data_id}}">
+        <span class="top-content">{{{top_content}}}</span><br/>
+        <span class="bottom-content">{{{bottom_content}}}</span>
+        <ul class="list-btns">
+            {{#list buttons}} {{{button}}} {{/list}}
+        </ul>
+    </li>
+</script>
+
+
+<div id="confirm-payment-modal" class="content-box" style="display: none;">
+    <div class="header">
+        <span class="text">Create Sales Manager</span><span class="icon-close right btn-close"></span>
+    </div>
+    <div class="content">
+        <span class="modal-text">Are you sure you want to confirm the payment of this item?</span>
+        <button type="submit" class="btn-blue btn-confirm">Confirm</button>
+        <button type="submit" class="btn-blue btn-close">Cancel</button>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var s_MainNav = $('#mainNav');
+    var s_Body = $('section#body');
+
+    var s_ConfirmURL = '';
+    var s_ConfirmID = '';
+
+    $('#confirm-payment-modal').find('.btn-confirm').click(function()
+    {
+        var s_URL = s_ConfirmURL.replace(':item_id', s_ConfirmID);
+        window.location.href = s_URL;
+    });
+
+    Handlebars.registerHelper('list', function(items, options)
+    {
+        var out = "";
+        for(var i = 0, l = items.length; i < l; ++i)
+            out += "<li>" + options.fn(items[i]) + "</li>";
+        return out;
+    });
+
+    SetOrderItems(<%= items %>);
+
+    function SetOrderItems(p_Items)
+    {
+        var s_OrderList = $('section#orders').find('ul.main-item-list').eq(0);
+
+        s_OrderList.empty();
+
+        for (var i = 0; i < p_Items.length; ++i)
+        {
+            var s_OrderItem = p_Items[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+            var s_ButtonsTemplate = Handlebars.compile($('#list-item-confirm-btn-template').html());
+
+            var s_StatusText = '';
+
+            if (!s_OrderItem.m_PaymentConfirmed)
+                s_StatusText += 'Payment Pending Confirmation';
+            else
+                s_StatusText += 'Payment Confirmed';
+
+            var s_Buttons = [];
+
+            if (!s_OrderItem.m_PaymentConfirmed)
+                s_Buttons.push({ button: s_ButtonsTemplate({ data_modal_id: 'confirm-payment-modal', data_id: s_OrderItem.m_ID }) });
+
+            console.log(s_Buttons);
+
+            var s_Item = s_ItemTemplate({ data_id: s_OrderItem.m_ID, top_content: '<strong>' + s_OrderItem.m_PartType + '</strong> - ' + s_OrderItem.m_Quantity + 'pcs.', bottom_content: s_StatusText, buttons: s_Buttons });
+
+            var s_Item = $(s_Item);
+            s_OrderList.append(s_Item);
+
+            (function(p_ID)
+            {
+                s_Item.find('.btn').eq(0).click(function()
+                {
+                    s_ConfirmURL = '/supplier/item/:item_id/confirm/';
+                    s_ConfirmID = p_ID;
+                });
+            })(s_OrderItem.m_ID);
+        }
+    }
+
+</script>

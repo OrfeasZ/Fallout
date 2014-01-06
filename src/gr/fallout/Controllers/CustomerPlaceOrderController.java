@@ -75,6 +75,8 @@ public class CustomerPlaceOrderController extends ProtectedController<Customer>
             {
                 // Create a SupplyOrder
                 SupplyOrder s_SupplyOrder = new SupplyOrder();
+                s_SupplyOrder.SubmissionDate(new Date());
+
                 RecordManager.GetInstance().SupplyOrders.Insert(s_SupplyOrder);
 
                 if (s_Controller.Case() == null)
@@ -97,6 +99,8 @@ public class CustomerPlaceOrderController extends ProtectedController<Customer>
         }
 
         RecordManager.GetInstance().CustomerOrders.Insert(s_Order);
+
+        m_User.AddOrder(s_Order);
 
         return new RedirectResponse(m_ContextBase);
     }

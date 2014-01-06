@@ -2,9 +2,7 @@ package gr.fallout.Controllers;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
-import gr.fallout.Models.Assembler;
-import gr.fallout.Models.RobotController;
-import gr.fallout.Models.RobotControllerOrder;
+import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
 import gr.fallout.Responses.AppViewResponse;
 import gr.fallout.Responses.RedirectResponse;
@@ -23,6 +21,14 @@ import java.util.List;
  */
 public class AssemblyDashboardController extends ProtectedController<Assembler>
 {
+    class RobotControllerParts
+    {
+        public RobotCase Case;
+        public RobotCPU CPU;
+        public RobotRAM RAM;
+        public RobotMotherboard Motherboard;
+    }
+
     public AssemblyDashboardController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
         super(p_Exchange, p_Params, p_ContextBase, "fo_assembly_sid");
@@ -40,6 +46,7 @@ public class AssemblyDashboardController extends ProtectedController<Assembler>
         // Get pending orders
         final Collection<RobotControllerOrder> s_PendingOrders = new ArrayList<RobotControllerOrder>();
         final Collection<RobotControllerOrder> s_InProgressOrders = new ArrayList<RobotControllerOrder>();
+        final HashMap<Integer, RobotControllerParts> s_Parts = new HashMap<Integer, RobotControllerParts>();
 
         for (RobotControllerOrder s_Order : s_Orders)
         {
@@ -51,6 +58,15 @@ public class AssemblyDashboardController extends ProtectedController<Assembler>
                 s_InProgressOrders.add(s_Order);
             else if (s_Order.AssemblyInitiationDate() == null && s_Order.AssemblyCompletionDate() == null)
                 s_PendingOrders.add(s_Order);
+
+            RobotControllerParts s_ControllerParts = new RobotControllerParts();
+
+            s_ControllerParts.Case = s_Order.Controller().Case();
+            s_ControllerParts.CPU = s_Order.Controller().CPU();
+            s_ControllerParts.RAM = s_Order.Controller().RAM();
+            s_ControllerParts.Motherboard = s_Order.Controller().Motherboard();
+
+            s_Parts.put(s_Order.m_ID, s_ControllerParts);
         }
 
         final Gson s_Gson = new Gson();
@@ -58,6 +74,7 @@ public class AssemblyDashboardController extends ProtectedController<Assembler>
         return new AppViewResponse("AssemblyDashboard", new HashMap<String, String>() {{
             put("pending_orders", s_Gson.toJson(s_PendingOrders));
             put("in_progress_orders", s_Gson.toJson(s_InProgressOrders));
+            put("order_parts", s_Gson.toJson(s_Parts));
         }}, "Fallout - Assembler Dashboard");
     }
 }

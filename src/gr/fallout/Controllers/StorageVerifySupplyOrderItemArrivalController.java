@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
 import gr.fallout.Responses.ErrorResponse;
+import gr.fallout.Responses.RedirectResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.StorageSupplyOrderValidator;
 import gr.fallout.Validators.StorageVerifySupplyOrderItemArrivalValidator;
@@ -50,7 +51,7 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
         Gson s_Gson = new Gson();
 
         if (s_Item == null || s_Item.Arrived())
-            return new Response(s_Gson.toJson(false), 200, "application/json");
+            return new ErrorResponse("The specified item has already been marked as arrived.");
 
         s_Item.Arrived(true);
 
@@ -67,6 +68,9 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
                     s_Case.Used(false);
                     s_Case.Size(((RobotCase)s_Template).Size());
                     RecordManager.GetInstance().RobotCases.Insert(s_Case);
+
+                    s_Item.SupplyOrder().ControllerOrder().Controller().Case(s_Case);
+                    s_Item.SupplyOrder().UpdateControllerOrder();
                     break;
                 }
                 case CPU:
@@ -75,6 +79,9 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
                     s_CPU.Used(false);
                     s_CPU.SocketType(((RobotCPU) s_Template).SocketType());
                     RecordManager.GetInstance().RobotCPUs.Insert(s_CPU);
+
+                    s_Item.SupplyOrder().ControllerOrder().Controller().CPU(s_CPU);
+                    s_Item.SupplyOrder().UpdateControllerOrder();
                     break;
                 }
                 case Motherboard:
@@ -83,6 +90,9 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
                     s_Motherboard.Used(false);
                     s_Motherboard.Model(((RobotMotherboard) s_Template).Model());
                     RecordManager.GetInstance().RobotMotherboards.Insert(s_Motherboard);
+
+                    s_Item.SupplyOrder().ControllerOrder().Controller().Motherboard(s_Motherboard);
+                    s_Item.SupplyOrder().UpdateControllerOrder();
                     break;
                 }
                 case RAM:
@@ -92,11 +102,14 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
                     s_RAM.Capacity(((RobotRAM) s_Template).Capacity());
                     s_RAM.Type(((RobotRAM) s_Template).Type());
                     RecordManager.GetInstance().RobotRAMs.Insert(s_RAM);
+
+                    s_Item.SupplyOrder().ControllerOrder().Controller().RAM(s_RAM);
+                    s_Item.SupplyOrder().UpdateControllerOrder();
                     break;
                 }
             }
         }
 
-        return new Response(s_Gson.toJson(true), 200, "application/json");
+        return new RedirectResponse(m_ContextBase);
     }
 }

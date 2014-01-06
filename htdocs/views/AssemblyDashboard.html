@@ -1,0 +1,219 @@
+<nav id="mainNav" data-spy="affix" data-offset-top="200">
+    <ul>
+        <li id="pending-nav-btn" class="active"><span class="icon-history"></span><span class="text">Pending</span></li>
+        <li id="in-progress-nav-btn"><span class="icon-clock"></span><span class="text">In-Progress</span></li>
+        <li id="logout-nav-btn"><a href="/logout"><span class="icon-switch"></span><span class="text">Logout</span></a></li>
+    </ul>
+</nav>
+
+<section id="body" class="wrapper">
+    <section id="pending" class="main-section">
+        <div class="col-left">
+            <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
+                <div class="header">
+                    <span class="icon-file"></span><span class="text">Options</span>
+                </div>
+                <div class="content">
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-right">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Pending Orders</span>
+                </div>
+                <div class="content">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="clear"></div>
+    </section>
+
+    <section id="in-progress" class="main-section" style="display: none;">
+        <div class="col-left">
+            <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
+                <div class="header">
+                    <span class="icon-file"></span><span class="text">Options</span>
+                </div>
+                <div class="content">
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-right">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Orders In-Progress</span>
+                </div>
+                <div class="content">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="clear"></div>
+    </section>
+</section>
+
+<script id="list-item-start-btn-template" type="text/x-handlebars-template">
+    <div class="btn btn-blue" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-clock"></span><span class="text">Start Assembly</span></div>
+</script>
+
+<script id="list-item-end-btn-template" type="text/x-handlebars-template">
+    <div class="btn btn-blue" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-checkmark"></span><span class="text">Finish Assembly</span></div>
+</script>
+
+<script id="list-item-template" type="text/x-handlebars-template">
+    <li data-id="{{data_id}}">
+        <span class="top-content">{{{top_content}}}</span><br/>
+        <span class="bottom-content">{{{bottom_content}}}</span>
+        <ul class="list-btns">
+            {{#list buttons}} {{{button}}} {{/list}}
+        </ul>
+    </li>
+</script>
+
+<div id="confirm-start-modal" class="content-box" style="display: none;">
+    <div class="header">
+        <span class="text">Create Sales Manager</span><span class="icon-close right btn-close"></span>
+    </div>
+    <div class="content">
+        <form action="/" method="POST">
+            <input type="text" name="rate" placeholder="Hourly Rate"/>
+            <input type="text" name="warranty" placeholder="Case Warranty"/>
+            <button type="submit" class="btn-blue btn-confirm">Start Assembly</button>
+            <button type="button" class="btn-blue btn-close">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<div id="confirm-end-modal" class="content-box" style="display: none;">
+    <div class="header">
+        <span class="text">Create Sales Manager</span><span class="icon-close right btn-close"></span>
+    </div>
+    <div class="content">
+        <form action="/" method="POST">
+            <span class="modal-text">Are you sure you have finished assembling this order?</span>
+            <button type="submit" class="btn-blue btn-confirm">Confirm</button>
+            <button type="button" class="btn-blue btn-close">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var s_MainNav = $('#mainNav');
+    var s_Body = $('section#body');
+
+    Handlebars.registerHelper('list', function(items, options)
+    {
+        var out = "";
+        for(var i = 0, l = items.length; i < l; ++i)
+            out += "<li>" + options.fn(items[i]) + "</li>";
+        return out;
+    });
+
+    $("#pending-nav-btn").click(function()
+    {
+        s_MainNav.find('li').removeClass('active');
+        $(this).addClass('active');
+        s_Body.find('.main-section').hide();
+        s_Body.find('#pending').show();
+        return false;
+    });
+
+    $("#in-progress-nav-btn").click(function()
+    {
+        s_MainNav.find('li').removeClass('active');
+        $(this).addClass('active');
+        s_Body.find('.main-section').hide();
+        s_Body.find('#in-progress').show();
+        return false;
+    });
+
+    SetPendingOrders(<%= pending_orders %>, <%= order_parts %>);
+    SetInProgressOrders(<%= in_progress_orders %>, <%= order_parts %>);
+
+    function SetPendingOrders(p_Orders, p_Parts)
+    {
+        var s_OrderList = $('section#pending').find('ul.main-item-list').eq(0);
+
+        s_OrderList.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+            var s_ButtonsTemplate = Handlebars.compile($('#list-item-start-btn-template').html());
+
+            var s_Buttons = [];
+
+            s_Buttons.push({ button: s_ButtonsTemplate({ data_modal_id: 'confirm-start-modal', data_id: s_Order.m_ID }) });
+
+            var s_BottomText = '';
+
+            s_BottomText += 'Case: <strong>' + p_Parts[s_Order.m_ID].Case.m_Size;
+            s_BottomText += '</strong> - CPU: <strong>' + p_Parts[s_Order.m_ID].CPU.m_SocketType;
+            s_BottomText += '</strong> - RAM: <strong>' + p_Parts[s_Order.m_ID].RAM.m_Type + ' ' + p_Parts[s_Order.m_ID].RAM.m_Capacity;
+            s_BottomText += '</strong> - Mobo: <strong>' + p_Parts[s_Order.m_ID].Motherboard.m_Model + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong>', bottom_content: s_BottomText, buttons: s_Buttons });
+
+            var s_Item = $(s_Item);
+            s_OrderList.append(s_Item);
+
+            (function(p_ID)
+            {
+                s_Item.find('.btn').eq(0).click(function()
+                {
+                    $('#confirm-start-modal').find('form').attr('action', '/assembly/order/' + p_ID + '/start/');
+                });
+            })(s_Order.m_ID);
+        }
+    }
+
+    function SetInProgressOrders(p_Orders, p_Parts)
+    {
+        var s_OrderList = $('section#in-progress').find('ul.main-item-list').eq(0);
+
+        s_OrderList.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+            var s_ButtonsTemplate = Handlebars.compile($('#list-item-end-btn-template').html());
+
+            var s_Buttons = [];
+
+            s_Buttons.push({ button: s_ButtonsTemplate({ data_modal_id: 'confirm-end-modal', data_id: s_Order.m_ID }) });
+
+            var s_BottomText = '';
+
+            s_BottomText += 'Case: <strong>' + p_Parts[s_Order.m_ID].Case.m_Size;
+            s_BottomText += '</strong> - CPU: <strong>' + p_Parts[s_Order.m_ID].CPU.m_SocketType;
+            s_BottomText += '</strong> - RAM: <strong>' + p_Parts[s_Order.m_ID].RAM.m_Type + ' ' + p_Parts[s_Order.m_ID].RAM.m_Capacity;
+            s_BottomText += '</strong> - Mobo: <strong>' + p_Parts[s_Order.m_ID].Motherboard.m_Model + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong>', bottom_content: s_BottomText, buttons: s_Buttons });
+
+            var s_Item = $(s_Item);
+            s_OrderList.append(s_Item);
+
+            (function(p_ID)
+            {
+                s_Item.find('.btn').eq(0).click(function()
+                {
+                    $('#confirm-end-modal').find('form').attr('action', '/assembly/order/' + p_ID + '/end/');
+                });
+            })(s_Order.m_ID);
+        }
+    }
+
+</script>

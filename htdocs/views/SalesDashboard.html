@@ -1,0 +1,251 @@
+<nav id="mainNav" data-spy="affix" data-offset-top="200">
+    <ul>
+        <li id="customer-nav-btn" class="active"><span class="icon-books"></span><span class="text">Customers</span></li>
+        <li id="orders-nav-btn"><span class="icon-coin"></span><span class="text">Orders</span></li>
+        <li id="logout-nav-btn"><a href="/sales/logout"><span class="icon-switch"></span><span class="text">Logout</span></a></li>
+    </ul>
+</nav>
+
+<section id="body" class="wrapper">
+    <section id="customers" class="main-section">
+        <div class="col-left">
+            <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
+                <div class="header">
+                    <span class="icon-file"></span><span class="text">Options</span>
+                </div>
+                <div class="content">
+                    <div class="btn btn-nav btn-blue" data-modal-id="create-customer-modal">Create Customer</div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-right">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Customers</span>
+                </div>
+                <div class="content">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="clear"></div>
+    </section>
+
+    <section id="orders" class="main-section" style="display: none;">
+        <div class="col-left">
+            <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
+                <div class="header">
+                    <span class="icon-file"></span><span class="text">Options</span>
+                </div>
+                <div class="content">
+                    <div class="btn btn-nav btn-blue" data-modal-id="create-assembler-modal">Create Assembler</div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-right">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Orders</span>
+                </div>
+                <div class="content">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="clear"></div>
+    </section>
+</section>
+
+<script id="list-item-delete-btn-template" type="text/x-handlebars-template">
+    <div class="btn btn-red" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-close"></span><span class="text">Delete</span></div>
+</script>
+
+<script id="list-item-template" type="text/x-handlebars-template">
+    <li data-id="{{data_id}}">
+        <span class="top-content">{{{top_content}}}</span><br/>
+        <span class="bottom-content">{{{bottom_content}}}</span>
+        <ul class="list-btns">
+            {{#list buttons}} {{{button}}} {{/list}}
+        </ul>
+    </li>
+</script>
+
+<div id="create-customer-modal" class="content-box" style="display: none;">
+    <div class="header">
+        <span class="text">Create Customer</span><span class="icon-close right btn-close"></span>
+    </div>
+    <div class="content">
+        <form action="/sales/customer/create" method="POST">
+            <input type="text" placeholder="Name" name="name"/>
+            <input type="text" placeholder="Username" name="username"/>
+            <input type="text" placeholder="Address" name="address"/>
+            <input type="text" placeholder="Email" name="email"/>
+            <input type="text" placeholder="Tax ID" name="taxid"/>
+            <input type="text" placeholder="Phone No." name="phone"/>
+            <input type="text" placeholder="Fax No." name="fax"/>
+            <input type="password" placeholder="Password" name="password"/>
+            <button type="submit" class="btn-blue">Create</button>
+        </form>
+    </div>
+</div>
+
+<div id="delete-confirm-modal" class="content-box" style="display: none;">
+    <div class="header">
+        <span class="text">Confirm Deletion</span><span class="icon-close right btn-close"></span>
+    </div>
+    <div class="content">
+        <span class="modal-text">Are you sure you want to delete the specified User?</span>
+        <button type="submit" class="btn-blue btn-accept">Yes</button>
+        <button type="submit" class="btn-blue btn-decline btn-close">No</button>
+    </div>
+</div>
+
+<div id="assign-order-modal" class="content-box" style="display: none;">
+    <div class="header">
+        <span class="text">Assign Order</span><span class="icon-close right btn-close"></span>
+    </div>
+    <div class="content">
+        <form action="/sales/order/2/assign" method="POST">
+            <div id="assembler-selector">
+
+            </div>
+            <button type="submit" class="btn-blue btn-accept">Assign</button>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var s_DeleteURL = '';
+    var s_DeleteID = '';
+
+    var s_MainNav = $('#mainNav');
+    var s_Body = $('section#body');
+
+    $("#customer-nav-btn").click(function()
+    {
+        s_MainNav.find('li').removeClass('active');
+        $(this).addClass('active');
+        s_Body.find('.main-section').hide();
+        s_Body.find('#customers').show();
+        return false;
+    });
+
+    $("#orders-nav-btn").click(function()
+    {
+        s_MainNav.find('li').removeClass('active');
+        $(this).addClass('active');
+        s_Body.find('.main-section').hide();
+        s_Body.find('#orders').show();
+        return false;
+    });
+
+    Handlebars.registerHelper('list', function(items, options)
+    {
+        var out = "";
+        for(var i = 0, l = items.length; i < l; ++i)
+            out += "<li>" + options.fn(items[i]) + "</li>";
+        return out;
+    });
+
+    SetCustomers(<%= customers %>);
+    SetUnassignedOrders(<%= unassigned_orders %>);
+    //SetPendingOrders(<%= pending_orders %>);
+    //SetUndeliveredOrders(<%= undelivered_orders %>);
+    //SetDeliveredOrders(<%= delivered_orders %>);
+
+    $('#delete-confirm-modal').find('.btn-accept').click(function()
+    {
+        var s_URL = s_DeleteURL.replace(':user_id', s_DeleteID);
+        window.location.href = s_URL;
+    });
+
+    function SetCustomers(p_Customers)
+    {
+        var s_CustomerList = $('section#customers').find('ul.main-item-list').eq(0);
+
+        s_CustomerList.empty();
+
+        for (var i = 0; i < p_Customers.length; ++i)
+        {
+            var s_Customer = p_Customers[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+            var s_ButtonsTemplate = Handlebars.compile($('#list-item-delete-btn-template').html());
+
+            var s_Button = s_ButtonsTemplate({ data_modal_id: 'delete-confirm-modal', data_id: s_Customer.m_ID });
+            var s_Item = s_ItemTemplate({ data_id: s_Customer.m_ID, top_content: '<strong>' + s_Customer.m_Username + '</strong> - ' + s_Customer.m_Name, bottom_content: s_Customer.m_Address + ' - Tel: ' + s_Customer.m_Phone, buttons: [{ button: s_Button }] });
+
+            var s_Item = $(s_Item);
+            s_CustomerList.append(s_Item);
+
+            (function(p_ID)
+            {
+                s_Item.find('.btn').eq(0).click(function()
+                {
+                    s_DeleteURL = '/sales/customer/:user_id/delete/';
+                    s_DeleteID = p_ID
+                });
+            })(s_Customer.m_ID);
+        }
+    }
+
+    function SetUnassignedOrders(p_Orders)
+    {
+        var s_CustomerList = $('section#orders').find('ul.main-item-list').eq(0);
+
+        s_CustomerList.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+            var s_ButtonsTemplate = Handlebars.compile($('#list-item-delete-btn-template').html());
+
+            var s_Button = s_ButtonsTemplate({ data_modal_id: 'assign-order-modal', data_id: s_Order.m_ID });
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong>', bottom_content: s_Order.m_SubmissionDate, buttons: [{ button: s_Button }] });
+
+            var s_Item = $(s_Item);
+            s_CustomerList.append(s_Item);
+
+            (function(p_ID)
+            {
+                s_Item.find('.btn').eq(0).click(function()
+                {
+                    $.get('/sales/order/' + p_ID + '/assign', function(p_Data)
+                    {
+                        $('#assign-order-modal').find('form').attr('action', '/sales/order/' + p_ID + '/assign');
+
+                        var s_SelectorCont = $('#assembler-selector');
+                        s_SelectorCont.empty();
+
+                        var s_Selector = $('<select class="gDropdown" name="assembler_id"></select>');
+                        s_SelectorCont.append(s_Selector);
+
+                        p_Data.assemblers = JSON.parse(p_Data.assemblers);
+                        p_Data.orders = JSON.parse(p_Data.orders);
+
+                        console.log(p_Data);
+
+                        for (var i = 0; i < p_Data.assemblers.length; ++i)
+                        {
+                            var s_Assembler = p_Data.assemblers[i];
+
+                            s_Selector.append($('<option value="' + s_Assembler.m_ID + '">' + s_Assembler.m_Name + ' (' + p_Data.orders[s_Assembler.m_ID] + ' Orders)</option>'));
+                        }
+
+                        InitDropdown(jQuery);
+                    });
+                });
+            })(s_Order.m_ID);
+        }
+    }
+
+</script>

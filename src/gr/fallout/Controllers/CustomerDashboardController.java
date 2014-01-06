@@ -29,6 +29,10 @@ public class CustomerDashboardController extends ProtectedController<Customer>
             return;
 
         m_CustomerOrders = m_User.Orders();
+
+        // Update order status
+        for (CustomerOrder s_Order : m_CustomerOrders)
+            s_Order.Status();
     }
 
     @Override

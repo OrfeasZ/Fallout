@@ -53,6 +53,9 @@ public class RecordStore<T>
 
     public T Get(Integer p_ID)
     {
+        if (p_ID == null)
+            return null;
+        
         return (T)m_Records.get(p_ID);
     }
 

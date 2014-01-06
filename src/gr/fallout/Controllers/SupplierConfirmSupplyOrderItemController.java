@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
 import gr.fallout.Responses.ErrorResponse;
+import gr.fallout.Responses.RedirectResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.StorageVerifySupplyOrderItemArrivalValidator;
 import gr.fallout.Validators.SupplierConfirmSupplyOrderItemValidator;
@@ -46,13 +47,11 @@ public class SupplierConfirmSupplyOrderItemController extends ProtectedControlle
 
         SupplyOrderItem s_Item = RecordManager.GetInstance().SupplyOrderItems.Get(s_ItemID);
 
-        Gson s_Gson = new Gson();
-
         if (s_Item == null || s_Item.PaymentConfirmed())
-            return new Response(s_Gson.toJson(false), 200, "application/json");
+            return new ErrorResponse("The payment for the specified item is already confirmed.");
 
         s_Item.PaymentConfirmed(true);
 
-        return new Response(s_Gson.toJson(true), 200, "application/json");
+        return new RedirectResponse(m_ContextBase);
     }
 }

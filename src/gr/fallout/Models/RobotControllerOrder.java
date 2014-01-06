@@ -1,6 +1,8 @@
 package gr.fallout.Models;
 
 import gr.fallout.Store.RecordManager;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 
 import java.util.Date;
 
@@ -119,5 +121,22 @@ public class RobotControllerOrder extends Identifiable
         RecordManager.GetInstance().RobotControllerOrders.Update(this);
 
         return true;
+    }
+
+    public float Price()
+    {
+        if (m_AssemblyCompletionDate == null)
+            return 0.f;
+
+        float s_Price = 0.f;
+
+        s_Price += Controller().Case().PurchaseCost() + Controller().Case().WarrantyCost();
+        s_Price += Controller().CPU().PurchaseCost();
+        s_Price += Controller().RAM().PurchaseCost();
+        s_Price += Controller().Motherboard().PurchaseCost();
+
+        s_Price += (new Period(new DateTime(m_AssemblyInitiationDate),new DateTime(m_AssemblyCompletionDate)).getHours()) * m_HourlyRate;
+
+        return s_Price;
     }
 }

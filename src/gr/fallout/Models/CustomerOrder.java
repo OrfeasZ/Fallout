@@ -175,5 +175,18 @@ public class CustomerOrder extends Identifiable
 
         return true;
     }
+
+    public float Price()
+    {
+        if (!IsAssembled())
+            return -1.f;
+
+        float s_Price = 0.f;
+
+        for (RobotControllerOrder s_Order : ControllerOrders())
+            s_Price += s_Order.Price();
+
+        return s_Price;
+    }
 }
 

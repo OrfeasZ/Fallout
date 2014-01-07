@@ -164,4 +164,15 @@ public class Customer extends Identifiable
 
         return true;
     }
+
+    public float Debt()
+    {
+        float s_Debt = 0.f;
+
+        for (CustomerOrder s_Order : Orders())
+            if (s_Order.PaidSum() < s_Order.Price())
+                s_Debt += s_Order.Price() - s_Order.PaidSum();
+
+        return s_Debt;
+    }
 }

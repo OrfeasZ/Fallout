@@ -206,6 +206,12 @@ ul.list li {
     position: relative;
 }
 
+nav.side-nav span.content-text {
+    padding: 10px 10px 0;
+    width: 210px;
+    display: block;
+}
+
 ul.list.selectable li {
     cursor: pointer;
 }

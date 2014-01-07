@@ -102,4 +102,14 @@ public class SupplyOrder extends Identifiable
         ControllerOrder().SupplyOrder(null);
     }
 
+    public float Price()
+    {
+        float s_Price = 0.f;
+
+        for (SupplyOrderItem s_Item : Items())
+            s_Price += s_Item.Price();
+
+        return s_Price;
+    }
+
 }

@@ -1,0 +1,93 @@
+<nav id="mainNav" data-spy="affix" data-offset-top="200">
+    <ul>
+        <li id="logout-nav-btn"><a href="/accounting/logout"><span class="icon-switch"></span><span class="text">Logout</span></a></li>
+    </ul>
+</nav>
+
+<section id="body" class="wrapper">
+    <section id="reports" class="main-section">
+        <div class="col-left">
+            <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
+                <div class="header">
+                    <span class="icon-file"></span><span class="text">Information</span>
+                </div>
+                <div class="content">
+                    <span class="content-text">Next Report will be generated in<br/><strong><%= days %> days</strong>.</span>
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-right">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Reports</span>
+                </div>
+                <div class="content">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="clear"></div>
+    </section>
+</section>
+
+<script id="list-item-view-btn-template" type="text/x-handlebars-template">
+    <div class="btn btn-blue" data-modal-id="{{data_modal_id}}" data-id="{{data_id}}"><span class="icon-file"></span><span class="text">View Report</span></div>
+</script>
+
+<script id="list-item-template" type="text/x-handlebars-template">
+    <li data-id="{{data_id}}">
+        <span class="top-content">{{{top_content}}}</span><br/>
+        <span class="bottom-content">{{{bottom_content}}}</span>
+        <ul class="list-btns">
+            {{#list buttons}} {{{button}}} {{/list}}
+        </ul>
+    </li>
+</script>
+
+<script type="text/javascript">
+    var s_MainNav = $('#mainNav');
+    var s_Body = $('section#body');
+
+    Handlebars.registerHelper('list', function(items, options)
+    {
+        var out = "";
+        for(var i = 0, l = items.length; i < l; ++i)
+            out += "<li>" + options.fn(items[i]) + "</li>";
+        return out;
+    });
+
+    SetReports(<%= reports %>);
+
+    function SetReports(p_Reports)
+    {
+        var s_ReportList = $('section#reports').find('ul.main-item-list').eq(0);
+
+        s_ReportList.empty();
+
+        for (var i = 0; i < p_Reports.length; ++i)
+        {
+            var s_Report = p_Reports[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+            var s_ButtonsTemplate = Handlebars.compile($('#list-item-view-btn-template').html());
+
+            var s_Button = s_ButtonsTemplate({ data_modal_id: 'delete-confirm-modal', data_id: s_Report.m_ID });
+            var s_Item = s_ItemTemplate({ data_id: s_Report.m_ID, top_content: '<strong>Report #' + s_Report.m_ID + '</strong>', bottom_content: s_Report.m_Date, buttons: [{ button: s_Button }] });
+
+            var s_Item = $(s_Item);
+            s_ReportList.append(s_Item);
+
+            (function(p_ID)
+            {
+                s_Item.find('.btn').eq(0).click(function()
+                {
+                    window.location.href = '/accounting/report/' + p_ID;
+                });
+            })(s_Report.m_ID);
+        }
+    }
+
+</script>

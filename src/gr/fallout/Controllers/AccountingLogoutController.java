@@ -3,6 +3,8 @@ package gr.fallout.Controllers;
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.AccountingManager;
 import gr.fallout.Net.Response;
+import gr.fallout.Net.Util;
+import gr.fallout.Responses.RedirectResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +30,8 @@ public class AccountingLogoutController extends ProtectedController<AccountingMa
         if (s_Base != null)
             return s_Base;
 
-        return null;
+        Util.SetCookie(m_Exchange, "fo_acct_sid", "expired");
+
+        return new RedirectResponse(m_ContextBase + "login/");
     }
 }

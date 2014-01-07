@@ -110,6 +110,7 @@ public abstract class ContextBase implements HttpHandler
         }
         catch (Exception p_Exception)
         {
+            p_Exception.printStackTrace();
             InternalErrorResponse(p_Exchange);
         }
     }

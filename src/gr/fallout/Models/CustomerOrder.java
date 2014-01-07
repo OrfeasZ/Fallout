@@ -22,6 +22,7 @@ public class CustomerOrder extends Identifiable
         Assembled,
         Delivered
     }
+
     private float m_PaidSum;
 
     private OrderStatus m_Status;

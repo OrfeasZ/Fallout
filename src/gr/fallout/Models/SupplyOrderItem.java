@@ -138,4 +138,17 @@ public class SupplyOrderItem extends Identifiable
         RecordManager.GetInstance().SupplyOrderItems.Update(this);
         return true;
     }
+
+    public float Price()
+    {
+        float s_Price = PartTemplate().PurchaseCost();
+
+        // Tax based on Supplier location
+        if (Supplier().EUBusiness())
+            s_Price *= 1.1;
+        else
+            s_Price *= 1.2;
+
+        return s_Price;
+    }
 }

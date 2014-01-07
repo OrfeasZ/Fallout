@@ -129,4 +129,15 @@ public class Supplier extends Identifiable
 
         return true;
     }
+
+    public float Debt()
+    {
+        float s_Debt = 0.f;
+
+        for (SupplyOrderItem s_Item : Items())
+            if (!s_Item.PaymentConfirmed())
+                s_Debt += s_Item.Price();
+
+        return s_Debt;
+    }
 }

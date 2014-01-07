@@ -27,6 +27,8 @@ public class RobotControllerOrder extends Identifiable
 
     private Integer m_Assembler;
 
+    private Date m_SubmissionDate;
+
     public Date AssemblyCompletionDate()
     {
         return m_AssemblyCompletionDate;
@@ -103,6 +105,20 @@ public class RobotControllerOrder extends Identifiable
         return true;
     }
 
+    public Date SubmissionDate()
+    {
+        return m_SubmissionDate;
+    }
+
+    public boolean SubmissionDate(Date p_SubmissionDate)
+    {
+        m_SubmissionDate = p_SubmissionDate;
+
+        RecordManager.GetInstance().RobotControllerOrders.Update(this);
+
+        return true;
+    }
+
     public Assembler Assembler()
     {
         if (m_Assembler == null)
@@ -138,5 +154,10 @@ public class RobotControllerOrder extends Identifiable
         s_Price += (new Period(new DateTime(m_AssemblyInitiationDate),new DateTime(m_AssemblyCompletionDate)).getHours()) * m_HourlyRate;
 
         return s_Price;
+    }
+
+    public float AssemblyCost()
+    {
+        return ((new Period(new DateTime(m_AssemblyInitiationDate),new DateTime(m_AssemblyCompletionDate)).getHours()) * m_HourlyRate) + Controller().Case().WarrantyCost();
     }
 }

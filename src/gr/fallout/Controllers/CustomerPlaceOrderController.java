@@ -69,6 +69,7 @@ public class CustomerPlaceOrderController extends ProtectedController<Customer>
             RecordManager.GetInstance().RobotControllers.Insert(s_Controller);
 
             s_ControllerOrder.Controller(s_Controller);
+            s_ControllerOrder.SubmissionDate(new Date());
 
             // One (or more) items are out of stock
             if (s_Controller.Case() == null || s_Controller.CPU() == null || s_Controller.RAM() == null || s_Controller.Motherboard() == null)

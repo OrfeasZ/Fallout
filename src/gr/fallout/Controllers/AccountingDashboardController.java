@@ -10,10 +10,7 @@ import gr.fallout.Store.RecordManager;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Date: 7/12/2013
@@ -38,6 +35,9 @@ public class AccountingDashboardController extends ProtectedController<Accountin
             return;
 
         m_Reports = RecordManager.GetInstance().Reports.GetAll();
+
+        if (m_Reports == null)
+            m_Reports = new ArrayList<Report>();
 
         // If this is the first time visiting the accounting dashboard, generate a new report.
         if (m_Reports.isEmpty())

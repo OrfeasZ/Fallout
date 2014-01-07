@@ -26,6 +26,15 @@ public class AccountingReportController extends ProtectedController<AccountingMa
 
     private Collection<CustomerOrder> m_CustomerOrders;
 
+    public class ReportTotals
+    {
+        public float Supply;
+        public float Sales;
+        public float Assembly;
+        public float Suppliers;
+        public float Customers;
+    }
+
     public AccountingReportController(HttpExchange p_Exchange, HashMap<String, List<String>> p_Params, String p_ContextBase)
     {
         super(p_Exchange, p_Params, p_ContextBase, "fo_acct_sid");
@@ -80,13 +89,12 @@ public class AccountingReportController extends ProtectedController<AccountingMa
         final HashMap<Integer, Float> s_SupplierDebts = new HashMap<Integer, Float>();
         final HashMap<Integer, Float> s_CustomerDebts = new HashMap<Integer, Float>();
 
-        final HashMap<String, Float> s_Totals = new HashMap<String, Float>() {{
-            put("supply", 0.f);
-            put("assembly", 0.f);
-            put("sales", 0.f);
-            put("suppliers", 0.f);
-            put("customers", 0.f);
-        }};
+        final ReportTotals s_Totals = new ReportTotals();
+        s_Totals.Assembly = 0.f;
+        s_Totals.Customers = 0.f;
+        s_Totals.Sales = 0.f;
+        s_Totals.Suppliers = 0.f;
+        s_Totals.Supply = 0.f;
 
         // Filter orders based on report span
         for (SupplyOrder s_Order : s_SupplyOrders)
@@ -96,7 +104,7 @@ public class AccountingReportController extends ProtectedController<AccountingMa
                 m_SupplyOrders.add(s_Order);
                 s_SupplyOrderPrices.put(s_Order.m_ID, s_Order.Price());
 
-                s_Totals.put("supply", s_Totals.get("supply") + s_Order.Price());
+                s_Totals.Supply += s_Order.Price();
 
                 for (SupplyOrderItem s_Item : s_Order.Items())
                 {
@@ -107,7 +115,7 @@ public class AccountingReportController extends ProtectedController<AccountingMa
                         s_SupplierDebts.put(s_Item.Supplier().m_ID, 0.f);
 
                     s_SupplierDebts.put(s_Item.Supplier().m_ID, s_SupplierDebts.get(s_Item.Supplier().m_ID) + s_Item.Price());
-                    s_Totals.put("suppliers", s_Totals.get("suppliers") + s_Item.Price());
+                    s_Totals.Suppliers += s_Item.Price();
                 }
             }
         }
@@ -119,8 +127,7 @@ public class AccountingReportController extends ProtectedController<AccountingMa
                 m_ControllerOrders.add(s_Order);
                 s_ControllerOrderPrices.put(s_Order.m_ID, s_Order.Price());
 
-                s_Totals.put("assembly", s_Totals.get("assembly") + s_Order.Price());
-
+                s_Totals.Assembly += s_Order.Price();
             }
         }
 
@@ -131,7 +138,7 @@ public class AccountingReportController extends ProtectedController<AccountingMa
                 m_CustomerOrders.add(s_Order);
                 s_CustomerOrderPrices.put(s_Order.m_ID, s_Order.Price());
 
-                s_Totals.put("sales", s_Totals.get("sales") + s_Order.Price());
+                s_Totals.Sales += s_Order.Price();
 
                 if (s_Order.PaidSum() < s_Order.Price())
                 {
@@ -139,7 +146,7 @@ public class AccountingReportController extends ProtectedController<AccountingMa
                         s_CustomerDebts.put(s_Order.Customer().m_ID, 0.f);
 
                     s_CustomerDebts.put(s_Order.Customer().m_ID, s_CustomerDebts.get(s_Order.Customer().m_ID) + (s_Order.Price() - s_Order.PaidSum()));
-                    s_Totals.put("customers", s_Totals.get("customers") + (s_Order.Price() - s_Order.PaidSum()));
+                    s_Totals.Customers += (s_Order.Price() - s_Order.PaidSum());
                 }
             }
         }

@@ -1,9 +1,327 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+<nav id="mainNav" data-spy="affix" data-offset-top="200">
+    <ul>
+        <li id="orders-nav-btn"><a href="/accounting"><span class="icon-signup"></span><span class="text">Dashboard</span></a></li>
+        <li id="logout-nav-btn"><a href="/accounting/logout"><span class="icon-switch"></span><span class="text">Logout</span></a></li>
+    </ul>
+</nav>
 
-</body>
-</html>
+<section id="body" class="wrapper">
+    <section id="reports" class="main-section">
+        <div class="col-left">
+            <nav class="content-box side-nav" data-spy="affix" data-offset-top="200">
+                <div class="header">
+                    <span class="icon-file"></span><span class="text">Options</span>
+                </div>
+                <div class="content">
+                    <ul class="side-nav-list">
+                        <li id="supply-costs-nav" class="active"><span class="colorBlock"></span><span class="text">Supply Costs</span></li>
+                        <li id="assembly-costs-nav"><span class="colorBlock"></span><span class="text">Assembly Costs</span></li>
+                        <li id="sales-nav"><span class="colorBlock"></span><span class="text">Sales</span></li>
+                        <li id="supplier-debts-nav"><span class="colorBlock"></span><span class="text">Supplier Debts</span></li>
+                        <li id="customer-debts-nav"><span class="colorBlock"></span><span class="text">Customer Debts</span></li>
+                        <li id="totals-nav"><span class="colorBlock"></span><span class="text">Totals</span></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-right">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Report</span>
+                </div>
+                <div class="content order-content" id="supply-costs">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+                <div class="content order-content" id="assembly-costs" style="display: none;">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+                <div class="content order-content" id="sales" style="display: none;">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+                <div class="content order-content" id="supplier-debts" style="display: none;">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+                <div class="content order-content" id="customer-debts" style="display: none;">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+                <div class="content order-content" id="totals" style="display: none;">
+                    <ul class="list main-item-list">
+
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="clear"></div>
+    </section>
+</section>
+
+<script id="list-item-template" type="text/x-handlebars-template">
+    <li data-id="{{data_id}}">
+        <span class="top-content">{{{top_content}}}</span><br/>
+        <span class="bottom-content">{{{bottom_content}}}</span>
+        <ul class="list-btns">
+            {{#list buttons}} {{{button}}} {{/list}}
+        </ul>
+    </li>
+</script>
+
+<script type="text/javascript">
+
+    var s_NavBtns = $('ul.side-nav-list').find('li');
+    var s_OrderContents = $('.order-content');
+
+    Handlebars.registerHelper('list', function(items, options)
+    {
+        var out = "";
+        for(var i = 0, l = items.length; i < l; ++i)
+            out += "<li>" + options.fn(items[i]) + "</li>";
+        return out;
+    });
+
+    $('#supply-costs-nav').click(function()
+    {
+        s_NavBtns.removeClass('active');
+        $(this).addClass('active');
+        s_OrderContents.hide();
+        $('#supply-costs').show();
+        return false;
+    });
+
+    $('#assembly-costs-nav').click(function()
+    {
+        s_NavBtns.removeClass('active');
+        $(this).addClass('active');
+        s_OrderContents.hide();
+        $('#assembly-costs').show();
+        return false;
+    });
+
+    $('#sales-nav').click(function()
+    {
+        s_NavBtns.removeClass('active');
+        $(this).addClass('active');
+        s_OrderContents.hide();
+        $('#sales').show();
+        return false;
+    });
+
+    $('#supplier-debts-nav').click(function()
+    {
+        s_NavBtns.removeClass('active');
+        $(this).addClass('active');
+        s_OrderContents.hide();
+        $('#supplier-debts').show();
+        return false;
+    });
+
+    $('#customer-debts-nav').click(function()
+    {
+        s_NavBtns.removeClass('active');
+        $(this).addClass('active');
+        s_OrderContents.hide();
+        $('#customer-debts').show();
+        return false;
+    });
+
+    $('#totals-nav').click(function()
+    {
+        s_NavBtns.removeClass('active');
+        $(this).addClass('active');
+        s_OrderContents.hide();
+        $('#totals').show();
+        return false;
+    });
+
+    var s_SupplyOrders = <%= supply_orders %>;
+    var s_SupplyOrderPrices = <%= supply_orders_prices %>;
+    var s_ControllerOrders = <%= controller_orders %>;
+    var s_ControllerOrderPrices = <%= controller_orders_prices %>;
+    var s_CustomerOrders = <%= customer_orders %>;
+    var s_CustomerOrderPrices = <%= customer_orders_prices %>;
+    var s_Suppliers = <%= suppliers %>;
+    var s_Customers = <%= customers %>;
+    var s_SupplierDebts = <%= supplier_debts %>;
+    var s_CustomerDebts = <%= customer_debts %>;
+    var s_Totals = <%= totals %>;
+
+    SetSupplyCosts(s_SupplyOrders, s_SupplyOrderPrices);
+    SetAssemblyCosts(s_ControllerOrders, s_ControllerOrderPrices);
+    SetSales(s_CustomerOrders, s_CustomerOrderPrices);
+    SetSupplierDebts(s_Suppliers, s_SupplierDebts);
+    SetCustomerDebts(s_Customers, s_CustomerDebts);
+    SetTotals(s_Totals);
+
+    function SetSupplyCosts(p_Orders, p_Prices)
+    {
+        var s_Orders = $('#supply-costs').find('ul.main-item-list').eq(0);
+
+        s_Orders.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+
+            var s_Subtitle = 'Order Price: <strong>$' + p_Prices[s_Order.m_ID] + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong> - ' + s_Order.m_Items.length + ' items - ' + s_Order.m_SubmissionDate, bottom_content: s_Subtitle, buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_Orders.append(s_Item);
+        }
+    }
+
+    function SetAssemblyCosts(p_Orders, p_Prices)
+    {
+        var s_Orders = $('#assembly-costs').find('ul.main-item-list').eq(0);
+
+        s_Orders.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+
+            var s_Subtitle = 'Assembly Price: <strong>$' + p_Prices[s_Order.m_ID] + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong> - Completed on ' + s_Order.m_AssemblyCompletionDate, bottom_content: s_Subtitle, buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_Orders.append(s_Item);
+        }
+    }
+
+    function SetSales(p_Orders, p_Prices)
+    {
+        var s_Orders = $('#sales').find('ul.main-item-list').eq(0);
+
+        s_Orders.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+
+            var s_Subtitle = 'Order Price: <strong>$' + p_Prices[s_Order.m_ID] + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong> - ' + s_Order.m_ControllerOrders.length + ' controllers', bottom_content: s_Subtitle, buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_Orders.append(s_Item);
+        }
+    }
+
+    function SetSupplierDebts(p_Orders, p_Prices)
+    {
+        var s_Orders = $('#supplier-debts').find('ul.main-item-list').eq(0);
+
+        s_Orders.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+
+            if (p_Prices[s_Order.m_ID] == undefined)
+                p_Prices[s_Order.m_ID] = 0;
+
+            var s_Subtitle = 'Debt: <strong>$' + p_Prices[s_Order.m_ID] + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>' + s_Order.m_Name + '</strong>', bottom_content: s_Subtitle, buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_Orders.append(s_Item);
+        }
+    }
+
+    function SetCustomerDebts(p_Orders, p_Prices)
+    {
+        var s_Orders = $('#customer-debts').find('ul.main-item-list').eq(0);
+
+        s_Orders.empty();
+
+        for (var i = 0; i < p_Orders.length; ++i)
+        {
+            var s_Order = p_Orders[i];
+
+            var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+
+            if (p_Prices[s_Order.m_ID] == undefined)
+                p_Prices[s_Order.m_ID] = 0;
+
+            var s_Subtitle = 'Debt: <strong>$' + p_Prices[s_Order.m_ID] + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>' + s_Order.m_Name + '</strong>', bottom_content: s_Subtitle, buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_Orders.append(s_Item);
+        }
+    }
+
+    function SetTotals(p_Totals)
+    {
+        var s_Orders = $('#totals').find('ul.main-item-list').eq(0);
+
+        s_Orders.empty();
+
+        var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
+
+        {
+            var s_Subtitle = 'Total: <strong>$' + p_Totals.Supply + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: '', top_content: '<strong>Supply Orders</strong>', bottom_content: s_Subtitle, buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_Orders.append(s_Item);
+        }
+        {
+            var s_Subtitle = 'Total: <strong>$' + p_Totals.Assembly + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: '', top_content: '<strong>Assembly</strong>', bottom_content: s_Subtitle, buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_Orders.append(s_Item);
+        }
+        {
+            var s_Subtitle = 'Total: <strong>$' + p_Totals.Sales + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: '', top_content: '<strong>Sales</strong>', bottom_content: s_Subtitle, buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_Orders.append(s_Item);
+        }
+        {
+            var s_Subtitle = 'Total: <strong>$' + p_Totals.Suppliers + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: '', top_content: '<strong>Supplier Debts</strong>', bottom_content: s_Subtitle, buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_Orders.append(s_Item);
+        }
+        {
+            var s_Subtitle = 'Total: <strong>$' + p_Totals.Customers + '</strong>';
+
+            var s_Item = s_ItemTemplate({ data_id: '', top_content: '<strong>Customer Debts</strong>', bottom_content: s_Subtitle, buttons: [] });
+
+            var s_Item = $(s_Item);
+            s_Orders.append(s_Item);
+        }
+
+    }
+
+</script>

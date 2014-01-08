@@ -12,6 +12,7 @@ import gr.fallout.Responses.ErrorResponse;
 import gr.fallout.Responses.RedirectResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.AssemblyEndAssemblyValidator;
+import gr.fallout.Validators.SalesAssignOrderValidator;
 
 import java.util.Collection;
 import java.util.Date;
@@ -40,7 +41,7 @@ public class SalesAssignOrderController extends ProtectedController<SalesManager
 
         if (m_Exchange.getRequestMethod().equalsIgnoreCase("POST"))
         {
-            AssemblyEndAssemblyValidator s_Validator = new AssemblyEndAssemblyValidator();
+            SalesAssignOrderValidator s_Validator = new SalesAssignOrderValidator();
             List<String> s_Errors = s_Validator.Validate(m_Params);
 
             // Always return the first error

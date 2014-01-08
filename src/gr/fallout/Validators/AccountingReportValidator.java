@@ -1,5 +1,6 @@
 package gr.fallout.Validators;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,20 @@ public class AccountingReportValidator implements IValidator
     @Override
     public List<String> Validate(HashMap<String, List<String>> p_Parameters)
     {
-        return null;
+        List<String> s_Errors = new ArrayList<String>();
+
+        if (!p_Parameters.containsKey("report_id") || p_Parameters.get("report_id").get(0) == null)
+            s_Errors.add("No report id specified.");
+
+        try
+        {
+            Integer.parseInt(p_Parameters.get("report_id").get(0));
+        }
+        catch(NumberFormatException e)
+        {
+            s_Errors.add("Report id is of an invalid format.");
+        }
+
+        return s_Errors;
     }
 }

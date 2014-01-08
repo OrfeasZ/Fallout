@@ -508,3 +508,51 @@ input[type="text"], input[type="password"] {
     margin: 5px 2px 15px 2px;
     color: #6d6d6d;
 }
+
+#simplemodal-overlay {
+    background-color:#000;
+}
+
+.error-modal {
+    background: #363636;
+    padding: 11px;
+    border-radius: 5px;
+    color: #fffefe;
+    font-size: 11px;
+    line-height: 9px;
+    font-weight: bold;
+    min-width: 200px;
+}
+
+.error-modal .error-modal-header {
+    padding-left: 23px;
+    background: url("/assets/img/error-overlay-icon.png") no-repeat;
+    line-height: 14px;
+    position: relative;
+}
+
+.error-modal .error-modal-header .close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0;
+    background: url("/assets/img/error-overlay-close-button.png") no-repeat;
+    width: 14px;
+    height: 14px;
+}
+
+.error-modal .error-line:last-child {
+    margin-bottom: 0;
+}
+
+.error-modal .error-line {
+    margin-bottom: 9px;
+}
+
+.error-modal .divider {
+    font-size: 0;
+    height: 2px;
+    background: url("/assets/img/error-overlay-divider.png");
+    margin-top: 7px;
+    margin-bottom: 11px;
+}

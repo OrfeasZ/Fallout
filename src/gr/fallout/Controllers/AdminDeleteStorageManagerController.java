@@ -3,10 +3,9 @@ package gr.fallout.Controllers;
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.Administrator;
 import gr.fallout.Models.StorageManager;
-import gr.fallout.Models.StorageManager;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.AdminDeleteStorageManagerValidator;
 
@@ -38,17 +37,17 @@ public class AdminDeleteStorageManagerController extends ProtectedController<Adm
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         Integer s_UserID = Integer.parseInt(m_Params.get("user_id").get(0));
 
         StorageManager s_StorageManager = RecordManager.GetInstance().StorageManagers.Get(s_UserID);
 
         if (s_StorageManager == null)
-            return new ErrorResponse("The specified Storage Manager doesn't exist.");
+            return new AjaxErrorResponse("The specified Storage Manager doesn't exist.");
 
         RecordManager.GetInstance().StorageManagers.Remove(s_StorageManager);
 
-        return new RedirectResponse(m_ContextBase);
+        return new AjaxRedirectResponse(m_ContextBase);
     }
 }

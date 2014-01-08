@@ -4,12 +4,11 @@ import gr.fallout.Config;
 import gr.fallout.Net.Response;
 
 /**
- * Date: 1/3/14
- * Time: 7:18 PM
+ * Date: 8/1/2014
+ * Time: 11:00 πμ
  *
  * @author OrfeasZ
  */
-
 public class RedirectResponse extends Response
 {
     public RedirectResponse(String p_Location)

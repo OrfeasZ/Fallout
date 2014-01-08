@@ -187,7 +187,7 @@
 
         $.post('/order', { controllers: JSON.stringify(s_OrderItems) }, function(p_Data)
         {
-            location.reload();
+            $('body').append($(p_Data));
         });
     });
 

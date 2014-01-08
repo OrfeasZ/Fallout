@@ -1,16 +1,13 @@
 package gr.fallout.Controllers;
 
-import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
-import gr.fallout.Config;
 import gr.fallout.Models.Administrator;
 import gr.fallout.Models.SalesManager;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.AdminCreateSalesManagerValidator;
-import gr.fallout.Validators.StandardLoginValidator;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -37,14 +34,14 @@ public class AdminCreateSalesManagerController extends ProtectedController<Admin
             return s_Base;
 
         if (!m_Exchange.getRequestMethod().equalsIgnoreCase("POST"))
-            return new ErrorResponse("Invalid method.");
+            return new AjaxErrorResponse("Invalid method.");
 
         AdminCreateSalesManagerValidator s_Validator = new AdminCreateSalesManagerValidator();
         List<String> s_Errors = s_Validator.Validate(m_Params);
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         String s_Username = m_Params.get("username").get(0);
         String s_Password = m_Params.get("password").get(0);
@@ -53,7 +50,7 @@ public class AdminCreateSalesManagerController extends ProtectedController<Admin
 
         for (SalesManager s_Manager : s_SalesManagers)
             if (s_Manager.Username().equalsIgnoreCase(s_Username))
-                return new ErrorResponse("The specified username is in use.");
+                return new AjaxErrorResponse("The specified username is in use.");
 
         SalesManager s_Manager = new SalesManager();
         s_Manager.Username(s_Username);
@@ -62,6 +59,6 @@ public class AdminCreateSalesManagerController extends ProtectedController<Admin
         RecordManager.GetInstance().SalesManagers.Insert(s_Manager);
 
         //return new Response(new Gson().toJson(s_Manager));
-        return new RedirectResponse(m_ContextBase);
+        return new AjaxRedirectResponse(m_ContextBase);
     }
 }

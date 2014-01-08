@@ -5,8 +5,6 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
 import gr.fallout.Responses.AppViewResponse;
-import gr.fallout.Responses.RedirectResponse;
-import gr.fallout.Store.RecordManager;
 
 import java.util.ArrayList;
 import java.util.Collection;

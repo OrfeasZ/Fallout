@@ -1,17 +1,12 @@
 package gr.fallout.Controllers;
 
-import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.Assembler;
-import gr.fallout.Models.RobotController;
 import gr.fallout.Models.RobotControllerOrder;
-import gr.fallout.Models.SupplyOrderItem;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
-import gr.fallout.Store.RecordManager;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Validators.AssemblyStartAssemblyValidator;
-import gr.fallout.Validators.SupplierConfirmSupplyOrderItemValidator;
 
 import java.util.Collection;
 import java.util.Date;
@@ -40,14 +35,14 @@ public class AssemblyStartControllerOrderAssemblyController extends ProtectedCon
             return s_Base;
 
         if (!m_Exchange.getRequestMethod().equalsIgnoreCase("POST"))
-            return new ErrorResponse("Invalid method.");
+            return new AjaxErrorResponse("Invalid method.");
 
         AssemblyStartAssemblyValidator s_Validator = new AssemblyStartAssemblyValidator();
         List<String> s_Errors = s_Validator.Validate(m_Params);
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         Integer s_OrderID = Integer.parseInt(m_Params.get("order_id").get(0));
         Float s_WarrantyCost = Float.parseFloat(m_Params.get("warranty").get(0));
@@ -62,15 +57,15 @@ public class AssemblyStartControllerOrderAssemblyController extends ProtectedCon
                 s_Order = s_AssignedOrder;
 
         if (s_Order == null)
-            return new ErrorResponse("The specified order could not be found.");
+            return new AjaxErrorResponse("The specified order could not be found.");
 
         if (s_Order.AssemblyInitiationDate() != null)
-            return new ErrorResponse("The specified order is already being assembled.");
+            return new AjaxErrorResponse("The specified order is already being assembled.");
 
         s_Order.HourlyRate(s_HourlyRate);
         s_Order.Controller().Case().WarrantyCost(s_WarrantyCost);
         s_Order.AssemblyInitiationDate(new Date());
 
-        return new RedirectResponse(m_ContextBase);
+        return new AjaxRedirectResponse(m_ContextBase);
     }
 }

@@ -1,16 +1,13 @@
 package gr.fallout.Controllers;
 
-import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.CustomerOrder;
 import gr.fallout.Models.SalesManager;
-import gr.fallout.Models.SupplyOrderItem;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.SalesDeliverOrderValidator;
-import gr.fallout.Validators.SupplierConfirmSupplyOrderItemValidator;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,27 +33,27 @@ public class SalesDeliverOrderController extends ProtectedController<SalesManage
             return s_Base;
 
         if (!m_Exchange.getRequestMethod().equalsIgnoreCase("POST"))
-            return new ErrorResponse("Invalid method.");
+            return new AjaxErrorResponse("Invalid method.");
 
         SalesDeliverOrderValidator s_Validator = new SalesDeliverOrderValidator();
         List<String> s_Errors = s_Validator.Validate(m_Params);
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         Integer s_OrderID = Integer.parseInt(m_Params.get("order_id").get(0));
 
         CustomerOrder s_Item = RecordManager.GetInstance().CustomerOrders.Get(s_OrderID);
 
         if (s_Item == null)
-            return new ErrorResponse("The specified order could not be found.");
+            return new AjaxErrorResponse("The specified order could not be found.");
 
         if (s_Item.Delivered())
-            return new ErrorResponse("The specified order is already delivered.");
+            return new AjaxErrorResponse("The specified order is already delivered.");
 
         s_Item.Delivered(true);
 
-        return new RedirectResponse(m_ContextBase);
+        return new AjaxRedirectResponse(m_ContextBase);
     }
 }

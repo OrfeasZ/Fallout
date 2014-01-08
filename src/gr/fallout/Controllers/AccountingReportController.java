@@ -4,11 +4,10 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
+import gr.fallout.Responses.AjaxErrorResponse;
 import gr.fallout.Responses.AppViewResponse;
-import gr.fallout.Responses.ErrorResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.AccountingReportValidator;
-import gr.fallout.Validators.AdminDeleteAccountingManagerValidator;
 
 import java.util.*;
 
@@ -56,14 +55,14 @@ public class AccountingReportController extends ProtectedController<AccountingMa
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         Integer s_ReportID = Integer.parseInt(m_Params.get("report_id").get(0));
 
         Report s_Report = RecordManager.GetInstance().Reports.Get(s_ReportID);
 
         if (s_Report == null)
-            return new ErrorResponse("The specified Report doesn't exist.");
+            return new AjaxErrorResponse("The specified Report doesn't exist.");
 
         Report s_PreviousReport = RecordManager.GetInstance().Reports.Get(s_ReportID - 1);
 

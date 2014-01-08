@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.SalesManager;
 import gr.fallout.Net.Response;
 import gr.fallout.Net.Util;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Responses.RedirectResponse;
 
 import java.util.HashMap;

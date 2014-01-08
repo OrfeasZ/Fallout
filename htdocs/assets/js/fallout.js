@@ -42,5 +42,27 @@
 
             $(p_Element).leanModal({ closeButton: '.btn-close' });
         });
+
+        $('form').ajaxForm({ success: function(p_Response)
+        {
+            $('body').append($(p_Response));
+        }});
     });
 })(jQuery);
+
+function ShowErrors(p_Errors)
+{
+    (function($, p_Errors)
+    {
+        var s_ErrorModal = $('#error-modal');
+
+        var s_Lines = s_ErrorModal.find('.error-lines');
+
+        s_Lines.empty();
+
+        for (var i = 0; i < p_Errors.length; ++i)
+            s_Lines.append($('<div class="error-line">' + p_Errors[i] + '</div>'));
+
+        s_ErrorModal.modal({ zIndex: 90000 });
+    })(jQuery, p_Errors);
+}

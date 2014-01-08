@@ -1,14 +1,12 @@
 package gr.fallout.Controllers;
 
 import com.sun.net.httpserver.HttpExchange;
-import gr.fallout.Models.Assembler;
 import gr.fallout.Models.Customer;
 import gr.fallout.Models.SalesManager;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Store.RecordManager;
-import gr.fallout.Validators.AdminDeleteAssemblerValidator;
 import gr.fallout.Validators.SalesDeleteCustomerValidator;
 
 import java.util.HashMap;
@@ -39,17 +37,17 @@ public class SalesDeleteCustomerController extends ProtectedController<SalesMana
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         Integer s_UserID = Integer.parseInt(m_Params.get("user_id").get(0));
 
         Customer s_Customer = RecordManager.GetInstance().Customers.Get(s_UserID);
 
         if (s_Customer == null)
-            return new ErrorResponse("The specified Customer doesn't exist.");
+            return new AjaxErrorResponse("The specified Customer doesn't exist.");
 
         RecordManager.GetInstance().Customers.Remove(s_Customer);
 
-        return new RedirectResponse(m_ContextBase);
+        return new AjaxRedirectResponse(m_ContextBase);
     }
 }

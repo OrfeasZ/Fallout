@@ -4,8 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.Administrator;
 import gr.fallout.Models.Assembler;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.AdminCreateAssemblerValidator;
 
@@ -34,14 +34,14 @@ public class AdminCreateAssemblerController extends ProtectedController<Administ
             return s_Base;
 
         if (!m_Exchange.getRequestMethod().equalsIgnoreCase("POST"))
-            return new ErrorResponse("Invalid method.");
+            return new AjaxErrorResponse("Invalid method.");
 
         AdminCreateAssemblerValidator s_Validator = new AdminCreateAssemblerValidator();
         List<String> s_Errors = s_Validator.Validate(m_Params);
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         String s_Name = m_Params.get("name").get(0);
         String s_Username = m_Params.get("username").get(0);
@@ -51,7 +51,7 @@ public class AdminCreateAssemblerController extends ProtectedController<Administ
 
         for (Assembler s_Manager : s_Assemblers)
             if (s_Manager.Username().equalsIgnoreCase(s_Username))
-                return new ErrorResponse("The specified username is in use.");
+                return new AjaxErrorResponse("The specified username is in use.");
 
         Assembler s_Manager = new Assembler();
         s_Manager.Name(s_Name);
@@ -61,6 +61,6 @@ public class AdminCreateAssemblerController extends ProtectedController<Administ
         RecordManager.GetInstance().Assemblers.Insert(s_Manager);
 
         //return new Response(new Gson().toJson(s_Manager));
-        return new RedirectResponse(m_ContextBase);
+        return new AjaxRedirectResponse(m_ContextBase);
     }
 }

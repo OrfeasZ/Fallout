@@ -2,13 +2,11 @@ package gr.fallout.Controllers;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.prism.impl.Disposer;
 import gr.fallout.Models.StorageManager;
 import gr.fallout.Models.SupplyOrder;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
 import gr.fallout.Store.RecordManager;
-import gr.fallout.Validators.AdminCreateAccountingManagerValidator;
 import gr.fallout.Validators.StorageSupplyOrderValidator;
 
 import java.util.HashMap;
@@ -39,21 +37,21 @@ public class StorageSupplyOrderController extends ProtectedController<StorageMan
             return s_Base;
 
         if (!m_Exchange.getRequestMethod().equalsIgnoreCase("GET"))
-            return new ErrorResponse("Invalid method.");
+            return new AjaxErrorResponse("Invalid method.");
 
         StorageSupplyOrderValidator s_Validator = new StorageSupplyOrderValidator();
         List<String> s_Errors = s_Validator.Validate(m_Params);
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         Integer s_OrderID = Integer.parseInt(m_Params.get("order_id").get(0));
 
         SupplyOrder s_Order = RecordManager.GetInstance().SupplyOrders.Get(s_OrderID);
 
         if (s_Order == null)
-            return new ErrorResponse("The specified order could not be found.");
+            return new AjaxErrorResponse("The specified order could not be found.");
 
         return new Response(new Gson().toJson(s_Order.Items()), 200, "application/json");
     }

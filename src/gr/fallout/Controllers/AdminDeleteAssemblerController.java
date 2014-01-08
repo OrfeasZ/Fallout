@@ -4,8 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.Administrator;
 import gr.fallout.Models.Assembler;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.AdminDeleteAssemblerValidator;
 
@@ -37,17 +37,17 @@ public class AdminDeleteAssemblerController extends ProtectedController<Administ
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         Integer s_UserID = Integer.parseInt(m_Params.get("user_id").get(0));
 
         Assembler s_Assembler = RecordManager.GetInstance().Assemblers.Get(s_UserID);
 
         if (s_Assembler == null)
-            return new ErrorResponse("The specified Assembler doesn't exist.");
+            return new AjaxErrorResponse("The specified Assembler doesn't exist.");
 
         RecordManager.GetInstance().Assemblers.Remove(s_Assembler);
 
-        return new RedirectResponse(m_ContextBase);
+        return new AjaxRedirectResponse(m_ContextBase);
     }
 }

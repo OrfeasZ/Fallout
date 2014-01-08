@@ -5,11 +5,10 @@ import com.google.gson.reflect.TypeToken;
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.CustomerPlaceOrderValidator;
-import gr.fallout.Validators.SalesCreateCustomerValidator;
 
 import java.util.*;
 
@@ -34,14 +33,14 @@ public class CustomerPlaceOrderController extends ProtectedController<Customer>
             return s_Base;
 
         if (!m_Exchange.getRequestMethod().equalsIgnoreCase("POST"))
-            return new ErrorResponse("Invalid method.");
+            return new AjaxErrorResponse("Invalid method.");
 
         CustomerPlaceOrderValidator s_Validator = new CustomerPlaceOrderValidator();
         List<String> s_Errors = s_Validator.Validate(m_Params);
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         Gson s_Gson = new Gson();
 
@@ -103,7 +102,7 @@ public class CustomerPlaceOrderController extends ProtectedController<Customer>
 
         m_User.AddOrder(s_Order);
 
-        return new RedirectResponse(m_ContextBase);
+        return new AjaxRedirectResponse(m_ContextBase);
     }
 
     private RobotCase FindCase(RobotCase.CaseSize p_Size)

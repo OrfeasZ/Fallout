@@ -4,10 +4,9 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.CustomerOrderControllersValidator;
-import gr.fallout.Validators.SupplierConfirmSupplyOrderItemValidator;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,14 +34,14 @@ public class CustomerOrderControllersController extends ProtectedController<Cust
             return s_Base;
 
         if (!m_Exchange.getRequestMethod().equalsIgnoreCase("GET"))
-            return new ErrorResponse("Invalid method.");
+            return new AjaxErrorResponse("Invalid method.");
 
         CustomerOrderControllersValidator s_Validator = new CustomerOrderControllersValidator();
         List<String> s_Errors = s_Validator.Validate(m_Params);
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         Integer s_OrderID = Integer.parseInt(m_Params.get("order_id").get(0));
 

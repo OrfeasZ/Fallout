@@ -7,15 +7,13 @@ import gr.fallout.Models.CustomerOrder;
 import gr.fallout.Models.RobotControllerOrder;
 import gr.fallout.Models.SalesManager;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.AppViewResponse;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.AssemblyEndAssemblyValidator;
 import gr.fallout.Validators.SalesAssignOrderValidator;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,7 +44,7 @@ public class SalesAssignOrderController extends ProtectedController<SalesManager
 
             // Always return the first error
             if (s_Errors != null && !s_Errors.isEmpty())
-                return new ErrorResponse(s_Errors.get(0));
+                return new AjaxErrorResponse(s_Errors.get(0));
 
             Integer s_OrderID = Integer.parseInt(m_Params.get("order_id").get(0));
             Integer s_AssemblerID = Integer.parseInt(m_Params.get("assembler_id").get(0));
@@ -55,21 +53,21 @@ public class SalesAssignOrderController extends ProtectedController<SalesManager
             Assembler s_Assembler = RecordManager.GetInstance().Assemblers.Get(s_AssemblerID);
 
             if (s_Order == null)
-                return new ErrorResponse("The specified order could not be found.");
+                return new AjaxErrorResponse("The specified order could not be found.");
 
             if (s_Assembler == null)
-                return new ErrorResponse("The specified assembler could not be found.");
+                return new AjaxErrorResponse("The specified assembler could not be found.");
 
             if (s_Order.Assembler() != null)
-                return new ErrorResponse("The specified order is already being assembled.");
+                return new AjaxErrorResponse("The specified order is already being assembled.");
 
             s_Order.Assembler(s_Assembler);
 
-            return new RedirectResponse(m_ContextBase);
+            return new AjaxRedirectResponse(m_ContextBase);
         }
 
         if (!m_Exchange.getRequestMethod().equalsIgnoreCase("GET"))
-            return new ErrorResponse("Invalid method.");
+            return new AjaxErrorResponse("Invalid method.");
 
         // Get all Assemblers and the count of their assigned orders
         Collection<Assembler> s_Assemblers = RecordManager.GetInstance().Assemblers.GetAll();

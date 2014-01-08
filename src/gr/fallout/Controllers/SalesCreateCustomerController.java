@@ -4,8 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.Customer;
 import gr.fallout.Models.SalesManager;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Store.RecordManager;
 import gr.fallout.Validators.SalesCreateCustomerValidator;
 
@@ -36,14 +36,14 @@ public class SalesCreateCustomerController extends ProtectedController<SalesMana
             return s_Base;
 
         if (!m_Exchange.getRequestMethod().equalsIgnoreCase("POST"))
-            return new ErrorResponse("Invalid method.");
+            return new AjaxErrorResponse("Invalid method.");
 
         SalesCreateCustomerValidator s_Validator = new SalesCreateCustomerValidator();
         List<String> s_Errors = s_Validator.Validate(m_Params);
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         String s_Name = m_Params.get("name").get(0);
         String s_Username = m_Params.get("username").get(0);
@@ -59,11 +59,11 @@ public class SalesCreateCustomerController extends ProtectedController<SalesMana
         for (Customer s_Customer : s_Customers)
         {
             if (s_Customer.Username().equalsIgnoreCase(s_Username))
-                return new ErrorResponse("The specified username is in use.");
+                return new AjaxErrorResponse("The specified username is in use.");
             else if (s_Customer.Email().equalsIgnoreCase(s_Email))
-                return new ErrorResponse("The specified email is in use.");
+                return new AjaxErrorResponse("The specified email is in use.");
             else if (s_Customer.TaxID() == s_TaxID)
-                return new ErrorResponse("The specified taxid is in use.");
+                return new AjaxErrorResponse("The specified taxid is in use.");
         }
 
         Customer s_Customer = new Customer();
@@ -79,6 +79,6 @@ public class SalesCreateCustomerController extends ProtectedController<SalesMana
         RecordManager.GetInstance().Customers.Insert(s_Customer);
 
         //return new Response(new Gson().toJson(s_Manager));
-        return new RedirectResponse(m_ContextBase);
+        return new AjaxRedirectResponse(m_ContextBase);
     }
 }

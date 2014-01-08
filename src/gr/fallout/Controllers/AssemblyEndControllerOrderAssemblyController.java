@@ -4,10 +4,9 @@ import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.Assembler;
 import gr.fallout.Models.RobotControllerOrder;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Validators.AssemblyEndAssemblyValidator;
-import gr.fallout.Validators.AssemblyStartAssemblyValidator;
 
 import java.util.Collection;
 import java.util.Date;
@@ -35,14 +34,14 @@ public class AssemblyEndControllerOrderAssemblyController extends ProtectedContr
             return s_Base;
 
         if (!m_Exchange.getRequestMethod().equalsIgnoreCase("POST"))
-            return new ErrorResponse("Invalid method.");
+            return new AjaxErrorResponse("Invalid method.");
 
         AssemblyEndAssemblyValidator s_Validator = new AssemblyEndAssemblyValidator();
         List<String> s_Errors = s_Validator.Validate(m_Params);
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         Integer s_OrderID = Integer.parseInt(m_Params.get("order_id").get(0));
 
@@ -55,16 +54,16 @@ public class AssemblyEndControllerOrderAssemblyController extends ProtectedContr
                 s_Order = s_AssignedOrder;
 
         if (s_Order == null)
-            return new ErrorResponse("The specified order could not be found.");
+            return new AjaxErrorResponse("The specified order could not be found.");
 
         if (s_Order.AssemblyInitiationDate() == null)
-            return new ErrorResponse("The specified order is not being assembled.");
+            return new AjaxErrorResponse("The specified order is not being assembled.");
 
         if (s_Order.AssemblyCompletionDate() != null)
-            return new ErrorResponse("The specified order has already been assembled.");
+            return new AjaxErrorResponse("The specified order has already been assembled.");
 
         s_Order.AssemblyCompletionDate(new Date());
 
-        return new RedirectResponse(m_ContextBase);
+        return new AjaxRedirectResponse(m_ContextBase);
     }
 }

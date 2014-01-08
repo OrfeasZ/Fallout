@@ -4,16 +4,13 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.Customer;
 import gr.fallout.Models.CustomerOrder;
-import gr.fallout.Models.RobotControllerOrder;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
-import gr.fallout.Validators.AssemblyStartAssemblyValidator;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Validators.CustomerPayOrderGetValidator;
 import gr.fallout.Validators.CustomerPayOrderValidator;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,7 +41,7 @@ public class CustomerPayOrderController extends ProtectedController<Customer>
 
             // Always return the first error
             if (s_Errors != null && !s_Errors.isEmpty())
-                return new ErrorResponse(s_Errors.get(0));
+                return new AjaxErrorResponse(s_Errors.get(0));
 
             Integer s_OrderID = Integer.parseInt(m_Params.get("order_id").get(0));
             Float s_Sum = Float.parseFloat(m_Params.get("pay_sum").get(0));
@@ -58,28 +55,28 @@ public class CustomerPayOrderController extends ProtectedController<Customer>
                     s_Order = s_CustomerOrder;
 
             if (s_Order == null)
-                return new ErrorResponse("The specified order could not be found.");
+                return new AjaxErrorResponse("The specified order could not be found.");
 
             if (s_Order.PaidSum() == s_Order.Price())
-                return new ErrorResponse("The specified order is already paid.");
+                return new AjaxErrorResponse("The specified order is already paid.");
 
             if (s_Order.PaidSum() + s_Sum > s_Order.Price())
-                return new ErrorResponse("The specified sum exceeds the price of the order.");
+                return new AjaxErrorResponse("The specified sum exceeds the price of the order.");
 
             s_Order.PaidSum(s_Order.PaidSum() + s_Sum);
 
-            return new RedirectResponse(m_ContextBase);
+            return new AjaxRedirectResponse(m_ContextBase);
         }
 
         if (!m_Exchange.getRequestMethod().equalsIgnoreCase("GET"))
-            return new ErrorResponse("Invalid method.");
+            return new AjaxErrorResponse("Invalid method.");
 
         CustomerPayOrderGetValidator s_Validator = new CustomerPayOrderGetValidator();
         List<String> s_Errors = s_Validator.Validate(m_Params);
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         Integer s_OrderID = Integer.parseInt(m_Params.get("order_id").get(0));
 
@@ -92,7 +89,7 @@ public class CustomerPayOrderController extends ProtectedController<Customer>
                 s_Order = s_CustomerOrder;
 
         if (s_Order == null)
-            return new ErrorResponse("The specified order could not be found.");
+            return new AjaxErrorResponse("The specified order could not be found.");
 
         HashMap<String, Float> s_Response = new HashMap<String, Float>();
 

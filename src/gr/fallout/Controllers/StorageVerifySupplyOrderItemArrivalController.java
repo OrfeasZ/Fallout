@@ -4,10 +4,9 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
-import gr.fallout.Responses.ErrorResponse;
-import gr.fallout.Responses.RedirectResponse;
+import gr.fallout.Responses.AjaxErrorResponse;
+import gr.fallout.Responses.AjaxRedirectResponse;
 import gr.fallout.Store.RecordManager;
-import gr.fallout.Validators.StorageSupplyOrderValidator;
 import gr.fallout.Validators.StorageVerifySupplyOrderItemArrivalValidator;
 
 import java.util.HashMap;
@@ -35,14 +34,14 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
             return s_Base;
 
         if (!m_Exchange.getRequestMethod().equalsIgnoreCase("GET"))
-            return new ErrorResponse("Invalid method.");
+            return new AjaxErrorResponse("Invalid method.");
 
         StorageVerifySupplyOrderItemArrivalValidator s_Validator = new StorageVerifySupplyOrderItemArrivalValidator();
         List<String> s_Errors = s_Validator.Validate(m_Params);
 
         // Always return the first error
         if (s_Errors != null && !s_Errors.isEmpty())
-            return new ErrorResponse(s_Errors.get(0));
+            return new AjaxErrorResponse(s_Errors.get(0));
 
         Integer s_ItemID = Integer.parseInt(m_Params.get("item_id").get(0));
 
@@ -51,7 +50,7 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
         Gson s_Gson = new Gson();
 
         if (s_Item == null || s_Item.Arrived())
-            return new ErrorResponse("The specified item has already been marked as arrived.");
+            return new AjaxErrorResponse("The specified item has already been marked as arrived.");
 
         s_Item.Arrived(true);
 
@@ -110,6 +109,6 @@ public class StorageVerifySupplyOrderItemArrivalController extends ProtectedCont
             }
         }
 
-        return new RedirectResponse(m_ContextBase);
+        return new AjaxRedirectResponse(m_ContextBase);
     }
 }

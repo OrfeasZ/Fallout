@@ -10,6 +10,8 @@ The Fallout Robotics project is for educational purposes and has been developed 
 ### Third-Party Libraries Used
 
  - [Google-Gson][3] ([License][4])
+ - [Joda Time][5] ([License][6])
+ - [Java Deep-Cloning Library][7] ([License][8])
 
 ### License
     This program is free software: you can redistribute it and/or modify
@@ -30,3 +32,7 @@ The Fallout Robotics project is for educational purposes and has been developed 
   [2]: https://github.com/nikos330
   [3]: https://code.google.com/p/google-gson/
   [4]: https://code.google.com/p/google-gson/source/browse/trunk/gson/LICENSE
+  [5]: http://www.joda.org/joda-time/
+  [6]: http://www.joda.org/joda-time/license.html
+  [7]: https://code.google.com/p/cloning/
+  [8]: https://cloning.googlecode.com/git/LICENSE.txt

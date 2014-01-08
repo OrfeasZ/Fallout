@@ -25,7 +25,7 @@ public class SupplierLoginValidator implements IValidator
         {
             Integer.parseInt(p_Parameters.get("taxid").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("Tax id is of an invalid format.");
         }

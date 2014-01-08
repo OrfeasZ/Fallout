@@ -24,7 +24,7 @@ public class SalesCreateCustomerValidator implements IValidator
         {
             Integer.parseInt(p_Parameters.get("taxid").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("Tax id is of an invalid format.");
         }
@@ -41,7 +41,7 @@ public class SalesCreateCustomerValidator implements IValidator
         {
             Integer.parseInt(p_Parameters.get("phone").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("Phone number is of an invalid format.");
         }
@@ -56,7 +56,7 @@ public class SalesCreateCustomerValidator implements IValidator
         {
             Integer.parseInt(p_Parameters.get("fax").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("Fax is of an invalid format.");
         }

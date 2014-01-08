@@ -69,7 +69,10 @@
     $('#confirm-payment-modal').find('.btn-confirm').click(function()
     {
         var s_URL = s_ConfirmURL.replace(':item_id', s_ConfirmID);
-        window.location.href = s_URL;
+        $.get(s_URL, function(p_Data)
+        {
+            $('body').append(p_Data);
+        });
     });
 
     Handlebars.registerHelper('list', function(items, options)

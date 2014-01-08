@@ -24,7 +24,7 @@ public class AdminDeleteSalesManagerValidator implements IValidator
         {
             Integer.parseInt(p_Parameters.get("user_id").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("User id is of an invalid format.");
         }

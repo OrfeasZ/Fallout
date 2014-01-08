@@ -24,7 +24,7 @@ public class CustomerPayOrderValidator implements IValidator
         {
             Integer.parseInt(p_Parameters.get("order_id").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("order id is of an invalid format.");
         }
@@ -36,7 +36,7 @@ public class CustomerPayOrderValidator implements IValidator
         {
             Float.parseFloat(p_Parameters.get("pay_sum").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("Payment sum is of an invalid format.");
         }

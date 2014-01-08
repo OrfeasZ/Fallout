@@ -25,7 +25,7 @@ public class AccountingReportValidator implements IValidator
         {
             Integer.parseInt(p_Parameters.get("report_id").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("Report id is of an invalid format.");
         }

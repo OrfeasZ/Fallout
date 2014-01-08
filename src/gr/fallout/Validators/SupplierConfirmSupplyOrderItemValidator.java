@@ -24,7 +24,7 @@ public class SupplierConfirmSupplyOrderItemValidator implements IValidator
         {
             Integer.parseInt(p_Parameters.get("item_id").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("Item id is of an invalid format.");
         }

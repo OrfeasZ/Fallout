@@ -24,7 +24,7 @@ public class AssemblyEndAssemblyValidator implements IValidator
         {
             Integer.parseInt(p_Parameters.get("order_id").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("Order id is of an invalid format.");
         }

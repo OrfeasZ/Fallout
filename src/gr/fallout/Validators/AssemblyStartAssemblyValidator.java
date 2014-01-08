@@ -24,7 +24,7 @@ public class AssemblyStartAssemblyValidator implements IValidator
         {
             Integer.parseInt(p_Parameters.get("order_id").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("Order id is of an invalid format.");
         }
@@ -36,7 +36,7 @@ public class AssemblyStartAssemblyValidator implements IValidator
         {
             Float.parseFloat(p_Parameters.get("warranty").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("The cae warranty is of an invalid format.");
 
@@ -49,7 +49,7 @@ public class AssemblyStartAssemblyValidator implements IValidator
         {
             Float.parseFloat(p_Parameters.get("rate").get(0));
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
             s_Errors.add("The hourly rate is of an invalid format.");
         }

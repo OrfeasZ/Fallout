@@ -16,5 +16,5 @@
 
 desktop.ini
 
-/data/
-/reports/
+/data/*.json
+/reports/*.txt

@@ -71,7 +71,7 @@
         var s_URL = s_ConfirmURL.replace(':item_id', s_ConfirmID);
         $.get(s_URL, function(p_Data)
         {
-            $('body').append(p_Data);
+            $('body').append($(p_Data));
         });
     });
 

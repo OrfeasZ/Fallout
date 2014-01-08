@@ -6,6 +6,7 @@ import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
 import gr.fallout.Responses.AppViewResponse;
 import gr.fallout.Store.RecordManager;
+import gr.fallout.Util;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -28,11 +29,10 @@ public class AdminDashboardController extends ProtectedController<Administrator>
     {
         super(p_Exchange, p_Params, p_ContextBase, "fo_admin_sid");
 
-        // TODO: Security concern!!! Password is exposed to the frontend.
-        m_AccountingManagers = RecordManager.GetInstance().AccountingManagers.GetAll();
-        m_Assemblers = RecordManager.GetInstance().Assemblers.GetAll();
-        m_SalesManagers = RecordManager.GetInstance().SalesManagers.GetAll();
-        m_StorageManagers = RecordManager.GetInstance().StorageManagers.GetAll();
+        m_AccountingManagers = Util.FilterPasswords(RecordManager.GetInstance().AccountingManagers.GetAll());
+        m_Assemblers = Util.FilterPasswords(RecordManager.GetInstance().Assemblers.GetAll());
+        m_SalesManagers = Util.FilterPasswords(RecordManager.GetInstance().SalesManagers.GetAll());
+        m_StorageManagers = Util.FilterPasswords(RecordManager.GetInstance().StorageManagers.GetAll());
     }
 
     @Override

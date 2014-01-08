@@ -191,12 +191,6 @@
         });
     });
 
-    $('#delete-confirm-modal').find('.btn-accept').click(function()
-    {
-        var s_URL = s_DeleteURL.replace(':user_id', s_DeleteID);
-        window.location.href = s_URL;
-    });
-
     function SetOrders(p_Orders, p_Payments)
     {
         var s_OrderList = $('section#orders').find('ul.main-item-list').eq(0);

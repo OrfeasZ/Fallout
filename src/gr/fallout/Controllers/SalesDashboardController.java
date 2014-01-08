@@ -8,6 +8,7 @@ import gr.fallout.Models.SalesManager;
 import gr.fallout.Net.Response;
 import gr.fallout.Responses.AppViewResponse;
 import gr.fallout.Store.RecordManager;
+import gr.fallout.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,7 +35,7 @@ public class SalesDashboardController extends ProtectedController<SalesManager>
     {
         super(p_Exchange, p_Params, p_ContextBase, "fo_sales_sid");
 
-        m_Customers = RecordManager.GetInstance().Customers.GetAll();
+        m_Customers = Util.FilterPasswords(RecordManager.GetInstance().Customers.GetAll());
 
         m_UnassignedOrders = new ArrayList<CustomerOrder>();
         m_UndeliveredOrders = new ArrayList<CustomerOrder>();

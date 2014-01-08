@@ -7,6 +7,7 @@ import gr.fallout.Net.Response;
 import gr.fallout.Responses.AjaxErrorResponse;
 import gr.fallout.Responses.AppViewResponse;
 import gr.fallout.Store.RecordManager;
+import gr.fallout.Util;
 import gr.fallout.Validators.AccountingReportValidator;
 
 import java.util.*;
@@ -79,7 +80,7 @@ public class AccountingReportController extends ProtectedController<AccountingMa
         Collection<CustomerOrder> s_CustomerOrders = RecordManager.GetInstance().CustomerOrders.GetAll();
 
         final Collection<Supplier> s_Suppliers = RecordManager.GetInstance().Suppliers.GetAll();
-        final Collection<Customer> s_Customers = RecordManager.GetInstance().Customers.GetAll();
+        final Collection<Customer> s_Customers = Util.FilterPasswords(RecordManager.GetInstance().Customers.GetAll());
 
         final HashMap<Integer, Float> s_SupplyOrderPrices = new HashMap<Integer, Float>();
         final HashMap<Integer, Float> s_ControllerOrderPrices = new HashMap<Integer, Float>();

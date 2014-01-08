@@ -244,7 +244,10 @@
     $('#delete-confirm-modal').find('.btn-accept').click(function()
     {
         var s_URL = s_DeleteURL.replace(':user_id', s_DeleteID);
-        window.location.href = s_URL;
+        $.get(s_URL, function(p_Data)
+        {
+            $('body').append($(p_Data));
+        })
     });
 
     function SetCustomers(p_Customers)

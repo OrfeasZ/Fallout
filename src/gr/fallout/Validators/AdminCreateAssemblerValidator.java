@@ -9,6 +9,7 @@ import java.util.List;
  * Time: 3:20 μμ
  *
  * @author OrfeasZ
+ * @author NikosF
  */
 public class AdminCreateAssemblerValidator implements IValidator
 {

@@ -9,6 +9,7 @@ import java.util.Date;
  * Time: 1:25 πμ
  *
  * @author NikosF
+ * @author OrfeasZ
  */
 
 public class Report extends Identifiable

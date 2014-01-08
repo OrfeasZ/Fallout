@@ -7,6 +7,7 @@ import gr.fallout.Store.RecordManager;
  * Time: 12:33 πμ
  *
  * @author NikosF
+ * @author OrfeasZ
  */
 
 public class RobotController extends Identifiable

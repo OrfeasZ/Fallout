@@ -2,6 +2,14 @@ package gr.fallout.Models;
 
 import gr.fallout.Store.RecordManager;
 
+/**
+ * Date: 17/11/2013
+ * Time: 10:35 μμ
+ *
+ * @author NikosF
+ * @author OrfeasZ
+ */
+
 public class SupplyOrderItem extends Identifiable
 {
     private boolean m_Arrived;

@@ -16,7 +16,8 @@ import java.util.List;
  * Date: 7/12/2013
  * Time: 11:56 μμ
  *
- * @author OrfeasZ, NikosF
+ * @author OrfeasZ
+ * @author NikosF
  */
 public class CustomerDashboardController extends ProtectedController<Customer>
 {

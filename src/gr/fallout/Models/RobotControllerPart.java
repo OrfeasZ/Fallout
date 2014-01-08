@@ -5,6 +5,7 @@ package gr.fallout.Models;
  * Time: 11:35 μμ
  *
  * @author NikosF
+ * @author OrfeasZ
  */
 
 public abstract class RobotControllerPart extends Identifiable

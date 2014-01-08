@@ -17,7 +17,8 @@ import java.util.List;
  * Date: 8/12/2013
  * Time: 12:27 πμ
  *
- * @author OrfeasZ, NikosF
+ * @author OrfeasZ
+ * @author NikosF
  */
 public class AssemblyStartControllerOrderAssemblyController extends ProtectedController<Assembler>
 {

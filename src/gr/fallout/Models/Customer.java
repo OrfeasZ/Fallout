@@ -10,6 +10,7 @@ import java.util.Collection;
  * Time: 1:03 πμ
  *
  * @author NikosF
+ * @author OrfeasZ
  */
 
 public class Customer extends Identifiable

@@ -16,7 +16,8 @@ import java.util.*;
  * Date: 8/12/2013
  * Time: 12:08 πμ
  *
- * @author OrfeasZ, NikosF
+ * @author OrfeasZ
+ * @author NikosF
  */
 public class CustomerPlaceOrderController extends ProtectedController<Customer>
 {

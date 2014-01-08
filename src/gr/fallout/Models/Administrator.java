@@ -2,6 +2,14 @@ package gr.fallout.Models;
 
 import gr.fallout.Store.RecordManager;
 
+/**
+ * Date: 18/11/2013
+ * Time: 1:24 πμ
+ *
+ * @author NikosF
+ * @author OrfeasZ
+ */
+
 public class Administrator extends Identifiable
 {
     private String m_Password;

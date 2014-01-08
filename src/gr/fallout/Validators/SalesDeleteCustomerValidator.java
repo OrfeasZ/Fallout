@@ -9,6 +9,7 @@ import java.util.List;
  * Time: 3:29 μμ
  *
  * @author OrfeasZ
+ * @author NikosF
  */
 public class SalesDeleteCustomerValidator implements IValidator
 {

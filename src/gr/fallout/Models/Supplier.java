@@ -10,6 +10,7 @@ import java.util.Collection;
  * Time: 10:34 μμ
  *
  * @author NikosF
+ * @author OrfeasZ
  */
 
 public class Supplier extends Identifiable

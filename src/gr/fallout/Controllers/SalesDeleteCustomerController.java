@@ -16,7 +16,8 @@ import java.util.List;
  * Date: 9/12/2013
  * Time: 4:09 μμ
  *
- * @author OrfeasZ, NikosF
+ * @author OrfeasZ
+ * @author NikosF
  */
 public class SalesDeleteCustomerController extends ProtectedController<SalesManager>
 {

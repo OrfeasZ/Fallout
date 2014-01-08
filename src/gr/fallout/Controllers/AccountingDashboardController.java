@@ -16,12 +16,13 @@ import java.util.*;
  * Date: 7/12/2013
  * Time: 11:35 μμ
  *
- * @author OrfeasZ, NikosF
+ * @author OrfeasZ
+ * @author NikosF
  */
 
 public class AccountingDashboardController extends ProtectedController<AccountingManager>
 {
-    private AccountingManager m_Manager;
+    private AccountingManager m_Mannager;
 
     private Collection<Report> m_Reports;
 

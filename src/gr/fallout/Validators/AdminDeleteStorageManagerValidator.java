@@ -9,6 +9,7 @@ import java.util.List;
  * Time: 3:23 μμ
  *
  * @author OrfeasZ
+ * @author NikosF
  */
 public class AdminDeleteStorageManagerValidator implements IValidator
 {

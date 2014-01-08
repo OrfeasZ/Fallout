@@ -9,6 +9,7 @@ import java.util.List;
  * Time: 3:24 μμ
  *
  * @author OrfeasZ
+ * @author NikosF
  */
 public class AdminCreateAccountingManagerValidator implements IValidator
 {

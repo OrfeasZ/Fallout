@@ -9,6 +9,7 @@ import java.util.List;
  * Time: 3:26 μμ
  *
  * @author OrfeasZ
+ * @author NikosF
  */
 public class CustomerPayOrderValidator implements IValidator
 {

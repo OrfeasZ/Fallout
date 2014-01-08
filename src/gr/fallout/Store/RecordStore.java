@@ -16,7 +16,8 @@ import java.util.*;
  * Date: 1/3/14
  * Time: 7:47 PM
  *
- * @author OrfeasZ, NikosF
+ * @author OrfeasZ
+ * @author NikosF
  */
 
 public class RecordStore<T>

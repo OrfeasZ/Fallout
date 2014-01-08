@@ -14,7 +14,8 @@ import java.util.List;
  * Date: 7/12/2013
  * Time: 11:55 μμ
  *
- * @author OrfeasZ, NikosF
+ * @author OrfeasZ
+ * @author NikosF
  */
 
 public class AccountingLogoutController extends ProtectedController<AccountingManager>

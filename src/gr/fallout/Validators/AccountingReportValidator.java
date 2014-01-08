@@ -9,6 +9,7 @@ import java.util.List;
  * Time: 1:27 AM
  *
  * @author OrfeasZ
+ * @author NikosF
  */
 
 public class AccountingReportValidator implements IValidator

@@ -20,7 +20,8 @@ import java.util.List;
  * Date: 9/12/2013
  * Time: 3:58 μμ
  *
- * @author OrfeasZ, NikosF
+ * @author OrfeasZ
+ * @author NikosF
  */
 
 public class AdminLoginController extends ProtectedController<Administrator>

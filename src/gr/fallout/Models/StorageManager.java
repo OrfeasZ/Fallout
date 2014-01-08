@@ -7,6 +7,7 @@ import gr.fallout.Store.RecordManager;
  * Time: 11:58 μμ
  *
  * @author NikosF
+ * @author OrfeasZ
  */
 
 public class StorageManager extends Identifiable

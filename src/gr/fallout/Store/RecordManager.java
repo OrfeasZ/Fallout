@@ -10,7 +10,8 @@ import java.util.Collection;
  * Date: 1/3/14
  * Time: 8:46 PM
  *
- * @author OrfeasZ, NikosF
+ * @author OrfeasZ
+ * @author NikosF
  */
 
 public class RecordManager

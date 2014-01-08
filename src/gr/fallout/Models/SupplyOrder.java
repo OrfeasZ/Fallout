@@ -7,6 +7,14 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Date: 17/11/2013
+ * Time: 10:35 μμ
+ *
+ * @author NikosF
+ * @author OrfeasZ
+ */
+
 public class SupplyOrder extends Identifiable
 {
     private Date m_SubmissionDate;

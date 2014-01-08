@@ -7,6 +7,7 @@ import gr.fallout.Store.RecordManager;
  * Time: 10:45 PM
  *
  * @author NikosF
+ * @author OrfeasZ
  */
 
 public class RobotRAM extends RobotControllerPart

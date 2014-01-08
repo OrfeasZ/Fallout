@@ -12,6 +12,7 @@ import java.util.List;
  * Time: 12:55 πμ
  *
  * @author NikosF
+ * @author OrfeasZ
  */
 
 public class CustomerOrder extends Identifiable

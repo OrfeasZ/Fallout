@@ -17,7 +17,8 @@ import java.util.List;
  * Date: 9/12/2013
  * Time: 3:59 μμ
  *
- * @author OrfeasZ, NikosF
+ * @author OrfeasZ
+ * @author NikosF
  */
 public class AdminCreateAssemblerController extends ProtectedController<Administrator>
 {

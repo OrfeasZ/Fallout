@@ -9,6 +9,7 @@ import java.util.List;
  * Time: 3:32 μμ
  *
  * @author OrfeasZ
+ * @author NikosF
  */
 public class SupplierConfirmSupplyOrderItemValidator implements IValidator
 {

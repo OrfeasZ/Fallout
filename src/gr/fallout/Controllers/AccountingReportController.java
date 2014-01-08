@@ -20,7 +20,8 @@ import java.util.*;
  * Date: 7/12/2013
  * Time: 11:42 μμ
  *
- * @author OrfeasZ, NikosF
+ * @author OrfeasZ
+ * @author NikosF
  */
 public class AccountingReportController extends ProtectedController<AccountingManager>
 {

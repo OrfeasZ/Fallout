@@ -10,6 +10,7 @@ import java.util.Collection;
  * Time: 12:48 πμ
  *
  * @author NikosF
+ * @author OrfeasZ
  */
 
 public class Assembler extends Identifiable

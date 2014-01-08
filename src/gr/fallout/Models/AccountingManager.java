@@ -7,6 +7,7 @@ import gr.fallout.Store.RecordManager;
  * Time: 1:24 πμ
  *
  * @author NikosF
+ * @author OrfeasZ
  */
 
 public class AccountingManager extends Identifiable

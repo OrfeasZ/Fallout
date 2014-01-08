@@ -2,6 +2,7 @@ package gr.fallout.Controllers;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
+import gr.fallout.Config;
 import gr.fallout.Models.*;
 import gr.fallout.Net.Response;
 import gr.fallout.Responses.AjaxErrorResponse;
@@ -10,6 +11,9 @@ import gr.fallout.Store.RecordManager;
 import gr.fallout.Util;
 import gr.fallout.Validators.AccountingReportValidator;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 
 /**
@@ -148,6 +152,79 @@ public class AccountingReportController extends ProtectedController<AccountingMa
                     s_CustomerDebts.put(s_Order.Customer().m_ID, s_CustomerDebts.get(s_Order.Customer().m_ID) + (s_Order.Price() - s_Order.PaidSum()));
                     s_Totals.Customers += (s_Order.Price() - s_Order.PaidSum());
                 }
+            }
+        }
+
+        // Do we need to generate a new report file?
+        File f = new File(Config.ReportsPath + "report_" + s_ReportID + ".txt");
+        if (!f.exists())
+        {
+            try
+            {
+                PrintWriter s_Writer = new PrintWriter(Config.ReportsPath + "report_" + s_ReportID + ".txt");
+
+                s_Writer.println("Supply Costs");
+                s_Writer.println("------------");
+
+                for (SupplyOrder s_Order : m_SupplyOrders)
+                {
+                    s_Writer.println("Order #" + s_Order.m_ID + " - " + s_Order.Items().size() + " items - " + s_Order.SubmissionDate().toString() + " - Price: $" + s_SupplyOrderPrices.get(s_Order.m_ID));
+                }
+
+                s_Writer.println();
+                s_Writer.println("Assembly Costs");
+                s_Writer.println("--------------");
+
+                for (RobotControllerOrder s_Order : m_ControllerOrders)
+                {
+                    s_Writer.println("Order #" + s_Order.m_ID + " - Completed on " + s_Order.SubmissionDate().toString() + " - Cost: $" + s_ControllerOrderPrices.get(s_Order.m_ID));
+                }
+
+                s_Writer.println();
+                s_Writer.println("Sales");
+                s_Writer.println("-----");
+
+                for (CustomerOrder s_Order : m_CustomerOrders)
+                {
+                    s_Writer.println("Order #" + s_Order.m_ID + " - " + s_Order.ControllerOrders().size() + " controllers - Price: $" + s_CustomerOrderPrices.get(s_Order.m_ID));
+                }
+
+                s_Writer.println();
+                s_Writer.println("Supplier Debts");
+                s_Writer.println("--------------");
+
+                for (Supplier s_Supplier : s_Suppliers)
+                {
+                    float s_Debt = s_SupplierDebts.containsKey(s_Supplier.m_ID) ? s_SupplierDebts.get(s_Supplier.m_ID) : 0.f;
+                    s_Writer.println(s_Supplier.Name() + " - Debt: $" + s_Debt);
+                }
+
+                s_Writer.println();
+                s_Writer.println("Customer Debts");
+                s_Writer.println("--------------");
+
+                for (Customer s_Customer : s_Customers)
+                {
+                    float s_Debt = s_CustomerDebts.containsKey(s_Customer.m_ID) ? s_CustomerDebts.get(s_Customer.m_ID) : 0.f;
+                    s_Writer.println(s_Customer.Name() + " - Debt: $" + s_Debt);
+                }
+
+                s_Writer.println();
+                s_Writer.println("Totals");
+                s_Writer.println("------");
+
+                s_Writer.println("Supply Orders: $" + s_Totals.Supply);
+                s_Writer.println("Assembly: $" + s_Totals.Assembly);
+                s_Writer.println("Sales: $" + s_Totals.Sales);
+                s_Writer.println("Supplier Debts: $" + s_Totals.Suppliers);
+                s_Writer.println("Customer Debts: $" + s_Totals.Customers);
+
+                s_Writer.flush();
+                s_Writer.close();
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }
 

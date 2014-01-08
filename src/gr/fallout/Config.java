@@ -11,6 +11,7 @@ public class Config
 {
     public static String DocsPath = "htdocs/";
     public static String DataPath = "data/";
+    public static String ReportsPath = "reports/";
     public static String BaseTemplateName = "Default";
     public static String BaseURL = "http://10.13.37.25:7423";
 }

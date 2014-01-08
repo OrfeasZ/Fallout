@@ -1,6 +1,9 @@
 package gr.fallout;
 
+import com.rits.cloning.Cloner;
+
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -13,20 +16,28 @@ public class Util
 {
     public static <T> Collection<T> FilterPasswords(Collection<T> p_Items)
     {
+        Collection<T> s_Items = new ArrayList<T>();
+
+        Cloner s_Cloner = new Cloner();
+
         for (T s_Item : p_Items)
         {
             try
             {
-                Field s_Field = s_Item.getClass().getDeclaredField("m_Password");
+                // Create item clone
+                T s_Clone = s_Cloner.deepClone(s_Item);
+
+                Field s_Field = s_Clone.getClass().getDeclaredField("m_Password");
                 s_Field.setAccessible(true);
-                s_Field.set(s_Item, "");
+                s_Field.set(s_Clone, "");
+
+                s_Items.add(s_Clone);
             }
             catch (Exception e)
             {
-                continue;
             }
         }
 
-        return p_Items;
+        return s_Items;
     }
 }

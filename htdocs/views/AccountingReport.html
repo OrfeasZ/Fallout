@@ -241,7 +241,7 @@
 
             var s_ItemTemplate = Handlebars.compile($('#list-item-template').html());
 
-            var s_Subtitle = 'Assembly Price: <strong>$' + p_Prices[s_Order.m_ID] + '</strong>';
+            var s_Subtitle = 'Assembly Cost: <strong>$' + p_Prices[s_Order.m_ID] + '</strong>';
 
             var s_Item = s_ItemTemplate({ data_id: s_Order.m_ID, top_content: '<strong>Order #' + s_Order.m_ID + '</strong> - Completed on ' + s_Order.m_AssemblyCompletionDate, bottom_content: s_Subtitle, buttons: [] });
 

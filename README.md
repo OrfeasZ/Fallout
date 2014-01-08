@@ -13,6 +13,13 @@ The Fallout Robotics project is for educational purposes and has been developed 
  - [Joda Time][5] ([License][6])
  - [Java Deep-Cloning Library][7] ([License][8])
 
+### Usage
+To run the Fallout Robotics server, simply build the project artifact (Fallout.jar) and execute it as follows:
+
+    java -jar Fallout.jar
+    
+If this is the first time running the server, launch it with the **-server** parameter to perform the first time setup.
+ 
 ### License
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as

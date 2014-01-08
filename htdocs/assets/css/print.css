@@ -1,0 +1,36 @@
+.order-content {
+    display: block !important;
+    margin: 0 0 20px 0;
+    width: 900px;
+}
+
+section.content-box {
+    width: 900px;
+}
+
+.col-left {
+    display: none !important;
+}
+
+.content-box .header .text {
+    color: #000 !important;
+    font-weight: bold;
+}
+
+.content-box .header {
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+}
+
+strong {
+    color: #333 !important;
+}
+
+.content {
+    border-left: 1px solid #777;
+    border-right: 1px solid #777;
+}
+
+#mainNav {
+    display: none;
+}

@@ -21,41 +21,82 @@
                         <li id="customer-debts-nav"><span class="colorBlock"></span><span class="text">Customer Debts</span></li>
                         <li id="totals-nav"><span class="colorBlock"></span><span class="text">Totals</span></li>
                     </ul>
+                    <div class="btn btn-nav btn-blue" id="print-report-btn">Print Report</div>
                 </div>
             </nav>
         </div>
 
-        <div class="col-right">
+        <div class="col-right order-content" id="supply-costs">
             <section class="content-box">
                 <div class="header">
-                    <span class="text">Report</span>
+                    <span class="text">Supply Costs</span>
                 </div>
-                <div class="content order-content" id="supply-costs">
+                <div class="content">
                     <ul class="list main-item-list">
 
                     </ul>
                 </div>
-                <div class="content order-content" id="assembly-costs" style="display: none;">
+            </section>
+        </div>
+
+        <div class="col-right order-content" id="assembly-costs" style="display: none;">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Assembly Costs</span>
+                </div>
+                <div class="content">
                     <ul class="list main-item-list">
 
                     </ul>
                 </div>
-                <div class="content order-content" id="sales" style="display: none;">
+            </section>
+        </div>
+
+        <div class="col-right order-content" id="sales" style="display: none;">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Sales</span>
+                </div>
+                <div class="content">
                     <ul class="list main-item-list">
 
                     </ul>
                 </div>
-                <div class="content order-content" id="supplier-debts" style="display: none;">
+            </section>
+        </div>
+
+        <div class="col-right order-content" id="supplier-debts" style="display: none;">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Supplier Debts</span>
+                </div>
+                <div class="content">
                     <ul class="list main-item-list">
 
                     </ul>
                 </div>
-                <div class="content order-content" id="customer-debts" style="display: none;">
+            </section>
+        </div>
+
+        <div class="col-right order-content" id="customer-debts" style="display: none;">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Customer Debts</span>
+                </div>
+                <div class="content">
                     <ul class="list main-item-list">
 
                     </ul>
                 </div>
-                <div class="content order-content" id="totals" style="display: none;">
+            </section>
+        </div>
+
+        <div class="col-right order-content" id="totals" style="display: none;">
+            <section class="content-box">
+                <div class="header">
+                    <span class="text">Totals</span>
+                </div>
+                <div class="content">
                     <ul class="list main-item-list">
 
                     </ul>
@@ -142,6 +183,11 @@
         $('#totals').show();
         return false;
     });
+
+    $('#print-report-btn').click(function()
+    {
+        window.print();
+    })
 
     var s_SupplyOrders = <%= supply_orders %>;
     var s_SupplyOrderPrices = <%= supply_orders_prices %>;

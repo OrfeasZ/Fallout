@@ -18,6 +18,7 @@ To run the Fallout Robotics server, simply build the project artifact (Fallout.j
 
     java -jar Fallout.jar
     
+Your server will then be accessible at http://localhost:7423.  
 If this is the first time running the server, launch it with the **-server** parameter to perform the first time setup.
  
 ### License
